@@ -1,0 +1,118 @@
+body {  
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+header, footer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 10px 0 10px 0;
+}
+
+div h1 {
+    margin-bottom: 3%;
+}
+
+div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input {
+    font-size: large;
+}
+
+fieldset[name="inputs"] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: none;
+}
+
+fieldset[name="inputs"] label {
+    margin-top: 4px;
+    height: auto;
+    width: auto;
+}
+
+fieldset[name="inputs"] label input {
+    border-radius: 10px;
+    background-color: #EDF2F4;
+    color: black;
+    border: none;
+    height: 35px;
+    width: auto;
+    text-align: center;
+}
+
+fieldset[name="buttons"] {
+    margin-top: 4px;
+    display: flex;
+    flex-direction: row;
+    align-self: stretch;
+    justify-content: space-between;
+    width: auto;
+    height: auto;
+    border: none;
+}
+
+fieldset[name="buttons"] label {
+    width: 49%;
+    height: max-content;
+    border: none;
+}
+
+fieldset[name="buttons"] label input {
+    border-radius: 10px;
+    color: #EDF2F4;
+    font-weight: 200;
+    border: none;
+    height: 35px;
+    width: 100%;
+}
+
+label[id="returnBtn"] input {
+    width: 100%;
+    background-color: #4F5D75;
+    transition: all 0.5s;
+}
+
+label[id="returnBtn"] input:hover {
+    padding-right: 10%;
+}
+
+label[id="returnBtn"] input::after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+}
+
+label[id="signUpBtn"] input {
+    width: 100%;
+    background-color: #EF8354;
+    transition: all 0.5s;
+}
+
+label[id="signUpBtn"] input:hover {
+    font-size: 100%;
+}
+
+button {
+    margin-top: 4px;
+    border-radius: 10px;
+    color: #EDF2F4;
+    border: none;
+    height: 35px;
+    width: 100%;
+}
+
+button span {
+
+    /* change the font */
+    font-family: Lexend;
+}
