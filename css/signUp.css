@@ -1,28 +1,60 @@
-body {  
+body {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-}
-
-header, footer {
-    display: flex;
     justify-content: center;
-    width: 100%;
-    margin: 10px 0 10px 0;
-}
-
-div h1 {
-    margin-bottom: 3%;
+    align-items: center;
+    min-width: 240px;
+    min-height: 100vh;
 }
 
 div {
+    /* layout */
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+
+    /* style */
+    border-radius: 20px;
+    border: 1.5px solid var(--Threads-Black, #0D0D0D);
+    background: #FFF;
+}
+
+h1 {
+    /* layout */
+    align-self: stretch;
+
+    /* style */
+    color: var(--Threads-Black, #0D0D0D);
+    text-align: center;
+    font-family: Lexend;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+h2 {
+    /* layout */
+    align-self: stretch;
+
+    /* style */
+    color: var(--Threads-Black, #0D0D0D);
+    text-align: center;
+    font-family: Lexend;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+}
+
+form {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-input {
-    font-size: large;
+    gap: 5px;
 }
 
 fieldset[name="inputs"] {
@@ -30,89 +62,81 @@ fieldset[name="inputs"] {
     flex-direction: column;
     align-items: center;
     border: none;
-}
-
-fieldset[name="inputs"] label {
-    margin-top: 4px;
-    height: auto;
-    width: auto;
-}
-
-fieldset[name="inputs"] label input {
-    border-radius: 10px;
-    background-color: #EDF2F4;
-    color: black;
-    border: none;
-    height: 35px;
-    width: auto;
-    text-align: center;
+    gap: 5px;
 }
 
 fieldset[name="buttons"] {
-    margin-top: 4px;
     display: flex;
-    flex-direction: row;
-    align-self: stretch;
+    flex-direction: column;
+    align-items: center;
+    border: none;
+    gap: 5px;
+    width: 100%;
+}
+
+fieldset input {
+    /* layout */
+    display: flex;
     justify-content: space-between;
-    width: auto;
-    height: auto;
-    border: none;
+    padding: 5px 0px;
+    align-items: center;
+    align-self: stretch;
+    text-align: center;
+    
+    /* style */
+    font-size: xx-large;
+    border-radius: 20px;
+    border: 1.5px solid #0D0D0D;
 }
 
-fieldset[name="buttons"] label {
-    width: 49%;
-    height: max-content;
-    border: none;
-}
-
-fieldset[name="buttons"] label input {
-    border-radius: 10px;
-    color: #EDF2F4;
-    font-weight: 200;
-    border: none;
-    height: 35px;
+a {
+    /* layout */
+    display: flex;
+    padding: 5px 0px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
     width: 100%;
-}
 
-label[id="returnBtn"] input {
-    width: 100%;
-    background-color: #4F5D75;
-    transition: all 0.5s;
-}
-
-label[id="returnBtn"] input:hover {
-    padding-right: 10%;
-}
-
-label[id="returnBtn"] input::after {
-    content: '\00bb';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-}
-
-label[id="signUpBtn"] input {
-    width: 100%;
-    background-color: #EF8354;
-    transition: all 0.5s;
-}
-
-label[id="signUpBtn"] input:hover {
-    font-size: 100%;
-}
-
-button {
-    margin-top: 4px;
-    border-radius: 10px;
-    color: #EDF2F4;
+    /* style */
+    font-size: xx-large;
+    border-radius: 20px;
     border: none;
-    height: 35px;
-    width: 100%;
+    transition: 0.3s;
+    text-decoration: none;
 }
 
-button span {
+a[id="returnBtn"] {
+    background: #F29C76;
+    color: #0D0D0D;
+}
 
-    /* change the font */
-    font-family: Lexend;
+a[id="signUpBtn"] {
+    background: rgba(79, 93, 117, 0.65);
+    color: #0D0D0D;
+}
+
+a[id="returnBtn"]:hover {
+    background: #EF8354;
+    color: whitesmoke;
+    transition: 0.3s;
+}
+
+a[id="signUpBtn"]:hover {
+    background: #4F5D75;
+    color: whitesmoke;
+    transition: 0.3s;
+}
+
+@media screen and (width > 768px) {
+    div {
+        flex-direction: row;
+    }
+    h1 {
+        align-self: center;
+    }
+    h2 {
+        align-self: center;
+    }
+
 }

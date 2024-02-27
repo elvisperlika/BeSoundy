@@ -1,10 +1,6 @@
-<?php
-    
-?>
-
 <!DOCTYPE html>
 <html lang="en">
     <?php
-        require('html/login.html');
+        header('Location: ' . 'html/logIn.html');
     ?>
 </html>

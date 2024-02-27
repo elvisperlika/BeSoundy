@@ -78,7 +78,7 @@ fieldset input {
     /* layout */
     display: flex;
     justify-content: space-between;
-    padding: 5px 10px;
+    padding: 5px 0px;
     align-items: center;
     align-self: stretch;
     text-align: center;
@@ -89,10 +89,10 @@ fieldset input {
     border: 1.5px solid #0D0D0D;
 }
 
-button {
+a {
     /* layout */
     display: flex;
-    padding: 5px 10px;
+    padding: 5px 0px;
     justify-content: center;
     align-items: center;
     gap: 10px;
@@ -103,25 +103,26 @@ button {
     border-radius: 20px;
     border: none;
     transition: 0.3s;
+    text-decoration: none;
 }
 
-button[id="logInBtn"] {
+a[id="logInBtn"] {
     background: #F29C76;
     color: #0D0D0D;
 }
 
-button[id="signUpBtn"] {
+a[id="signUpBtn"] {
     background: rgba(79, 93, 117, 0.65);
     color: #0D0D0D;
 }
 
-button[id="logInBtn"]:hover {
+a[id="logInBtn"]:hover {
     background: #EF8354;
     color: whitesmoke;
     transition: 0.3s;
 }
 
-button[id="signUpBtn"]:hover {
+a[id="signUpBtn"]:hover {
     background: #4F5D75;
     color: whitesmoke;
     transition: 0.3s;
@@ -139,4 +140,3 @@ button[id="signUpBtn"]:hover {
     }
 
 }
-

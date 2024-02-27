@@ -1,16 +1,15 @@
 <head>
     <meta charset="UTF-8"/>
-    <link type="text/css" rel="stylesheet" href="css/style.css"/>
-    <link type="text/css" rel="stylesheet" href="css/logIn-signUp.css"/>
-
-    <link type="text/javascript" src="js/login.js"/>
+    <link type="text/css" rel="stylesheet" href="../css/style.css"/>
+    <link type="text/css" rel="stylesheet" href="../css/logIn.css"/>
+    <script src="../js/login.js" defer></script>
     <title>Log In</title>
 </head>
 <body>
     <div class="container">
         <h1>Welcome to BeSound</h1>
         <h2 href="signUp.html">Log In</h2>
-        <form>
+        <form action="php/authenticate.php" method="get">
             <fieldset name="inputs">
                 <label for="usernameId" hidden>Username</label>
                 <input type="text" id="usernameId" placeholder="username"/>
@@ -18,12 +17,12 @@
                 <input type="password" id="passwordId" placeholder="password"/>
             </fieldset>
             <fieldset name="buttons">
-                <button class="button" id="signUpBtn" type="button" href="html/signUp.html">
+                <a id="signUpBtn" href="signUp.html">
                     <span>sign up</span>
-                </button>
-                <button class="button" id="logInBtn" type="submit">
+                </a>
+                <a id="logInBtn" href="logIn.html">
                     <span>log in</span>
-                </button>
+                </a>
             </fieldset>
         </form>
     </div>
