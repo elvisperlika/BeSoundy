@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-    <?php
-        header('Location: ' . 'html/logIn.html');
-    ?>
-</html>
+<?php
+    header('Location: login.php');
+?>
