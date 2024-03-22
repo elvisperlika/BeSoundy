@@ -23,7 +23,34 @@ body header[id="mainHeader"] {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1rem 2rem;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     width: 100%;
+}
+
+body nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0D0D0D; /* Colore di sfondo */
+}
+
+body nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around; /* Distribuisce uniformemente gli elementi */
+}
+
+body nav ul li {
+    padding: 10px;
+}
+
+body nav ul li a {
+    color: #fff; /* Colore del testo */
+    text-decoration: none;
+}
+
+/* Stili aggiuntivi a seconda delle esigenze */
+body nav ul li a:hover {
+    text-decoration: underline; /* Sottolinea il testo al passaggio del mouse */
 }

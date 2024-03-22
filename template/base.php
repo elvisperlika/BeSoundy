@@ -22,6 +22,12 @@
     </header>
 
     <?php require($templateParams["content"]); ?>
+
+    <?php
+    if($templateParams["nav"] == true){
+        require("template/html/navbar.php");
+    }
+    ?>
     
 </body>
 </html>
