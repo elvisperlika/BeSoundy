@@ -18,15 +18,19 @@
 </head>
 <body>
     <header id="mainHeader">
-        <?php echo $templateParams["title"] ?>
+        <?php 
+            echo "<span>" . $templateParams["title"] . "</span>" 
+        ?>
     </header>
 
-    <?php require($templateParams["content"]); ?>
+    <?php 
+        require($templateParams["content"]); 
+    ?>
 
     <?php
-    if($templateParams["nav"] == true){
-        require("template/html/navbar.php");
-    }
+        if($templateParams["nav"] == true){
+            require("template/html/navbar.php");
+        }
     ?>
     
 </body>
