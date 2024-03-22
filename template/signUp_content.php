@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>Welcome to BeSound</h1>
+    <h1>Welcome to EngineerNet</h1>
     <h2>Sign Up</h2>
     <form action="signUp.php" method="post">
             <label for="username" hidden>Username</label>
@@ -16,4 +16,9 @@
                 <span>return</span>
             </a>
     </form>
+    <?php
+        if(isset($templateParams["errorSignUp"])){
+            echo "<p>".$templateParams["errorSignUp"]."</p>";
+        }   
+    ?>
 </div>

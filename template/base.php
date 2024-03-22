@@ -17,6 +17,9 @@
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
 </head>
 <body>
+    <header id="mainHeader">
+        <?php echo $templateParams["title"] ?>
+    </header>
 
     <?php require($templateParams["content"]); ?>
     

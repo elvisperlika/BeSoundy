@@ -5,22 +5,25 @@
     $templateParams["nav"] = false;
     $templateParams["login"] = true;
     $templateParams["content"] = "login_content.php";
-    // $templateParams["design"] = array("css/logIn.css", "css/style.css");
+    $templateParams["design"] = array("css/logIn.css");
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
-        if(isset($_POST["username"]) && isset($_POST["password"])){
+        if(!isset($_POST["username"]) || !isset($_POST["password"])) {
+            $templateParams["errorelogin"] = "One or more fields are empty";
+        }
+        else if(empty($_POST["username"]) || empty($_POST["password"])) {
+            $templateParams["errorelogin"] = "One or more fields are empty";
+        }
+        else if(isset($_POST["username"]) && isset($_POST["password"])){
             $login_result = $dbh->checkLogin($_POST["username"], $_POST["password"]);
             if(count($login_result)==0){
-                $templateParams["errorelogin"] = "Errore! Controllare username o password!";
+                $templateParams["errorelogin"] = "This user doesn't exist!";
             }
             else{
                 registerLoggedUser($login_result[0]);
                 header("Location: feed.php");
             }
         } 
-        else if(!isset($_POST["username"]) || !isset($_POST["password"])) {
-            $templateParams["errorelogin"] = "Uno o più campi sono vuoti";
-        }
     }
     
     require("template/base.php");
