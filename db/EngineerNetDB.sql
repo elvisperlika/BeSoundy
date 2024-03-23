@@ -9,7 +9,7 @@ create or replace table user
     username   varchar(200)  not null
         primary key,
     email      varchar(200)  not null,
-    imgProfile blob          not null,
+    imgProfile blob          null,
     password   varchar(50)   not null,
     name       varchar(100)  null,
     bio        varchar(400)  null,

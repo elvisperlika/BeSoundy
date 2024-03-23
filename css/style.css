@@ -32,7 +32,7 @@ body header[id="mainHeader"] span {
 }
 
 body nav {
-    position: fixed;
+    position:sticky;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -57,4 +57,44 @@ body nav ul li a {
 /* Stili aggiuntivi a seconda delle esigenze */
 body nav ul li a:hover {
     text-decoration: underline; /* Sottolinea il testo al passaggio del mouse */
+}
+
+.post {
+    margin: 40px; /* margine da tutti i lati */
+    width: 80%; /* larghezza */
+    margin-left: auto; /* centra orizzontalmente */
+    margin-right: auto; /* centra orizzontalmente */
+    border: 1px solid #ccc; /* bordo */
+    padding: 10px; /* spazio interno */
+}
+
+.userInfo {
+    display: flex; /* usa il flexbox layout */
+    align-items: center; /* allinea verticalmente */
+}
+
+.body img {
+    width: 15%; /* dimensione dell'immagine del profilo */
+    height: 15%; /* dimensione dell'immagine del profilo */
+    margin-right: 10px; /* margine a destra */
+}
+
+.userInfo img {
+    width: 50px; /* dimensione dell'immagine del profilo */
+    height: 50px; /* dimensione dell'immagine del profilo */
+    border-radius: 50%; /* rendi l'immagine del profilo circolare */
+    margin-right: 10px; /* margine a destra */
+}
+
+.infoPost p {
+    margin: 5px 0; /* margine sopra e sotto */
+}
+
+.like-commenti {
+    display: flex; /* usa il flexbox layout */
+    justify-content: space-between; /* allinea gli elementi con spazio tra loro */
+}
+
+.avviso {
+    margin: 10px;
 }

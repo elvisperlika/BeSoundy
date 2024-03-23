@@ -65,15 +65,6 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function isPostLiked($user, $post) {
-        $stmt = $this->db->prepare("SELECT COUNT(*) AS conta FROM like_post WHERE user = ? AND post = ?");
-        $stmt->bind_param('si', $user, $post);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC)[0]["conta"];
-    }
-
     public function getUserProfileImage($username){
         $query = "SELECT imgProfile FROM user WHERE username = ?";
         $stmt = $this->db->prepare($query);
