@@ -5,7 +5,7 @@ class DatabaseHelper{
     public function __construct($servername, $username, $password, $dbname, $port){
         $this->db = new mysqli($servername, $username, $password, $dbname, $port);
         if ($this->db->connect_error) {
-            die("Connection failed: " . $db->connect_error);
+            die("Connection failed: " . $this->db->connect_error);
         }
     }
 
@@ -47,7 +47,7 @@ class DatabaseHelper{
     }
 
     //post degli utenti seguiti dall'utente denominato "?", ordinati per data di pubblicazione in ordine decrescente
-    public function getFriendsPosts($user) {
+    public function friendsPosts($user) {
         $stmt = $this->db->prepare("SELECT * FROM post P JOIN follow ON P.username = follow.followed WHERE follow.follower = ? ORDER BY P.time DESC");
         $stmt->bind_param('s', $user);
         $stmt->execute();
@@ -56,12 +56,34 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function postsComment($post_id) {
+    public function postsComment($post) {
+        $stmt = $this->db->prepare("SELECT C.user, C.text FROM comment C WHERE C.post = ?");
+        $stmt->bind_param('i', $post);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function likedPost($post_id, $user) {
+    public function isPostLiked($user, $post) {
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS conta FROM like_post WHERE user = ? AND post = ?");
+        $stmt->bind_param('si', $user, $post);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
+        return $result->fetch_all(MYSQLI_ASSOC)[0]["conta"];
+    }
+
+    public function getUserProfileImage($username){
+        $query = "SELECT imgProfile FROM user WHERE username = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $stmt->bind_result($profile_image);
+        $stmt->fetch();
+        $stmt->close();
+    
+        return $profile_image;
     }
 }
 ?>
