@@ -5,7 +5,7 @@
     $templateParams["nav"] = false;
     $templateParams["signUp"] = true;
     $templateParams["content"] = "signUp_content.php";
-    // $templateParams["design"] = array("css/signUp.css", "css/style.css");
+    $templateParams["design"] = array("css/signUp.css", "css/style.css");
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
         if (empty($_POST["username"]) || empty($_POST["email"]) || empty($_POST["password"])){

@@ -3,13 +3,13 @@
     <h2>Sign Up</h2>
     <form action="signUp.php" method="post">
             <label for="username" hidden>Username</label>
-            <input type="text" id="username" name="username"/>
+            <input type="text" id="username" name="username" placeholder="username"/>
 
             <label for="email" hidden>Email</label>
-            <input type="text" id="email" name="email"/>
+            <input type="text" id="email" name="email" placeholder="email"/>
 
             <label for="password" hidden>Password</label>
-            <input type="password" id="password" name="password"/>
+            <input type="password" id="password" name="password" placeholder="password"/>
 
             <input type="submit" id="signUpBtn" value="signUp" >
             <a id="returnBtn" href="logIn.php">

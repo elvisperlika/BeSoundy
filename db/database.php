@@ -46,5 +46,22 @@ class DatabaseHelper{
         $stmt->execute();
     }
 
+    //post degli utenti seguiti dall'utente denominato "?", ordinati per data di pubblicazione in ordine decrescente
+    public function getFriendsPosts($user) {
+        $stmt = $this->db->prepare("SELECT * FROM post P JOIN follow ON P.username = follow.followed WHERE follow.follower = ? ORDER BY P.time DESC");
+        $stmt->bind_param('s', $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function postsComment($post_id) {
+
+    }
+
+    public function likedPost($post_id, $user) {
+
+    }
 }
 ?>
