@@ -73,18 +73,14 @@ body nav ul li a:hover {
     align-items: center; /* allinea verticalmente */
 }
 
+.userInfo img,
 .body img {
-    width: 15%; /* dimensione dell'immagine del profilo */
-    height: 15%; /* dimensione dell'immagine del profilo */
-    margin-right: 10px; /* margine a destra */
+    max-width: 100%; /* Imposta la larghezza massima al 100% del contenitore */
+    height: auto; /* Imposta l'altezza automaticamente per mantenere le proporzioni */
+    border-radius: 50%; /* Rende l'immagine del profilo circolare */
+    margin-right: 10px; /* Margine a destra */
 }
 
-.userInfo img {
-    width: 50px; /* dimensione dell'immagine del profilo */
-    height: 50px; /* dimensione dell'immagine del profilo */
-    border-radius: 50%; /* rendi l'immagine del profilo circolare */
-    margin-right: 10px; /* margine a destra */
-}
 
 .infoPost p {
     margin: 5px 0; /* margine sopra e sotto */

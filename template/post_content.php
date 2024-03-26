@@ -2,8 +2,9 @@
     $post = $_GET["post"];
     $post_id = $post["idPost"];
 
-    $comments = $dbh->postsComment($post_id);
+    $comments = $dbh->getPostsComment($post_id);
     $user_id = loggedUser();
+    $is_liked = $dbh -> alreadyLikedPost($user_id, $post_id);
     $profile_image = $dbh->getUserProfileImage($post['username']);
 ?>
 
@@ -11,7 +12,7 @@
 
     <div class="userInfo">
         <img src="data:image/jpeg;base64,<?php echo base64_encode($profile_image); ?>" />
-        <p> <?php echo $post["username"]; ?> </p>
+        <a href="profile.php?user=<?php echo $post["username"]; ?>"><?php echo $post["username"]; ?></a>
     </div>
 
     <div class="infoPost">
@@ -24,8 +25,8 @@
     </div>
 
     <div class="like-commenti">
-        <p> like: <?php echo $post["nLike"]; ?> </p>
-        <p> commenti: <?php echo $post["nComment"]; ?> </p>
+        <a class="like" href="like.php?post_id=<?php echo $post['idPost']; ?>">nlike: <?php echo $post['nLike']; ?></a>
+        <a class="comment" nComment="<?php echo $post['nComment']; ?>" href="#">Commenti: <?php echo $post['nComment']; ?></a>
     </div>
 
 </article>

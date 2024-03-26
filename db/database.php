@@ -56,7 +56,7 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function postsComment($post) {
+    public function getPostsComment($post) {
         $stmt = $this->db->prepare("SELECT C.user, C.text FROM comment C WHERE C.post = ?");
         $stmt->bind_param('i', $post);
         $stmt->execute();
@@ -75,6 +75,46 @@ class DatabaseHelper{
         $stmt->close();
     
         return $profile_image;
+    }
+
+    public function likesPost($dbh, $post) {
+        $post_id = $post['idPost'];
+        $sql = "UPDATE post SET nLike = nLike + 1 WHERE idPost = ?";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(1, $post_id, PDO::PARAM_INT);
+        $stmt->execute();
+    }    
+
+    public function postUser($post){
+        $stmt = $this->db->prepare("SELECT P.username FROM Post P WHERE P.idPost = ?");
+        $stmt->bind_param('s', $post_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC)[0]["username"];
+    }
+
+    public function writeComment($post, $user, $comment){
+        $stmt = $this->db->prepare("INSERT INTO Comment (idPost, username, text) VALUES (?, ?, ?)");
+        $stmt->bind_param('iss', $post, $user, $comment);
+        $stmt->execute();
+    }
+
+    public function unlikesPost($dbh, $post) {
+        $post_id = $post['idPost'];
+        $sql = "UPDATE Post SET nLike = nLike - 1 WHERE idPost = ?";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(1, $post_id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    public function alreadyLikedPost($user, $post){
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS conta FROM like_post WHERE user = ? AND post = ?");
+        $stmt->bind_param('ii', $user, $post);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row["conta"];
     }
 }
 ?>
