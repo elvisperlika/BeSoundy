@@ -50,7 +50,17 @@ body nav ul li {
 }
 
 body nav ul li a {
-    color: #fff; /* Colore del testo */
+    color: white; /* Colore del testo */
+    text-decoration: none;
+    display: flex;
+}
+
+body nav ul li a svg {
+    flex: 1 0 0;
+    align-self: stretch;
+    color: #fff;
+    fill: #fff;
+    
     text-decoration: none;
 }
 

@@ -29,7 +29,7 @@
 
     <?php
         if($templateParams["nav"] == true){
-            require("template/html/navbar.php");
+            require("template/components/navbar.php");
         }
     ?>
     
