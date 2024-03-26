@@ -1,0 +1,39 @@
+.post {
+    margin: 40px; /* margine da tutti i lati */
+    width: 80%; /* larghezza */
+    margin-left: auto; /* centra orizzontalmente */
+    margin-right: auto; /* centra orizzontalmente */
+    border: 1px solid #ccc; /* bordo */
+    padding: 10px; /* spazio interno */
+}
+
+.userInfo {
+    display: flex; /* usa il flexbox layout */
+    align-items: center; /* allinea verticalmente */
+}
+
+.userInfo img {
+    width: 50px; /* larghezza dell'immagine del profilo */
+    height: 50px; /* altezza dell'immagine del profilo */
+    border-radius: 50%; /* rendi l'immagine del profilo rotonda */
+    margin-right: 10px; /* margine a destra */
+}
+
+.body img {
+    max-width: 100px; /* larghezza massima dell'immagine del post */
+    max-height: 100px; /* altezza massima dell'immagine del post */
+}
+
+
+.infoPost p {
+    margin: 5px 0; /* margine sopra e sotto */
+}
+
+.like-commenti {
+    display: flex; /* usa il flexbox layout */
+    justify-content: space-between; /* allinea gli elementi con spazio tra loro */
+}
+
+.avviso {
+    margin: 10px;
+}

@@ -25,7 +25,7 @@
     </div>
 
     <div class="like-commenti">
-        <a class="like" href="like.php?post_id=<?php echo $post['idPost']; ?>">nlike: <?php echo $post['nLike']; ?></a>
+        <a class="like" href="like.php?post_id=<?php echo $post['idPost']; ?>">Like: <?php echo $post['nLike']; ?></a>
         <a class="comment" nComment="<?php echo $post['nComment']; ?>" href="#">Commenti: <?php echo $post['nComment']; ?></a>
     </div>
 

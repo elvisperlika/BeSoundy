@@ -58,39 +58,3 @@ body nav ul li a {
 body nav ul li a:hover {
     text-decoration: underline; /* Sottolinea il testo al passaggio del mouse */
 }
-
-.post {
-    margin: 40px; /* margine da tutti i lati */
-    width: 80%; /* larghezza */
-    margin-left: auto; /* centra orizzontalmente */
-    margin-right: auto; /* centra orizzontalmente */
-    border: 1px solid #ccc; /* bordo */
-    padding: 10px; /* spazio interno */
-}
-
-.userInfo {
-    display: flex; /* usa il flexbox layout */
-    align-items: center; /* allinea verticalmente */
-}
-
-.userInfo img,
-.body img {
-    max-width: 100%; /* Imposta la larghezza massima al 100% del contenitore */
-    height: auto; /* Imposta l'altezza automaticamente per mantenere le proporzioni */
-    border-radius: 50%; /* Rende l'immagine del profilo circolare */
-    margin-right: 10px; /* Margine a destra */
-}
-
-
-.infoPost p {
-    margin: 5px 0; /* margine sopra e sotto */
-}
-
-.like-commenti {
-    display: flex; /* usa il flexbox layout */
-    justify-content: space-between; /* allinea gli elementi con spazio tra loro */
-}
-
-.avviso {
-    margin: 10px;
-}

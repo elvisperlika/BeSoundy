@@ -5,8 +5,8 @@
     $templateParams["nav"] = true;
     $templateParams["feed"] = true;
     $templateParams["content"] = "feed_content.php";
+    $templateParams["design"] = array("css/feed.css");
     $template["post"] = $dbh->friendsPosts(loggedUser());
-    $templateParams["design"] = array("css/style.css");
     //$template["script"] = "post.js";
 
     require("template/base.php");
