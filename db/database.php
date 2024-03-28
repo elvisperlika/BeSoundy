@@ -56,7 +56,7 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getPostsComment($post) {
+    public function getPostedComment($post) {
         $stmt = $this->db->prepare("SELECT C.user, C.text, U.imgProfile, C.time, C.nLike FROM comment C JOIN user U ON C.user = U.username WHERE C.post = ?");
         $stmt->bind_param('i', $post);
         $stmt->execute();
@@ -106,7 +106,7 @@ class DatabaseHelper{
     }
 
     public function writeComment($post, $user, $comment){
-        $stmt = $this->db->prepare("INSERT INTO Comment (idPost, username, text) VALUES (?, ?, ?)");
+        $stmt = $this->db->prepare("INSERT INTO comment (post, user, text) VALUES (?, ?, ?)");
         $stmt->bind_param('iss', $post, $user, $comment);
         $stmt->execute();
     }

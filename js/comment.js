@@ -1,24 +1,46 @@
-// Attendiamo che il documento sia completamente caricato
+//show/hide comment
 document.addEventListener("DOMContentLoaded", function() {
-    // Aggiungi un event listener al link "Commenti" per gestire il click
-    document.getElementById('toggle-comments').addEventListener('click', toggleComments);
+    var toggleButton = document.getElementById('toggle-comments');
+    toggleButton.addEventListener('click', function() {
+        var commentsSection = document.querySelector('.comments-section');
+        toggleCommentShow(commentsSection);
+    });
 });
 
-function toggleComments() {
-    // Trova l'elemento con l'id "toggle-comments"
-    var toggleButton = document.getElementById('toggle-comments');
-
-    // Trova il genitore che contiene sia il link "Commenti" che la sezione dei commenti
-    var parent = toggleButton.closest('.post');
-
-    // Trova la sezione dei commenti all'interno del genitore
-    var commentsSection = parent.querySelector('.comments-section');
-
-    // Mostra o nascondi la sezione dei commenti a seconda del suo stato attuale
-    if (commentsSection.style.display === 'none') {
-        print(helo);
-        commentsSection.style.display = 'block';
+function toggleCommentShow(commentSection) {
+    if (commentSection.style.display === 'none') {
+        commentSection.style.display = 'block';
     } else {
-        commentsSection.style.display = 'none';
+        commentSection.style.display = 'none';
     }
 }
+
+//write comment
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('comment-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevents the default form submission behavior
+
+        var formData = new FormData(this);
+
+        fetch(this.action, {
+            method: this.method,
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            // Successfully submitted the comment via AJAX
+            // Update the comments section to display the new comment
+            var commentsSection = document.querySelector('.comments-section');
+            commentsSection.innerHTML = data; // Assuming the server returns updated HTML for comments section
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle error if needed
+        });
+    });
+});
