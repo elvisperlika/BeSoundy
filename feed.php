@@ -7,7 +7,7 @@
     $templateParams["content"] = "feed_content.php";
     $templateParams["design"] = array("css/feed.css");
     $template["post"] = $dbh->friendsPosts(loggedUser());
-    //$template["script"] = "post.js";
+    $template["script"] = "comment.js";
 
     require("template/base.php");
 ?>

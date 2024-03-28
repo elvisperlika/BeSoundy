@@ -57,7 +57,7 @@ class DatabaseHelper{
     }
 
     public function getPostsComment($post) {
-        $stmt = $this->db->prepare("SELECT C.user, C.text FROM comment C WHERE C.post = ?");
+        $stmt = $this->db->prepare("SELECT C.user, C.text, U.imgProfile, C.time, C.nLike FROM comment C JOIN user U ON C.user = U.username WHERE C.post = ?");
         $stmt->bind_param('i', $post);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -77,11 +77,22 @@ class DatabaseHelper{
         return $profile_image;
     }
 
-    public function likesPost($dbh, $post) {
-        $post_id = $post['idPost'];
+    public function getUserProfileComment($user){
+        $query = "SELECT C.user, U.imgProfile from comment C JOIN user U ON U.username = C.user WHERE C.user = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $stmt->bind_result($profile_image);
+        $stmt->fetch();
+        $stmt->close();
+    
+        return $profile_image;
+    }
+
+    public function likesPost($post, $user) {
         $sql = "UPDATE post SET nLike = nLike + 1 WHERE idPost = ?";
-        $stmt = $dbh->prepare($sql);
-        $stmt->bindParam(1, $post_id, PDO::PARAM_INT);
+        $stmt = $this -> db-> prepare($sql);
+        $stmt->bind_param("i", $post);
         $stmt->execute();
     }    
 
@@ -100,11 +111,10 @@ class DatabaseHelper{
         $stmt->execute();
     }
 
-    public function unlikesPost($dbh, $post) {
-        $post_id = $post['idPost'];
-        $sql = "UPDATE Post SET nLike = nLike - 1 WHERE idPost = ?";
-        $stmt = $dbh->prepare($sql);
-        $stmt->bindParam(1, $post_id, PDO::PARAM_INT);
+    public function unlikesPost($post, $user) {
+        $sql = "UPDATE post SET nLike = nLike - 1 WHERE idPost = ?";
+        $stmt = $this -> db-> prepare($sql);
+        $stmt->bind_param("i", $post);
         $stmt->execute();
     }
 

@@ -1,12 +1,11 @@
 <?php
-    $_GET["debug"] = true;
-    /*require("../bootstrap.php");
+    require("api.php");
     $user_id = loggedUser();
     $post_id = $_GET["idPost"];
     $dbh -> likesPost($post_id, $user_id);
     $likedUser = $dbh -> postUser($post_id);
-    header('Location: post_content.php');*/
-    if(isset($_GET["idPost"])) {
+    header('Location: ..feed.php');
+    /*if(isset($_GET["idPost"])) {
         // Ottieni l'ID del post dalla richiesta GET
         $post_id = $_GET["idPost"];
 
@@ -22,6 +21,6 @@
     } else {
         // Se l'ID del post non è stato passato correttamente, gestisci l'errore
         echo "ID del post non valido";
-    }
+    }*/
     //$dbh->newNotificationForPost($receiving_user_id, get_logged_in_username(), "L", $post_id);
 ?>

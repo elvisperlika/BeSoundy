@@ -24,7 +24,6 @@
     max-height: 100px; /* altezza massima dell'immagine del post */
 }
 
-
 .infoPost p {
     margin: 5px 0; /* margine sopra e sotto */
 }
@@ -32,8 +31,18 @@
 .like-commenti {
     display: flex; /* usa il flexbox layout */
     justify-content: space-between; /* allinea gli elementi con spazio tra loro */
+    margin-bottom: 20px; /* Aggiungi uno spazio bianco di separazione sotto il div */
 }
 
 .avviso {
     margin: 10px;
+}
+
+.comments-section {
+    padding: 10px; /* padding intorno alla sezione dei commenti */
+    border-top: 1px solid #ccc; /* bordo sopra i commenti */
+}
+
+.comment:not(:last-child) {
+    margin-bottom: 20px; /* Aggiungi uno spazio bianco di separazione sotto ogni commento eccetto l'ultimo */
 }
