@@ -198,5 +198,15 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    
+    public function getUsers($string){
+        $stmt = $this->db->prepare("SELECT username FROM user WHERE username LIKE ?");
+        $string = $string . '%';
+        $stmt->bind_param('s', $string);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>

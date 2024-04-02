@@ -7,6 +7,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?php echo $templateParams["title"]; ?></title>
+    <!-- Load all design files -->
     <?php 
         if(isset($templateParams["design"])){
             foreach($templateParams["design"] as $css){
@@ -14,6 +15,15 @@
             }
         }
     ?>
+    <!-- Load all script files -->
+    <?php 
+        if(isset($templateParams["script"])){
+            foreach($templateParams["script"] as $js){
+                echo "<script src=\"".$js."\"></script>";
+            }
+        }
+    ?>
+    
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
 </head>
 <body>
