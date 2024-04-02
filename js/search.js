@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     var inputElement = document.getElementById("searchBar");
-    inputElement.addEventListener("keydown", function(event) {
+    inputElement.addEventListener("keyup", function(event) {
         var inputValue = event.target.value;
         showHint(inputValue);
     });
