@@ -169,5 +169,26 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         return $result->fetch_assoc()["name"];
     }
+
+    public function isFollowing($follower, $followed) {
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM follow WHERE follower = ? AND followed = ?");
+        $stmt->bind_param('ss', $follower, $followed);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row["count"] > 0;
+    }
+
+    public function removeFollowing($follower, $followed) {
+        $stmt = $this->db->prepare("DELETE FROM follow WHERE follower = ? AND followed = ?");
+        $stmt->bind_param('ss', $follower, $followed);
+        $stmt->execute();
+    }
+
+    public function addFollowing($follower, $followed) {
+        $stmt = $this->db->prepare("INSERT INTO follow (follower, followed) VALUES (?, ?)");
+        $stmt->bind_param('ss', $follower, $followed);
+        $stmt->execute();
+    }
 }
 ?>

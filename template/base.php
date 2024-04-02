@@ -18,8 +18,12 @@
 </head>
 <body>
     <header id="mainHeader">
-        <?php 
-            echo "<span>" . $templateParams["title"] . "</span>" 
+        <?php
+            if($templateParams["title"] == "Profile") {
+                echo "<span>" . $_GET["user"] . "</span>";
+            } else {
+                echo "<span>" . $templateParams["title"] . "</span>";
+            }
         ?>
     </header>
 
