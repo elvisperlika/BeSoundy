@@ -94,7 +94,14 @@ class DatabaseHelper{
         $stmt = $this -> db-> prepare($sql);
         $stmt->bind_param("i", $post);
         $stmt->execute();
-    }    
+    }  
+
+    public function likesComment($idComment, $user) {
+        $sql = "UPDATE comment SET nLike = nLike + 1 WHERE idComment = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $idComment);
+        $stmt->execute();
+    }     
 
     public function postUser($post){
         $stmt = $this->db->prepare("SELECT P.username FROM Post P WHERE P.idPost = ?");
@@ -178,7 +185,6 @@ class DatabaseHelper{
             return false;
         }
     }
-
     
     public function writeComment($post, $user, $comment){
         $stmt = $this->db->prepare("INSERT INTO comment (post, user, text) VALUES (?, ?, ?)");
