@@ -199,5 +199,44 @@ class DatabaseHelper{
             return false;
         }
     }
+
+    public function isFollowing($follower, $followed) {
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM follow WHERE follower = ? AND followed = ?");
+        $stmt->bind_param('ss', $follower, $followed);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row["count"] > 0;
+    }
+
+    public function removeFollowing($follower, $followed) {
+        $stmt = $this->db->prepare("DELETE FROM follow WHERE follower = ? AND followed = ?");
+        $stmt->bind_param('ss', $follower, $followed);
+        $stmt->execute();
+    }
+
+    public function addFollowing($follower, $followed) {
+        $stmt = $this->db->prepare("INSERT INTO follow (follower, followed) VALUES (?, ?)");
+        $stmt->bind_param('ss', $follower, $followed);
+        $stmt->execute();
+    }
+
+    public function getUserPosts($user) {
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE username = ? ORDER BY time DESC");
+        $stmt->bind_param('s', $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    
+    public function getUsers($string){
+        $stmt = $this->db->prepare("SELECT username FROM user WHERE username LIKE ?");
+        $string = $string . '%';
+        $stmt->bind_param('s', $string);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>

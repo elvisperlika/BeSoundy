@@ -27,6 +27,33 @@
     <div id="bio">
         <p><?php echo $dbh->getUserBio($_GET["user"]); ?></p>       
     </div>
-    
+        <?php if($_GET["user"] == $_SESSION["username"]): ?>
+            <div id="editProfile">
+                <a href="edit_profile.php">Edit Profile</a>
+            </div>
+        <?php else: ?>
+            <div id="followButton">
+                <?php if($dbh->isFollowing($_SESSION["username"], $_GET["user"])): ?>
+                    <a href="profile.php?user=<?php echo $_GET["user"]; ?>&request=unfollow">Unfollow</a>
+                <?php else: ?>
+                    <a href="profile.php?user=<?php echo $_GET["user"]; ?>&request=follow">Follow</a>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
     <div>
+</div>
+
+<div id="postsContainer">
+    <section>
+        <?php
+            $userPosts = $dbh->getUserPosts($_GET["user"]);
+            if(empty($userPosts)) {
+                echo "<p> Nessun post da mostrare. </p>";
+            }
+            foreach ($userPosts as $post) {
+                $_GET["post"] = $post;
+                require("post_content.php");
+            }
+        ?>
+    </section>
 </div>
