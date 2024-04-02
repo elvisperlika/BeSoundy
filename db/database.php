@@ -126,5 +126,48 @@ class DatabaseHelper{
         $row = $result->fetch_assoc();
         return $row["conta"];
     }
+
+    public function getFollowersNumber($user) {
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM follow WHERE followed = ?");
+        $stmt->bind_param('s', $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row["count"];
+    }
+
+    public function getFollowingNumber($user) {
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM follow WHERE follower = ?");
+        $stmt->bind_param('s', $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row["count"];
+    }
+
+    public function getPostsNumber($user) {
+        $stmt = $this->db->prepare("SELECT count(*) AS count FROM post WHERE username = ?");
+        $stmt->bind_param('s', $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row["count"];
+    }
+
+    public function getUserBio($user) {
+        $stmt = $this->db->prepare("SELECT bio FROM user WHERE user.username = ?");
+        $stmt->bind_param('s', $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()["bio"];
+    }
+
+    public function getUserRealName($user) {
+        $stmt = $this->db->prepare("SELECT name FROM user WHERE user.username = ?");
+        $stmt->bind_param('s', $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()["name"];
+    }
 }
 ?>
