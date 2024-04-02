@@ -94,7 +94,14 @@ class DatabaseHelper{
         $stmt = $this -> db-> prepare($sql);
         $stmt->bind_param("i", $post);
         $stmt->execute();
-    }    
+    }  
+
+    public function likesComment($idComment, $user) {
+        $sql = "UPDATE comment SET nLike = nLike + 1 WHERE idComment = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $idComment);
+        $stmt->execute();
+    }     
 
     public function postUser($post){
         $stmt = $this->db->prepare("SELECT P.username FROM Post P WHERE P.idPost = ?");
@@ -103,12 +110,6 @@ class DatabaseHelper{
         $result = $stmt->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC)[0]["username"];
-    }
-
-    public function writeComment($post, $user, $comment){
-        $stmt = $this->db->prepare("INSERT INTO comment (post, user, text) VALUES (?, ?, ?)");
-        $stmt->bind_param('iss', $post, $user, $comment);
-        $stmt->execute();
     }
 
     public function unlikesPost($post, $user) {
@@ -168,6 +169,35 @@ class DatabaseHelper{
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_assoc()["name"];
+    }
+
+    public function newPost($image_name, $didascalia, $timestamp, $user_id){
+        // Inserisci il nuovo post nel database
+        $stmt = $this->db->prepare("INSERT INTO post (image, text, time, username) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $image_name, $didascalia, $timestamp, $user_id);
+        $result = $stmt->execute();
+        
+        // Verifica se l'inserimento è stato eseguito con successo
+        if ($result) {
+            return true;
+        } else {
+            // Gestisci eventuali errori nell'inserimento del post nel database
+            return false;
+        }
+    }
+    
+    public function writeComment($post, $user, $comment){
+        $stmt = $this->db->prepare("INSERT INTO comment (post, user, text) VALUES (?, ?, ?)");
+        $stmt->bind_param('iss', $post, $user, $comment);
+        $result = $stmt->execute();
+
+        // Verifica se l'inserimento è stato eseguito con successo
+        if ($result) {
+            return true;
+        } else {
+            // Gestisci eventuali errori nell'inserimento del post nel database
+            return false;
+        }
     }
 
     public function isFollowing($follower, $followed) {
