@@ -12,7 +12,7 @@
     align-items: center; /* allinea verticalmente */
 }
 
-.userInfo img {
+.userInfo img, form img {
     width: 50px; /* larghezza dell'immagine del profilo */
     height: 50px; /* altezza dell'immagine del profilo */
     border-radius: 50%; /* rendi l'immagine del profilo rotonda */

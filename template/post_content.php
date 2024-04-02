@@ -25,7 +25,7 @@
     </div>
 
     <div class="like-commenti">
-        <a class="like" href="api/like.php?idPost=<?php echo $post['idPost']; ?>">Like: <?php echo $post['nLike']; ?></a>
+        <a class="like" href="api/like.php?type=post&id=<?php echo $post['idPost']; ?>">Like: <?php echo $post['nLike']; ?></a>
         <a class="comment-button" href="javascript:void(0);" id="toggle-comments" onclick="toggleComments()">Commenti: <?php echo $post['nComment']; ?></a>    
     </div>
 
@@ -39,7 +39,7 @@
                 </div>
                 <p> <?php echo $comment["time"]; ?> </p>
                 <p><?php echo $comment['text']; ?></p>
-                <a class="like" href="api/like.php?idPost=<?php echo $post['idPost']; ?>">Like: <?php echo $post['nLike']; ?></a>
+                <a class="like" href="api/like.php?type=comment&id=<?php echo $post['idPost']; ?>">Like: <?php echo $comment['nLike']; ?></a>
                 <a class="comment-button" href="javascript:void(0);" id="toggle-comments">Rispondi!</a>    
             </div>
         <?php endforeach; ?>
@@ -48,6 +48,7 @@
     <?php endif; ?>
 
     <form action="api/create_comment.php?idPost=<?php echo $post_id ?>&comment_author=<?php echo $post["username"]?>" method="POST">
+        <img src="data:image/jpeg;base64,<?php echo base64_encode($profile_image_post); ?>" />                
         <label for="write-comment-<?php echo $post_id ?>" hidden>Scrivi un post</label>
         <textarea id="write-comment-<?php echo $post_id ?>" name="write-comment" placeholder="Scrivi un commento..." rows="1"></textarea>
         <input type="submit" value="Invia">

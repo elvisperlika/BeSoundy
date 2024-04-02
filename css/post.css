@@ -1,0 +1,14 @@
+.btn-annulla {
+    position: absolute; /* Imposta il posizionamento assoluto rispetto al contenitore padre */
+    top: 10px; /* Sposta il bottone verso l'alto */
+    left: 10px; /* Sposta il bottone verso sinistra */
+    z-index: 1; /* Assicura che il bottone sia sovrapposto alla barra nera */
+    color: aliceblue;
+}
+
+.btn-avanti {
+    position: absolute; /* Imposta il posizionamento assoluto rispetto al contenitore padre */
+    top: 10px; /* Sposta il bottone verso l'alto */
+    right: 10px; /* Sposta il bottone verso destra */
+    z-index: 1; /* Assicura che il bottone sia sovrapposto alla barra nera */
+}
