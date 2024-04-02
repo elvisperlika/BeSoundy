@@ -42,3 +42,18 @@
         <?php endif; ?>
     <div>
 </div>
+
+<div id="postsContainer">
+    <section>
+        <?php
+            $userPosts = $dbh->getUserPosts($_GET["user"]);
+            if(empty($userPosts)) {
+                echo "<p> Nessun post da mostrare. </p>";
+            }
+            foreach ($userPosts as $post) {
+                $_GET["post"] = $post;
+                require("post_content.php");
+            }
+        ?>
+    </section>
+</div>

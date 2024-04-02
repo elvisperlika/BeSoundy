@@ -190,5 +190,13 @@ class DatabaseHelper{
         $stmt->bind_param('ss', $follower, $followed);
         $stmt->execute();
     }
+
+    public function getUserPosts($user) {
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE username = ? ORDER BY time DESC");
+        $stmt->bind_param('s', $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>
