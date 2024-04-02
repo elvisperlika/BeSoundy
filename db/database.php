@@ -105,12 +105,6 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC)[0]["username"];
     }
 
-    public function writeComment($post, $user, $comment){
-        $stmt = $this->db->prepare("INSERT INTO comment (post, user, text) VALUES (?, ?, ?)");
-        $stmt->bind_param('iss', $post, $user, $comment);
-        $stmt->execute();
-    }
-
     public function unlikesPost($post, $user) {
         $sql = "UPDATE post SET nLike = nLike - 1 WHERE idPost = ?";
         $stmt = $this -> db-> prepare($sql);
@@ -176,6 +170,21 @@ class DatabaseHelper{
         $stmt->bind_param("ssss", $image_name, $didascalia, $timestamp, $user_id);
         $result = $stmt->execute();
         
+        // Verifica se l'inserimento è stato eseguito con successo
+        if ($result) {
+            return true;
+        } else {
+            // Gestisci eventuali errori nell'inserimento del post nel database
+            return false;
+        }
+    }
+
+    
+    public function writeComment($post, $user, $comment){
+        $stmt = $this->db->prepare("INSERT INTO comment (post, user, text) VALUES (?, ?, ?)");
+        $stmt->bind_param('iss', $post, $user, $comment);
+        $result = $stmt->execute();
+
         // Verifica se l'inserimento è stato eseguito con successo
         if ($result) {
             return true;

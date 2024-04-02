@@ -48,6 +48,7 @@
     <?php endif; ?>
 
     <form action="api/create_comment.php?idPost=<?php echo $post_id ?>&comment_author=<?php echo $post["username"]?>" method="POST">
+        <img src="data:image/jpeg;base64,<?php echo base64_encode($comment['imgProfile']); ?>" />                
         <label for="write-comment-<?php echo $post_id ?>" hidden>Scrivi un post</label>
         <textarea id="write-comment-<?php echo $post_id ?>" name="write-comment" placeholder="Scrivi un commento..." rows="1"></textarea>
         <input type="submit" value="Invia">
