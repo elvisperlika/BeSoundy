@@ -26,10 +26,10 @@
 
     <div class="like-commenti">
         <a class="like" href="api/like.php?type=post&id=<?php echo $post['idPost']; ?>">Like: <?php echo $post['nLike']; ?></a>
-        <a class="comment-button" href="#" id="toggle-comments" >Commenti: <?php echo $post['nComment']; ?></a>    
+        <a class="comment-button" href="#" data-post-id="<?php echo $post_id; ?>">Commenti: <?php echo $post['nComment']; ?></a>    
     </div>
 
-<div id="commentSection" class="comments-section">
+<div  id="commentSection-<?php echo $post_id; ?>" class="comments-section">
     <?php if (count($comments) > 0) : ?>
         <?php foreach ($comments as $comment) : ?>
             <div class="comment">
@@ -40,7 +40,6 @@
                 <p> <?php echo $comment["time"]; ?> </p>
                 <p><?php echo $comment['text']; ?></p>
                 <a class="like" href="api/like.php?type=comment&id=<?php echo $post['idPost']; ?>">Like: <?php echo $comment['nLike']; ?></a>
-                <a class="comment-button" href="javascript:void(0);" id="toggle-comments">Rispondi!</a>    
             </div>
         <?php endforeach; ?>
     <?php else : ?>

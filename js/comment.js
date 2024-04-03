@@ -1,9 +1,12 @@
-//show/hide comment
 document.addEventListener("DOMContentLoaded", function() {
-    var toggleButton = document.getElementById("toggle-comments");
-    toggleButton.addEventListener("click", function() {
-        var commentsSection = document.getElementById("commentSection");
-        toggleCommentShow(commentsSection);
+    var toggleButtons = document.querySelectorAll(".comment-button");
+    toggleButtons.forEach(function(button) {
+        button.addEventListener("click", function(event) {
+            event.preventDefault(); // Previeni il comportamento predefinito del link
+            var postId = this.getAttribute("data-post-id"); // Ottieni l'ID del post associato al pulsante
+            var commentsSection = document.querySelector("#commentSection-" + postId); // Seleziona la sezione dei commenti corrispondente
+            toggleCommentShow(commentsSection);
+        });
     });
 });
 
