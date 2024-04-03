@@ -57,7 +57,7 @@ class DatabaseHelper{
     }
 
     public function getPostedComment($post) {
-        $stmt = $this->db->prepare("SELECT C.user, C.text, U.imgProfile, C.time, C.nLike FROM comment C JOIN user U ON C.user = U.username WHERE C.post = ?");
+        $stmt = $this->db->prepare("SELECT C.user, C.text, U.imgProfile, C.time, C.nLike, C.idComment FROM comment C JOIN user U ON C.user = U.username WHERE C.post = ?");
         $stmt->bind_param('i', $post);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -90,18 +90,44 @@ class DatabaseHelper{
     }
 
     public function likesPost($post, $user) {
-        $sql = "UPDATE post SET nLike = nLike + 1 WHERE idPost = ?";
+        $sql = "INSERT INTO like_post (post, user) VALUES (?, ?)";
+
         $stmt = $this -> db-> prepare($sql);
-        $stmt->bind_param("i", $post);
+        $stmt->bind_param("is", $post, $user);
         $stmt->execute();
+
+        $sql2 = "UPDATE post
+        SET nLike = (SELECT COUNT(*) FROM like_post WHERE post = ?)
+        WHERE idPost = ?
+        ";
+
+        $stmt2 = $this -> db-> prepare($sql2);
+        if (!$stmt2) {
+            die("Errore nella preparazione della query: " . $this->db->error);
+        }
+        $stmt2->bind_param("ii", $post, $post);
+        $stmt2->execute();
     }  
 
-    public function likesComment($idComment, $user) {
-        $sql = "UPDATE comment SET nLike = nLike + 1 WHERE idComment = ?";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("i", $idComment);
+    public function likesComment($comment, $user) {
+        $sql = "INSERT INTO like_comment (comment, user) VALUES (?, ?)";
+
+        $stmt = $this -> db-> prepare($sql);
+        $stmt->bind_param("is", $comment, $user);
         $stmt->execute();
-    }     
+
+        $sql2 = "UPDATE comment
+        SET nLike = (SELECT COUNT(*) FROM like_comment WHERE comment = ?)
+        WHERE idComment= ?
+        ";
+
+        $stmt2 = $this -> db-> prepare($sql2);
+        if (!$stmt2) {
+            die("Errore nella preparazione della query: " . $this->db->error);
+        }
+        $stmt2->bind_param("ii", $comment, $comment);
+        $stmt2->execute();
+    }      
 
     public function postUser($post){
         $stmt = $this->db->prepare("SELECT P.username FROM Post P WHERE P.idPost = ?");
