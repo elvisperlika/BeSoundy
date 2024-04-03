@@ -6,7 +6,7 @@
     if ($type === "post") {
         $dbh->likesPost($id, loggedUser());
     } elseif ($type === "comment") {
-        $dbh->likesComment($commentId, loggedUser()); // Passa l'ID del commento
+        $dbh->likesComment($id, loggedUser()); // Passa l'ID del commento
     }
 
     header('Location: ../feed.php');

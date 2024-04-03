@@ -39,7 +39,7 @@
                 </div>
                 <p> <?php echo $comment["time"]; ?> </p>
                 <p><?php echo $comment['text']; ?></p>
-                <a class="like" href="api/like.php?type=comment&id=<?php echo $post['idPost']; ?>">Like: <?php echo $comment['nLike']; ?></a>
+                <a class="like" href="api/like.php?type=comment&id=<?php echo $comment['idComment']; ?>">Like: <?php echo $comment['nLike']; ?></a>
             </div>
         <?php endforeach; ?>
     <?php else : ?>
