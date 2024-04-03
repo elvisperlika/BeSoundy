@@ -26,10 +26,10 @@
 
     <div class="like-commenti">
         <a class="like" href="api/like.php?type=post&id=<?php echo $post['idPost']; ?>">Like: <?php echo $post['nLike']; ?></a>
-        <a class="comment-button" href="javascript:void(0);" id="toggle-comments" onclick="toggleComments()">Commenti: <?php echo $post['nComment']; ?></a>    
+        <a class="comment-button" href="#" id="toggle-comments" >Commenti: <?php echo $post['nComment']; ?></a>    
     </div>
 
-<div class="comments-section" style="display: block;">
+<div id="commentSection" class="comments-section">
     <?php if (count($comments) > 0) : ?>
         <?php foreach ($comments as $comment) : ?>
             <div class="comment">
