@@ -41,6 +41,7 @@
 .comments-section {
     padding: 10px; /* padding intorno alla sezione dei commenti */
     border-top: 1px solid #ccc; /* bordo sopra i commenti */
+    display: none; /* nascondi la sezione dei commenti */
 }
 
 .comment:not(:last-child) {

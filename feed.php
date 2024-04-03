@@ -4,8 +4,8 @@
     $templateParams["title"] = "Feed";
     $templateParams["nav"] = true;
     $templateParams["feed"] = true;
-    $template["script"] = "comment.js";
     $templateParams["content"] = "feed_content.php";
+    $templateParams["script"] = array("js/comment.js");
     $templateParams["design"] = array("css/feed.css");
     $template["post"] = $dbh->friendsPosts(loggedUser());
 

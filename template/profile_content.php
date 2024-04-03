@@ -34,9 +34,9 @@
         <?php else: ?>
             <div id="followButton">
                 <?php if($dbh->isFollowing($_SESSION["username"], $_GET["user"])): ?>
-                    <a href="profile.php?user=<?php echo $_GET["user"]; ?>&request=unfollow">Unfollow</a>
+                    <a href="api/following.php?user=<?php echo $_GET["user"]; ?>&request=unfollow">Unfollow</a>
                 <?php else: ?>
-                    <a href="profile.php?user=<?php echo $_GET["user"]; ?>&request=follow">Follow</a>
+                    <a href="api/following.php?user=<?php echo $_GET["user"]; ?>&request=follow">Follow</a>
                 <?php endif; ?>
             </div>
         <?php endif; ?>
