@@ -269,6 +269,13 @@ class DatabaseHelper{
 
         // Verifica se l'inserimento è stato eseguito con successo
         if ($result) {
+            $sql2 = "UPDATE post
+            SET nComment = (SELECT COUNT(*) FROM comment WHERE post = ?)
+            WHERE idPost = ?
+            ";   
+            $stmt2 = $this->db->prepare($sql2);
+            $stmt2->bind_param("ii", $post, $post);
+            $stmt2->execute();
             return true;
         } else {
             // Gestisci eventuali errori nell'inserimento del post nel database
