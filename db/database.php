@@ -140,22 +140,18 @@ class DatabaseHelper{
     }     
 
     public function unlikesComment($comment, $user) {
-        $sql = "DELETE FROM like_comment (comment, user) VALUES (?, ?)";
-
-        $stmt = $this -> db-> prepare($sql);
+        $sql = "DELETE FROM like_comment WHERE comment = ? AND user = ?";
+        $stmt = $this->db->prepare($sql);
         $stmt->bind_param("is", $comment, $user);
         $stmt->execute();
-
+    
         if ($stmt->affected_rows > 0) {
-            $sql2 = "UPDATE comment
-            SET nLike = (SELECT COUNT(*) FROM like_comment WHERE comment = ?)
-            WHERE idComment = ?
-            ";   
+            $sql2 = "UPDATE comment SET nLike = (SELECT COUNT(*) FROM like_comment WHERE comment = ?) WHERE idComment = ?";
             $stmt2 = $this->db->prepare($sql2);
             $stmt2->bind_param("ii", $comment, $comment);
             $stmt2->execute();
         }
-    }
+    }    
 
     //1 se utente ha già messo like
     //0 se non ha messo like
@@ -181,7 +177,7 @@ class DatabaseHelper{
     public function alreadyLikedComment($user, $comment){
         $query = "SELECT EXISTS(SELECT 1 FROM like_comment WHERE user = ? AND comment = ?) AS exists_likeC";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("si", $user, $post_id);
+        $stmt->bind_param("si", $user, $comment);
         $stmt->execute();
         $stmt->bind_result($exists_likeC);
         $stmt->fetch();
