@@ -100,18 +100,28 @@ class DatabaseHelper{
         SET nLike = (SELECT COUNT(*) FROM like_post WHERE post = ?)
         WHERE idPost = ?
         ";
-
         $stmt2 = $this -> db-> prepare($sql2);
-        if (!$stmt2) {
-            die("Errore nella preparazione della query: " . $this->db->error);
-        }
         $stmt2->bind_param("ii", $post, $post);
         $stmt2->execute();
     }  
 
+    public function unlikesPost($post, $user) {
+        $sql = "DELETE FROM like_post WHERE post = ? AND user = ?";
+
+        $stmt = $this -> db-> prepare($sql);
+        $stmt->bind_param("is", $post, $user);
+        $stmt->execute();
+
+        if ($stmt->affected_rows > 0) {
+            $sql2 = "UPDATE post SET nLike = (SELECT COUNT(*) FROM like_post WHERE post = ?) WHERE idPost = ?";
+            $stmt2 = $this->db->prepare($sql2);
+            $stmt2->bind_param("ii", $post, $post);
+            $stmt2->execute();
+        }
+    }
+
     public function likesComment($comment, $user) {
         $sql = "INSERT INTO like_comment (comment, user) VALUES (?, ?)";
-
         $stmt = $this -> db-> prepare($sql);
         $stmt->bind_param("is", $comment, $user);
         $stmt->execute();
@@ -127,8 +137,60 @@ class DatabaseHelper{
         }
         $stmt2->bind_param("ii", $comment, $comment);
         $stmt2->execute();
-    }      
+    }     
 
+    public function unlikesComment($comment, $user) {
+        $sql = "DELETE FROM like_comment WHERE comment = ? AND user = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("is", $comment, $user);
+        $stmt->execute();
+    
+        if ($stmt->affected_rows > 0) {
+            $sql2 = "UPDATE comment SET nLike = (SELECT COUNT(*) FROM like_comment WHERE comment = ?) WHERE idComment = ?";
+            $stmt2 = $this->db->prepare($sql2);
+            $stmt2->bind_param("ii", $comment, $comment);
+            $stmt2->execute();
+        }
+    }    
+
+    //1 se utente ha già messo like
+    //0 se non ha messo like
+    public function alreadyLikedPost($user, $post){
+        $query = "SELECT EXISTS(SELECT 1 FROM like_post WHERE user = ? AND post = ?) AS exists_likeP";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("si", $user, $post);
+        $stmt->execute();
+        $stmt->bind_result($exists_likeP);
+        $stmt->fetch();
+        
+        if ($exists_likeP == 1) {
+            // L'utente ha già messo "mi piace" al post
+            return true;
+        } else {
+            // L'utente non ha ancora messo "mi piace" al post
+            return false;
+        }        
+    }
+
+    //1 se utente ha già messo like
+    //0 se non ha messo like
+    public function alreadyLikedComment($user, $comment){
+        $query = "SELECT EXISTS(SELECT 1 FROM like_comment WHERE user = ? AND comment = ?) AS exists_likeC";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("si", $user, $comment);
+        $stmt->execute();
+        $stmt->bind_result($exists_likeC);
+        $stmt->fetch();
+        
+        if ($exists_likeC == 1) {
+            // L'utente ha già messo "mi piace" al post
+            return true;
+        } else {
+            // L'utente non ha ancora messo "mi piace" al post
+            return false;
+        }        
+    }
+    
     public function postUser($post){
         $stmt = $this->db->prepare("SELECT P.username FROM Post P WHERE P.idPost = ?");
         $stmt->bind_param('s', $post_id);
@@ -136,22 +198,6 @@ class DatabaseHelper{
         $result = $stmt->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC)[0]["username"];
-    }
-
-    public function unlikesPost($post, $user) {
-        $sql = "UPDATE post SET nLike = nLike - 1 WHERE idPost = ?";
-        $stmt = $this -> db-> prepare($sql);
-        $stmt->bind_param("i", $post);
-        $stmt->execute();
-    }
-
-    public function alreadyLikedPost($user, $post){
-        $stmt = $this->db->prepare("SELECT COUNT(*) AS conta FROM like_post WHERE user = ? AND post = ?");
-        $stmt->bind_param('ii', $user, $post);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
-        return $row["conta"];
     }
 
     public function getFollowersNumber($user) {
@@ -219,6 +265,13 @@ class DatabaseHelper{
 
         // Verifica se l'inserimento è stato eseguito con successo
         if ($result) {
+            $sql2 = "UPDATE post
+            SET nComment = (SELECT COUNT(*) FROM comment WHERE post = ?)
+            WHERE idPost = ?
+            ";   
+            $stmt2 = $this->db->prepare($sql2);
+            $stmt2->bind_param("ii", $post, $post);
+            $stmt2->execute();
             return true;
         } else {
             // Gestisci eventuali errori nell'inserimento del post nel database
