@@ -258,11 +258,24 @@ class DatabaseHelper{
         }
     }
     
-    public function writeComment($post, $user, $comment){
-        $stmt = $this->db->prepare("INSERT INTO comment (post, user, text) VALUES (?, ?, ?)");
-        $stmt->bind_param('iss', $post, $user, $comment);
+    public function writeComment($post, $user, $comment, $parent_comment = null){
+        if ($parent_comment === null) {
+            $stmt = $this->db->prepare("INSERT INTO comment (post, user, text) VALUES (?, ?, ?)");
+            if (!$stmt) {
+                // Query preparation failed
+                die("Error preparing query: " . $this->db->error);
+            }
+            $stmt->bind_param('iss', $post, $user, $comment);
+        } else {
+            $stmt = $this->db->prepare("INSERT INTO comment (post, user, text, parent_comment) VALUES (?, ?, ?, ?)");
+            if (!$stmt) {
+                // Query preparation failed
+                die("Error preparing query: " . $this->db->error);
+            }
+            $stmt->bind_param('isss', $post, $user, $comment, $parent_comment);
+        }
+    
         $result = $stmt->execute();
-
         // Verifica se l'inserimento è stato eseguito con successo
         if ($result) {
             $sql2 = "UPDATE post
@@ -270,6 +283,10 @@ class DatabaseHelper{
             WHERE idPost = ?
             ";   
             $stmt2 = $this->db->prepare($sql2);
+            if (!$stmt2) {
+                // Query preparation failed
+                die("Error preparing update query: " . $this->db->error);
+            }
             $stmt2->bind_param("ii", $post, $post);
             $stmt2->execute();
             return true;
@@ -278,8 +295,7 @@ class DatabaseHelper{
             return false;
         }
     }
-
-    public function isFollowing($follower, $followed) {
+        public function isFollowing($follower, $followed) {
         $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM follow WHERE follower = ? AND followed = ?");
         $stmt->bind_param('ss', $follower, $followed);
         $stmt->execute();

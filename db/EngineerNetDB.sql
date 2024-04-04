@@ -43,6 +43,7 @@ create or replace table comment
     post      int                                   null,
     nLike     int       default 0                   null,
     time      timestamp default current_timestamp() null,
+    parent_comment varchar(200)                     null,
     constraint comment_post_idPost_fk
         foreign key (post) references engineernet.post (idPost),
     constraint comment_user_username_fk

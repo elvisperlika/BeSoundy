@@ -58,8 +58,12 @@
                 <?php endif; ?>
 
                 <a class="respond-button" href="#" data-comment-id="<?php echo $comment['idComment']; ?>">Rispondi</a> 
-                   
 
+                <!-- Aggiungi il form per le risposte sotto ciascun commento -->
+                <form id="replyForm-<?php echo $comment['idComment']; ?>" class="reply-form" action="api/create_comment.php?idPost=<?php echo $post_id; ?>&parent_comment=<?php echo $comment['idComment']; ?>" method="POST" style="display: none;">
+                    <textarea name="write-comment" placeholder="Scrivi una risposta..." rows="1"></textarea>
+                    <input type="submit" value="Invia">
+                </form>
             </div>
         <?php endforeach; ?>
     <?php else : ?>
