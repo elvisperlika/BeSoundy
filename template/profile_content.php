@@ -8,12 +8,16 @@
             <img src="data:image/jpeg;base64,<?php echo base64_encode($userProfileImage); ?>" />
         </div>
         <div id="followersCounter">
-            <p><?php echo $dbh->getFollowersNumber($_GET['user']); ?></p>
-            <p>Followers</p>
+            <a href="network.php?user=<?php echo $_GET['user']; ?>&side=followers">
+                <p><?php echo $dbh->getFollowersNumber($_GET['user']); ?></p>
+                <p>Followers</p>
+            </a>
         </div>
         <div id="followingCounter">
-            <p><?php echo $dbh->getFollowingNumber($_GET['user']); ?></p>
-            <p>Following</p>
+            <a href="network.php?user=<?php echo $_GET['user']; ?>&side=following">
+                <p><?php echo $dbh->getFollowingNumber($_GET['user']); ?></p>
+                <p>Following</p>
+            </a>
         </div>
         <div id="postCounter">
             <p><?php echo $dbh->getPostsNumber($_GET['user']); ?></p>

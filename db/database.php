@@ -154,6 +154,14 @@ class DatabaseHelper{
         return $row["conta"];
     }
 
+    public function getFollowers($user) {
+        $stmt = $this->db->prepare("SELECT follower FROM follow WHERE followed = ?");
+        $stmt->bind_param('s', $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getFollowersNumber($user) {
         $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM follow WHERE followed = ?");
         $stmt->bind_param('s', $user);
@@ -161,6 +169,14 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
         return $row["count"];
+    }
+
+    public function getFollowing($user) {
+        $stmt = $this->db->prepare("SELECT followed FROM follow WHERE follower = ?");
+        $stmt->bind_param('s', $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function getFollowingNumber($user) {
