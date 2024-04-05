@@ -7,5 +7,5 @@
         $dbh->addFollowing($_SESSION["username"], $_GET["user"]);
     }
 
-    header('Location: ../profile.php?user=' . $_GET["user"] . '');
+    // header('Location: ../profile.php?user=' . $_GET["user"] . '');
 ?>
