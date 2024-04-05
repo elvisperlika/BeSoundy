@@ -1,7 +1,13 @@
 <?php
     require("api.php");
     
-    $user_id = loggedUser();
-    $post_id = $_GET["idPost"];
-    $dbh -> unlikesPost($post_id, $user_id);
+    $type = $_GET["type"];
+    $id = $_GET["id"];
+    if ($type === "post") {
+        $dbh->unlikesPost($id, loggedUser());
+    } elseif ($type === "comment") {
+        $dbh->unlikesComment($id, loggedUser());
+    }
+
+    header('Location: ../feed.php');
 ?>
