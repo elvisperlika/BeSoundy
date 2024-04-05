@@ -32,8 +32,8 @@ function showHint(str) {
         xmlhttp.send();
 
         var usersContainer = document.getElementById("txtHint");
-        usersContainer.addEventListener("click", function(followBtn) {
-            pressFollowBtn(followBtn);
+        usersContainer.addEventListener("click", function(event) {
+            pressFollowBtn(event);
         });
     }
     
@@ -43,20 +43,20 @@ function showHint(str) {
  * This function is called when the follow button is clicked
  * and change the text of the button to follow or unfollow
  * and send a request to the server to follow or unfollow a user.
- * @param {followBtn} followBtn is the follow button that is clicked
+ * @param {event} event is the event that is triggered when the follow button is clicked
  */
-function pressFollowBtn(followBtn) {
-    if (followBtn.target.tagName === 'A' && followBtn.target.classList.contains('followButton')) {
-        followBtn.preventDefault(); // Prevent the default action of the link
-        var user = followBtn.target.getAttribute('data-user'); 
+function pressFollowBtn(event) {
+    if (event.target.tagName === 'A' && event.target.classList.contains('followButton')) {
+        event.preventDefault(); // Prevent the default action of the link
+        var user = event.target.getAttribute('data-user'); 
         
         var typeRequest = "";
-        if(followBtn.target.textContent === "Follow"){
+        if(event.target.textContent === "Follow"){
             typeRequest = "follow";
-            followBtn.target.textContent="Unfollow";
+            event.target.textContent="Unfollow";
         } else {
             typeRequest = "unfollow";
-            followBtn.target.textContent="Follow";
+            event.target.textContent="Follow";
         }
 
         var xmlhttp2 = new XMLHttpRequest();
