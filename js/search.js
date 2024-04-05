@@ -1,3 +1,7 @@
+/**
+ * This function is called when the page is loaded
+ * and add an event listener to the search bar to get the text inside.
+ */
 document.addEventListener("DOMContentLoaded", function() {
     var inputElement = document.getElementById("searchBar");
     inputElement.addEventListener("keyup", function(event) {
@@ -7,6 +11,12 @@ document.addEventListener("DOMContentLoaded", function() {
     
 });
 
+/**
+ * This function is called when the user types in the search bar
+ * and send a request to the server to get the users that match the search query.
+ * @param {str} str is the text that is typed in the search bar
+ * @returns 
+ */
 function showHint(str) {
     if (str.length == 0) {
         document.getElementById("txtHint").innerHTML = "";
@@ -22,28 +32,32 @@ function showHint(str) {
         xmlhttp.send();
 
         var usersContainer = document.getElementById("txtHint");
-        usersContainer.addEventListener("click", function(event) {
-            event.preventDefault(); // Previeni il comportamento predefinito del link
-            
-            pressFollowBtn(event);
+        usersContainer.addEventListener("click", function(followBtn) {
+            pressFollowBtn(followBtn);
         });
     }
     
 }
 
-function pressFollowBtn(event) {
-    if (event.target.tagName === 'A' && event.target.classList.contains('followButton')) {
-        var user = event.target.getAttribute('data-user');
-        console.log(user);
+/**
+ * This function is called when the follow button is clicked
+ * and change the text of the button to follow or unfollow
+ * and send a request to the server to follow or unfollow a user.
+ * @param {followBtn} followBtn is the follow button that is clicked
+ */
+function pressFollowBtn(followBtn) {
+    if (followBtn.target.tagName === 'A' && followBtn.target.classList.contains('followButton')) {
+        followBtn.preventDefault(); // Prevent the default action of the link
+        var user = followBtn.target.getAttribute('data-user'); 
+        
         var typeRequest = "";
-        if(event.target.textContent === "Follow"){
+        if(followBtn.target.textContent === "Follow"){
             typeRequest = "follow";
-            event.target.textContent="Unfollow";
+            followBtn.target.textContent="Unfollow";
         } else {
             typeRequest = "unfollow";
-            event.target.textContent="Follow";
+            followBtn.target.textContent="Follow";
         }
-        console.log(typeRequest);
 
         var xmlhttp2 = new XMLHttpRequest();
         xmlhttp2.open("GET", "api/following.php?user=" + user+"&request=" + typeRequest, true);
