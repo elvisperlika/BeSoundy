@@ -200,22 +200,6 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC)[0]["username"];
     }
 
-    public function unlikesPost($post, $user) {
-        $sql = "UPDATE post SET nLike = nLike - 1 WHERE idPost = ?";
-        $stmt = $this -> db-> prepare($sql);
-        $stmt->bind_param("i", $post);
-        $stmt->execute();
-    }
-
-    public function alreadyLikedPost($user, $post){
-        $stmt = $this->db->prepare("SELECT COUNT(*) AS conta FROM like_post WHERE user = ? AND post = ?");
-        $stmt->bind_param('ii', $user, $post);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
-        return $row["conta"];
-    }
-
     public function getFollowers($user) {
         $stmt = $this->db->prepare("SELECT follower FROM follow WHERE followed = ?");
         $stmt->bind_param('s', $user);
