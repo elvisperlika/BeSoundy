@@ -21,4 +21,7 @@ function pressFollowBtn(event) {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "api/following.php?user=" + user+"&request=" + typeRequest, true);
     xmlhttp.send();
+
+    // Reload the page, is util to update the followers and following counters
+    location.reload();
 }

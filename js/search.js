@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function() {
         var inputValue = event.target.value;
         showHint(inputValue);
     });
-    
 });
 
 /**
