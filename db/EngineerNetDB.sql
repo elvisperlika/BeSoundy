@@ -1,24 +1,124 @@
--- Crea il DB
-CREATE DATABASE IF NOT EXISTS EngineerNet;
+DROP DATABASE IF EXISTS EnginnerNet;
 
--- Usa il database creato
-USE EngineerNet;
+CREATE DATABASE IF NOT EXISTS EnginnerNet;
 
-create or replace table user
+USE EnginnerNet;
+
+create or replace table alert_
 (
-    username   varchar(200)  not null
-        primary key,
-    email      varchar(200)  not null,
-    imgProfile blob          null,
-    password   varchar(50)   not null,
-    name       varchar(100)  null,
-    bio        varchar(400)  null,
-    nPost      int default 0 null,
-    nFollower  int default 0 null,
-    nFollowing int default 0 null,
-    constraint user_pk_2
-        unique (email)
+    time        timestamp  default current_timestamp()                                          not null on update current_timestamp(),
+    type        enum ('LIKE_POST', 'LIKE_COMMENT', 'COMMENT_POST', 'COMMENT_COMMENT', 'FOLLOW') not null,
+    idElement   int                                                                             not null,
+    user        varchar(200)                                                                    null comment 'The user that ''create'' the alert.',
+    isAlertRead tinyint(1) default 0                                                            not null
 );
+
+create or replace table comment
+(
+    text           varchar(400)                          not null,
+    idComment      int auto_increment
+        primary key,
+    user           varchar(200)                          null,
+    post           int                                   null,
+    nLike          int       default 0                   null,
+    time           timestamp default current_timestamp() null,
+    parent_comment varchar(200)                          null,
+    constraint comment_post_idPost_fk
+        foreign key (post) references engineernet.post (idPost),
+    constraint comment_user_username_fk
+        foreign key (user) references engineernet.user (username)
+);
+
+create or replace definer = root@localhost trigger alert_comment_comment_trigger
+    after insert
+    on comment
+    for each row
+BEGIN
+    IF NEW.parent_comment IS NOT NULL THEN
+        INSERT INTO alert_(time, type, idElement, user)
+        VALUES (CURRENT_TIMESTAMP, 'COMMENT_COMMENT', NEW.idComment, NEW.user);
+    END IF;
+END;
+
+create or replace definer = root@localhost trigger alert_comment_post_trigger
+    after insert
+    on comment
+    for each row
+BEGIN
+    IF NEW.parent_comment IS NULL THEN
+        INSERT INTO alert_(time, type, idElement, user)
+        VALUES (CURRENT_TIMESTAMP, 'COMMENT_POST', NEW.idComment, NEW.user);
+    END IF;
+END;
+
+create or replace table follow
+(
+    follower  varchar(200) not null,
+    followed  varchar(200) not null,
+    follow_id int auto_increment
+        primary key,
+    constraint follow_pk
+        unique (followed, follower),
+    constraint follow_user_username_fk
+        foreign key (follower) references engineernet.user (username),
+    constraint follow_user_username_fk_2
+        foreign key (followed) references engineernet.user (username),
+    constraint check_not_self_follow
+        check ()
+);
+
+create or replace definer = root@localhost trigger alert_follow_trigger
+    after insert
+    on follow
+    for each row
+BEGIN
+    INSERT INTO alert_(time, type, idElement, user)
+    VALUES (CURRENT_TIMESTAMP, 'FOLLOW', NEW.follow_id, NEW.follower);
+END;
+
+create or replace table like_comment
+(
+    user            varchar(200)                          null,
+    comment         int                                   null,
+    time            timestamp default current_timestamp() null,
+    like_comment_id int auto_increment
+        primary key,
+    constraint like_comment_comment_idComment_fk
+        foreign key (comment) references engineernet.comment (idComment),
+    constraint like_comment_user_username_fk
+        foreign key (user) references engineernet.user (username)
+);
+
+create or replace definer = root@localhost trigger alert_like_comment_trigger
+    after insert
+    on like_comment
+    for each row
+BEGIN
+    INSERT INTO alert_(time, type, idElement, user)
+    VALUES (CURRENT_TIMESTAMP, 'LIKE_COMMENT', NEW.like_comment_id, NEW.user);
+END;
+
+create or replace table like_post
+(
+    post         int                                   null,
+    user         varchar(200)                          null,
+    time         timestamp default current_timestamp() null,
+    like_post_id int auto_increment
+        primary key,
+    constraint like_post_post_idPost_fk
+        foreign key (post) references engineernet.post (idPost),
+    constraint like_user_username_fk
+        foreign key (user) references engineernet.user (username)
+);
+
+create or replace definer = root@localhost trigger alert_like_post_trigger
+    after insert
+    on like_post
+    for each row
+BEGIN
+    INSERT INTO alert_(time, type, idElement, user)
+    VALUES (CURRENT_TIMESTAMP, 'LIKE_POST', NEW.like_post_id, NEW.user);
+END;
 
 create or replace table post
 (
@@ -34,54 +134,20 @@ create or replace table post
         foreign key (username) references engineernet.user (username)
 );
 
-create or replace table comment
+create or replace table user
 (
-    text      varchar(400)                          not null,
-    idComment int auto_increment
+    username   varchar(200)  not null
         primary key,
-    user      varchar(200)                          null,
-    post      int                                   null,
-    nLike     int       default 0                   null,
-    time      timestamp default current_timestamp() null,
-    constraint comment_post_idPost_fk
-        foreign key (post) references engineernet.post (idPost),
-    constraint comment_user_username_fk
-        foreign key (user) references engineernet.user (username)
+    email      varchar(200)  not null,
+    password   varchar(50)   not null,
+    name       varchar(100)  null,
+    bio        varchar(400)  null,
+    nPost      int default 0 null,
+    nFollower  int default 0 null,
+    nFollowing int default 0 null,
+    imgProfile blob          null,
+    constraint user_pk_2
+        unique (email)
 );
 
-create or replace table follow
-(
-    follower varchar(200) not null,
-    followed varchar(200) not null,
-    constraint follow_pk
-        unique (followed, follower),
-    constraint follow_user_username_fk
-        foreign key (follower) references engineernet.user (username),
-    constraint follow_user_username_fk_2
-        foreign key (followed) references engineernet.user (username),
-    constraint check_not_self_follow
-        check (follow.followed not like follow.follower)
-);
-
-create or replace table like_comment
-(
-    user    varchar(200)                          null,
-    comment int                                   null,
-    time    timestamp default current_timestamp() null,
-    constraint like_comment_comment_idComment_fk
-        foreign key (comment) references engineernet.comment (idComment),
-    constraint like_comment_user_username_fk
-        foreign key (user) references engineernet.user (username)
-);
-
-create or replace table like_post
-(
-    post int                                   null,
-    user varchar(200)                          null,
-    time timestamp default current_timestamp() null,
-    constraint like_post_post_idPost_fk
-        foreign key (post) references engineernet.post (idPost),
-    constraint like_user_username_fk
-        foreign key (user) references engineernet.user (username)
-);
 
