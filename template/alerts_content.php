@@ -1,6 +1,6 @@
 <ul id="alertsContainer"> 
     <?php
-        $alerts = $dbh->getAlerts($_SESSION["username"]);
+        $alerts = $dbh->getNewAlerts($_SESSION["username"]);
         foreach($alerts as $alert){
             echo "<li>";
                 echo "<a href='profile.php?user=".$alert["sender"]."'>".$alert["sender"]." </a>";
