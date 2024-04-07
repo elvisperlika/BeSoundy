@@ -333,5 +333,13 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getAlerts($user) {
+        $stmt = $this->db->prepare("SELECT * from alert_ WHERE receiver = ? ORDER BY time DESC");
+        $stmt->bind_param('s', $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>
