@@ -9,8 +9,9 @@ create or replace table alert_
     time        timestamp  default current_timestamp()                                          not null on update current_timestamp(),
     type        enum ('LIKE_POST', 'LIKE_COMMENT', 'COMMENT_POST', 'COMMENT_COMMENT', 'FOLLOW') not null,
     idElement   int                                                                             not null,
-    user        varchar(200)                                                                    null comment 'The user that ''create'' the alert.',
-    isAlertRead tinyint(1) default 0                                                            not null
+    sender      varchar(200)                                                                    not null comment 'The user that ''create'' the alert.',
+    isAlertRead tinyint(1) default 0                                                            not null,
+    receiver    varchar(200)                                                                    null
 );
 
 create or replace table comment
@@ -35,8 +36,12 @@ create or replace definer = root@localhost trigger alert_comment_comment_trigger
     for each row
 BEGIN
     IF NEW.parent_comment IS NOT NULL THEN
-        INSERT INTO alert_(time, type, idElement, user)
-        VALUES (CURRENT_TIMESTAMP, 'COMMENT_COMMENT', NEW.idComment, NEW.user);
+        INSERT INTO alert_(time, type, idElement, sender, receiver)
+        VALUES (CURRENT_TIMESTAMP, 'COMMENT_COMMENT', NEW.idComment, NEW.user, (
+            SELECT post.username
+            FROM post
+            where post.idPost = NEW.parent_comment
+        ));
     END IF;
 END;
 
@@ -46,8 +51,12 @@ create or replace definer = root@localhost trigger alert_comment_post_trigger
     for each row
 BEGIN
     IF NEW.parent_comment IS NULL THEN
-        INSERT INTO alert_(time, type, idElement, user)
-        VALUES (CURRENT_TIMESTAMP, 'COMMENT_POST', NEW.idComment, NEW.user);
+        INSERT INTO alert_(time, type, idElement, sender, receiver)
+        VALUES (CURRENT_TIMESTAMP, 'COMMENT_POST', NEW.idComment, NEW.user, (
+            SELECT post.username
+            FROM post
+            where post.idPost = NEW.post
+        ));
     END IF;
 END;
 
@@ -72,8 +81,12 @@ create or replace definer = root@localhost trigger alert_follow_trigger
     on follow
     for each row
 BEGIN
-    INSERT INTO alert_(time, type, idElement, user)
-    VALUES (CURRENT_TIMESTAMP, 'FOLLOW', NEW.follow_id, NEW.follower);
+    INSERT INTO alert_(time, type, idElement, sender, receiver)
+    VALUES (CURRENT_TIMESTAMP, 'FOLLOW', NEW.follow_id, NEW.follower, (
+            SELECT post.username
+            FROM post
+            where post.idPost = NEW.followed
+        ));
 END;
 
 create or replace table like_comment
@@ -94,8 +107,12 @@ create or replace definer = root@localhost trigger alert_like_comment_trigger
     on like_comment
     for each row
 BEGIN
-    INSERT INTO alert_(time, type, idElement, user)
-    VALUES (CURRENT_TIMESTAMP, 'LIKE_COMMENT', NEW.like_comment_id, NEW.user);
+    INSERT INTO alert_(time, type, idElement, sender, receiver)
+    VALUES (CURRENT_TIMESTAMP, 'LIKE_COMMENT', NEW.like_comment_id, NEW.user, (
+        SELECT post.username
+        FROM post
+        where post.idPost = NEW.comment
+    ));
 END;
 
 create or replace table like_post
@@ -116,8 +133,12 @@ create or replace definer = root@localhost trigger alert_like_post_trigger
     on like_post
     for each row
 BEGIN
-    INSERT INTO alert_(time, type, idElement, user)
-    VALUES (CURRENT_TIMESTAMP, 'LIKE_POST', NEW.like_post_id, NEW.user);
+    INSERT INTO alert_(time, type, idElement, sender, receiver)
+    VALUES (CURRENT_TIMESTAMP, 'LIKE_POST', NEW.like_post_id, NEW.user, (
+        SELECT post.username
+        FROM post
+        where post.idPost = NEW.post
+    ));
 END;
 
 create or replace table post
@@ -149,5 +170,3 @@ create or replace table user
     constraint user_pk_2
         unique (email)
 );
-
-
