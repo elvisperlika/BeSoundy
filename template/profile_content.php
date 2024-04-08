@@ -36,6 +36,9 @@
                 <a href="#" id="editButton" data-user="<?php echo $_SESSION["username"]; ?>" >
                     Edit Profile
                 </a>
+                <a href="logout.php" id="logOut">
+                    log out
+                </a>
             </div>
         <?php else: ?>
             <div id="followButtonContainer">
