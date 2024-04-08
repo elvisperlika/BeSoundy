@@ -3,8 +3,9 @@
         <input id="searchBar" type="text" placeholder="search users" ">
     </form>
     <section>
-        <p>
-            <span id="txtHint"></span>
-        </p>
+        <div id="usersContainer">
+            <ul id="txtHint">
+            </ul>
+        </div>
     </section>
 </div>

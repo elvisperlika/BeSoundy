@@ -1,5 +1,4 @@
 <?php
-    $post = $_GET["post"];
     $post_id = $post["idPost"];
 
     $comments = $dbh->getPostedComment($post_id);
