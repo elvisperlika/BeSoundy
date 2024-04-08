@@ -23,7 +23,7 @@
                 break;
         }
         echo "</span>";
-        echo "<a class='elementBtn' href='#".$alert["idElement"]."'>Show</a>";
-        echo "<a class='deleteBtn' href='#' alert-id=".$alert["idElement"]." alert-receiver=".$alert["receiver"].">Delete</a>";
+        echo "<a class='elementBtn' href='#".$alert["idElement"]."'>show</a>";
+        echo "<a class='deleteBtn' href='#' alert-id=".$alert["idElement"]." alert-receiver=".$alert["receiver"].">delete</a>";
     echo "</li>";
 ?>

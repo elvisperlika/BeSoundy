@@ -335,8 +335,8 @@ class DatabaseHelper{
     }
 
     public function getNewAlerts($user) {
-        $stmt = $this->db->prepare("SELECT * FROM alert_ WHERE isAlertRead = 0 AND receiver = ? ORDER BY time DESC");
-        $stmt->bind_param('s', $user);
+        $stmt = $this->db->prepare("SELECT * FROM alert_ WHERE sender not like ? AND isAlertRead = 0 AND receiver = ? ORDER BY time DESC");
+        $stmt->bind_param('ss', $user, $user);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
