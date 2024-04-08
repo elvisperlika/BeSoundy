@@ -364,5 +364,37 @@ class DatabaseHelper{
         $stmt->bind_param('i', $alert);
         $stmt->execute();
     }
+
+    public function updateName($user, $newName){
+        $sql = "UPDATE user SET name = ? WHERE username = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("ss", $newName, $user);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    public function updateUsername($user, $newUsername){
+        $sql = "UPDATE user SET username = ? WHERE username = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("ss", $newUsername, $user);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    public function updateBio($user, $newBio){
+        $sql = "UPDATE user SET bio = ? WHERE username = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("ss", $newBio, $user);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    public function updateImgProfile($user, $newImg){
+        $sql = "UPDATE user SET imgProfile = ? WHERE username = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("bs", $newImage, $username);
+        $stmt->execute();
+        $stmt->close();
+    }
 }
 ?>

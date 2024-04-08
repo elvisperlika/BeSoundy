@@ -33,7 +33,7 @@
     </div>
         <?php if($_GET["user"] == $_SESSION["username"]): ?>
             <div id="editProfileContainer">
-                <a href="#" id="editButton" data-user="<?php echo $_SESSION["username"]; ?>" >
+                <a href="template/edit_profile.php" id="editButton" data-user="<?php echo $_SESSION["username"]; ?>" >
                     Edit Profile
                 </a>
             </div>
