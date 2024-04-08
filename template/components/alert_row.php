@@ -24,6 +24,6 @@
         }
         echo "</span>";
         echo "<a class='elementBtn' href='#".$alert["idElement"]."'>Show</a>";
-        echo "<a class='deleteBtn' href='#' data-alert=".$alert["username"].">Delete</a>";
+        echo "<a class='deleteBtn' href='#' alert-id=".$alert["idElement"]." alert-receiver=".$alert["receiver"].">Delete</a>";
     echo "</li>";
 ?>
