@@ -14,8 +14,12 @@
     border-radius: 10px;
 }
 
-#alertsContainer li a, span {
-    margin-right: 15px;
+#alertsContainer li a {
+    margin-right: 5px;
+}
+
+#alertsContainer li span {
+    margin-right: 30px;
 }
 
 /* Style for the links within the alert item */

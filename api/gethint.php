@@ -8,16 +8,6 @@
     $q = $_GET["str"];
     $result = $dbh->getUsers($q);
     foreach($result as $user){
-        echo "<li>";
-            echo "<a href='profile.php?user=".$user["username"]." '>".$user["username"]."</a>";
-            if($user["username"] != $_SESSION["username"]){
-                if($dbh->isFollowing($_SESSION["username"], $user["username"])){
-                    echo "<a href='#' class='followButton' data-user=".$user["username"].">Unfollow</a>";
-                }else {
-                    echo "<a href='#' class='followButton' data-user=".$user["username"].">Follow</a>";
-                }
-            }
-        echo "</li>";
+        include '../template/components/user_row.php';
     }
-    
 ?>

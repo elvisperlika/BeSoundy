@@ -1,38 +1,29 @@
-#container {
+div[id="container"] {
     height: 100%;
-    width: 100%;
+    width: auto;
 }
 
-div form {
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#searchBar {
+form {
     display: flex;
-    padding: 5px 10px;
+    justify-content: center;
     align-items: center;
-    gap: 10px;
-
-    border-radius: 20px;
-    border: 1px solid #0D0D0D;
-    background: #FFF;
+    height: auto;
 }
 
-section p {
-    display: flex;
-    padding: var(--y, 0px) 10px;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    flex: 1 0 0;
-    align-self: stretch;
+form input {
+    width: 50%;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
 }
 
-span {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+div [id="usersContainer"] {
+    margin-left: 20%;
+    margin-right: 20%;
 }
+
+ul[id="txtHint"] {
+    list-style-type: none;
+}
+
