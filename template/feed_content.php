@@ -9,8 +9,7 @@
             <p> Nessun post da mostrare. Prova a seguire altri utenti!</p>
         <?php endif ?>
         <?php foreach ($friends_post as $post) {
-            $_GET["post"] = $post;
-            require("post_content.php");
+            include "post_content.php";
         }?>
         <?php $all_post_finished = true; ?>
     </section>

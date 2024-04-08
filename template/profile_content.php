@@ -53,8 +53,7 @@
                 echo "<p> Nessun post da mostrare. </p>";
             }
             foreach ($userPosts as $post) {
-                $_GET["post"] = $post;
-                require("post_content.php");
+                include "post_content.php";
             }
         ?>
     </section>
