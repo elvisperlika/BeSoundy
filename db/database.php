@@ -200,6 +200,14 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC)[0]["username"];
     }
 
+    public function getFollowers($user) {
+        $stmt = $this->db->prepare("SELECT follower FROM follow WHERE followed = ?");
+        $stmt->bind_param('s', $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getFollowersNumber($user) {
         $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM follow WHERE followed = ?");
         $stmt->bind_param('s', $user);
@@ -207,6 +215,14 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
         return $row["count"];
+    }
+
+    public function getFollowing($user) {
+        $stmt = $this->db->prepare("SELECT followed FROM follow WHERE follower = ?");
+        $stmt->bind_param('s', $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function getFollowingNumber($user) {
@@ -316,6 +332,21 @@ class DatabaseHelper{
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getNewAlerts($user) {
+        $stmt = $this->db->prepare("SELECT * FROM alert_ WHERE isAlertRead = 0 AND receiver = ? ORDER BY time DESC");
+        $stmt->bind_param('s', $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function setViewed($alert, $loggedUser) {
+        echo "setted as viewed";
+        $stmt = $this->db->prepare("UPDATE alert_ t SET t.isAlertRead = 1 WHERE t.receiver LIKE 'chiara' AND t.idElement = ?");
+        $stmt->bind_param('i', $alert);
+        $stmt->execute();
     }
 }
 ?>

@@ -8,12 +8,16 @@
             <img src="data:image/jpeg;base64,<?php echo base64_encode($userProfileImage); ?>" />
         </div>
         <div id="followersCounter">
-            <p><?php echo $dbh->getFollowersNumber($_GET['user']); ?></p>
-            <p>Followers</p>
+            <a href="network.php?user=<?php echo $_GET['user']; ?>&side=followers">
+                <p><?php echo $dbh->getFollowersNumber($_GET['user']); ?></p>
+                <p>Followers</p>
+            </a>
         </div>
         <div id="followingCounter">
-            <p><?php echo $dbh->getFollowingNumber($_GET['user']); ?></p>
-            <p>Following</p>
+            <a href="network.php?user=<?php echo $_GET['user']; ?>&side=following">
+                <p><?php echo $dbh->getFollowingNumber($_GET['user']); ?></p>
+                <p>Following</p>
+            </a>
         </div>
         <div id="postCounter">
             <p><?php echo $dbh->getPostsNumber($_GET['user']); ?></p>
@@ -28,16 +32,14 @@
         <p><?php echo $dbh->getUserBio($_GET["user"]); ?></p>       
     </div>
         <?php if($_GET["user"] == $_SESSION["username"]): ?>
-            <div id="editProfile">
-                <a href="edit_profile.php">Edit Profile</a>
+            <div id="editProfileContainer">
+                <a href="#" id="editButton" data-user="<?php echo $_SESSION["username"]; ?>" >
+                    Edit Profile
+                </a>
             </div>
         <?php else: ?>
-            <div id="followButton">
-                <?php if($dbh->isFollowing($_SESSION["username"], $_GET["user"])): ?>
-                    <a href="api/following.php?user=<?php echo $_GET["user"]; ?>&request=unfollow">Unfollow</a>
-                <?php else: ?>
-                    <a href="api/following.php?user=<?php echo $_GET["user"]; ?>&request=follow">Follow</a>
-                <?php endif; ?>
+            <div id="followButtonContainer">
+                <a href="#" id="followButton" data-user="<?php echo $_GET["user"]; ?>"><?php if($dbh->isFollowing($_SESSION["username"], $_GET["user"])): ?>Unfollow<?php else: ?>Follow<?php endif; ?></a>
             </div>
         <?php endif; ?>
     <div>
