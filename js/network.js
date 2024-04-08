@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function() {
 function pressFollowBtn(event) {
     if (event.target.tagName === 'A' && event.target.classList.contains('followBtn') ){
         event.preventDefault(); // Prevent the default action of the link
-        console.log("click");
 
         var user = event.target.getAttribute('data-user'); 
         
