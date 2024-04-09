@@ -404,5 +404,15 @@ class DatabaseHelper{
         
         return $result;    
     }
+
+    public function getMorePosts($lastPostId) {
+        $sql = "SELECT * FROM post P JOIN follow ON P.username = follow.followed WHERE follow.follower = ? AND P.idPost < ? ORDER BY P.idPost DESC LIMIT 10";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param('si', $user, $lastPostId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        return $result;
+    }
 }
 ?>
