@@ -365,36 +365,44 @@ class DatabaseHelper{
         $stmt->execute();
     }
 
-    public function updateName($user, $newName){
+    public function updateName($newName, $user){
         $sql = "UPDATE user SET name = ? WHERE username = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("ss", $newName, $user);
-        $stmt->execute();
+        $result = $stmt->execute();
         $stmt->close();
+        
+        return $result;
     }
 
-    public function updateUsername($user, $newUsername){
+    public function updateUsername($newUsername, $user){
         $sql = "UPDATE user SET username = ? WHERE username = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("ss", $newUsername, $user);
-        $stmt->execute();
+        $result = $stmt->execute();
         $stmt->close();
+        
+        return $result;    
     }
 
-    public function updateBio($user, $newBio){
+    public function updateBio($newBio, $user){
         $sql = "UPDATE user SET bio = ? WHERE username = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("ss", $newBio, $user);
-        $stmt->execute();
+        $result = $stmt->execute();
         $stmt->close();
+        
+        return $result;    
     }
 
-    public function updateImgProfile($user, $newImg){
+    public function updateImgProfile($newImg, $user){
         $sql = "UPDATE user SET imgProfile = ? WHERE username = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("bs", $newImage, $username);
-        $stmt->execute();
+        $stmt->bind_param("bs", $newImg, $user);
+        $result = $stmt->execute();
         $stmt->close();
+        
+        return $result;    
     }
 }
 ?>
