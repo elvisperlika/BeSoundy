@@ -27,7 +27,6 @@ function showAlerts() {
     };
     xmlhttp.open("GET", "api/get_alerts.php", true);
     xmlhttp.send();
-    console.log("show alerts");
 }
 
 setInterval(showAlerts, 5000);

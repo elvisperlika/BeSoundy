@@ -15,8 +15,8 @@
     </div>
 
     <div class="infoPost">
-        <p> <?php echo $post["time"]; ?> </p>
-        <p> <?php echo $post["text"]; ?> </p>
+        <p><?php echo $post["time"]; ?></p>
+        <p><?php echo $post["text"]; ?></p>
     </div>
 
     <div class="body">
@@ -43,10 +43,10 @@
                     <img src="data:image/jpeg;base64,<?php echo base64_encode($comment['imgProfile']); ?>" />                
                     <a href="profile.php?user=<?php echo $comment["user"]; ?>"><?php echo $comment["user"]; ?></a>
                 </div>
-                <p> <?php echo $comment["time"]; ?> </p>
+                <p><?php echo $comment["time"]; ?></p>
                 <p><?php echo $comment['text']; ?></p>
                 
-                <?php     $is_likedC = $dbh -> alreadyLikedComment($user_id, $comment); ?>
+                <?php $is_likedC = $dbh -> alreadyLikedComment($user_id, $comment); ?>
 
                 <?php if ($is_likedC) : ?>
                     <!-- Se l'utente ha già messo like, visualizza il pulsante unlike -->
