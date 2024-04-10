@@ -25,17 +25,17 @@
 
     <div class="like-commenti">
         <?php if ($is_likedP) : ?>
-            <!-- Se l'utente ha già messo like, visualizza il pulsante unlike -->
-            <a class="unlike-button" href="api/unlike.php?type=post&id=<?php echo $post['idPost']; ?>">Like: <?php echo $post['nLike']; ?></a>
+            <!-- Se l'utente ha già messo like, visualizza il pulsante like e rendilo disabilitato -->
+            <button class="like-button liked" data-post-id="<?php echo $post_id; ?>">Like: <?php echo $post['nLike']; ?></button>
         <?php else : ?>
             <!-- Altrimenti, visualizza il pulsante like -->
-            <a class="like-button" href="api/like.php?type=post&id=<?php echo $post['idPost']; ?>">Like: <?php echo $post['nLike']; ?></a>
+            <button class="like-button" data-post-id="<?php echo $post_id; ?>">Like: <?php echo $post['nLike']; ?></button>
         <?php endif; ?>
 
         <a class="comment-button" href="#" data-post-id="<?php echo $post_id; ?>">Commenti: <?php echo $post['nComment']; ?></a>    
-    </div>
-
-<div  id="commentSection-<?php echo $post_id; ?>" class="comments-section">
+    </div>    
+    
+    <div  id="commentSection-<?php echo $post_id; ?>" class="comments-section">
     <?php if (count($comments) > 0) : ?>
         <?php foreach ($comments as $comment) : ?>
             <div class="comment">
@@ -53,8 +53,7 @@
                     <a class="unlike-button" href="api/unlike.php?type=comment&id=<?php echo $comment['idComment']; ?>">Like: <?php echo $comment['nLike']; ?></a>
                 <?php else : ?>
                     <!-- Altrimenti, visualizza il pulsante like -->
-                    <a class="like-button" href="api/like.php?type=comment&id=<?php echo $comment['idComment']; ?>">Like: <?php echo $comment['nLike']; ?></a>
-                <?php endif; ?>
+                    <button class="like-comment-button" data-comment-id="<?php echo $comment['idComment']; ?>">Like: <?php echo $comment['nLike']; ?></button>                <?php endif; ?>
 
                 <a class="respond-button" href="#" data-comment-id="<?php echo $comment['idComment']; ?>">Rispondi</a> 
 
