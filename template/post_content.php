@@ -17,6 +17,11 @@
     <div class="infoPost">
         <p><?php echo $post["time"]; ?></p>
         <p><?php echo $post["text"]; ?></p>
+        <?php
+            if ($post["username"] == $_SESSION["username"]) {
+                echo "<a class='deleteButton' href='#' data-post-id=".$post_id."'>delete</a>";
+            }
+        ?>
     </div>
 
     <div class="body">

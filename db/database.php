@@ -397,5 +397,11 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC)[0];
     }
 
+    public function deletePost($id) {
+        $stmt = $this->db->prepare("DELETE FROM post WHERE idPost = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+    }
+
 }
 ?>
