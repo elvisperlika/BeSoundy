@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+    showAlerts();
     var alertsConatainer = document.getElementById("alertsContainer");
     alertsConatainer.addEventListener("click", function(event) {
         clickAlert(event);
@@ -16,3 +17,16 @@ function clickAlert(event) {
         event.target.parentNode.remove();
     }
 }
+
+function showAlerts() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("alertsContainer").innerHTML = this.responseText;
+        }
+    };
+    xmlhttp.open("GET", "api/get_alerts.php", true);
+    xmlhttp.send();
+}
+
+setInterval(showAlerts, 5000);
