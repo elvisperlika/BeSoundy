@@ -3,7 +3,7 @@
     $all_post_finished = false;
 ?>
 
-<div>
+<div id="postsContainer">
     <section>
         <?php if(empty($friends_post)): ?>
             <p> Nessun post da mostrare. Prova a seguire altri utenti!</p>

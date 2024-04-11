@@ -1,29 +1,31 @@
 <?php
     echo "<li>";
         echo "<a href='profile.php?user=".$alert["sender"]."'>".$alert["sender"]." </a>";
-        echo "<span>";
         switch ($alert["type"]) {
             case 'LIKE_POST':
-                echo "liked your post";
+                echo "<span>liked your post </span>";
+                echo "<a class='elementBtn' href='#".$alert["idElement"]."'>show</a>";
                 break;
             case 'LIKE_COMMENT':
-                echo "liked your comment";
+                echo "<span>liked your comment</span>";
+
+                echo "<a class='elementBtn' href='#".$alert["idElement"]."'>show</a>";
                 break;
             case 'COMMENT_POST':
-                echo "commented on your post";
+                echo "<span>commented on your post</span>";
+                echo "<a class='elementBtn' href='#".$alert["idElement"]."'>show</a>";
                 break;
             case 'COMMENT_COMMENT':
-                echo "replied to your comment";
+                echo "<span>replied to your comment</span>";
+                echo "<a class='elementBtn' href='#".$alert["idElement"]."'>show</a>";
                 break;
             case 'FOLLOW':
-                echo "followed you";
+                echo "<span>followed you</span>";
                 break;
             default:
-                echo "alert error: type not found";
+                echo "<span>alert error: type not found</span>";
                 break;
         }
-        echo "</span>";
-        echo "<a class='elementBtn' href='#".$alert["idElement"]."'>Show</a>";
-        echo "<a class='deleteBtn' href='#' data-alert=".$alert["username"].">Delete</a>";
+        echo "<a class='deleteBtn' href='#' alert-id=".$alert["idElement"]." alert-receiver=".$alert["receiver"].">delete</a>";
     echo "</li>";
 ?>
