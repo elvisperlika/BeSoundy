@@ -274,11 +274,24 @@ class DatabaseHelper{
         }
     }
     
-    public function writeComment($post, $user, $comment){
-        $stmt = $this->db->prepare("INSERT INTO comment (post, user, text) VALUES (?, ?, ?)");
-        $stmt->bind_param('iss', $post, $user, $comment);
+    public function writeComment($post, $user, $comment, $parent_comment = null){
+        if ($parent_comment === null) {
+            $stmt = $this->db->prepare("INSERT INTO comment (post, user, text) VALUES (?, ?, ?)");
+            if (!$stmt) {
+                // Query preparation failed
+                die("Error preparing query: " . $this->db->error);
+            }
+            $stmt->bind_param('iss', $post, $user, $comment);
+        } else {
+            $stmt = $this->db->prepare("INSERT INTO comment (post, user, text, parent_comment) VALUES (?, ?, ?, ?)");
+            if (!$stmt) {
+                // Query preparation failed
+                die("Error preparing query: " . $this->db->error);
+            }
+            $stmt->bind_param('isss', $post, $user, $comment, $parent_comment);
+        }
+    
         $result = $stmt->execute();
-
         // Verifica se l'inserimento è stato eseguito con successo
         if ($result) {
             $sql2 = "UPDATE post
@@ -286,6 +299,10 @@ class DatabaseHelper{
             WHERE idPost = ?
             ";   
             $stmt2 = $this->db->prepare($sql2);
+            if (!$stmt2) {
+                // Query preparation failed
+                die("Error preparing update query: " . $this->db->error);
+            }
             $stmt2->bind_param("ii", $post, $post);
             $stmt2->execute();
             return true;
@@ -294,8 +311,7 @@ class DatabaseHelper{
             return false;
         }
     }
-
-    public function isFollowing($follower, $followed) {
+        public function isFollowing($follower, $followed) {
         $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM follow WHERE follower = ? AND followed = ?");
         $stmt->bind_param('ss', $follower, $followed);
         $stmt->execute();
@@ -403,5 +419,54 @@ class DatabaseHelper{
         $stmt->execute();
     }
 
+    public function updateName($newName, $user){
+        $sql = "UPDATE user SET name = ? WHERE username = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("ss", $newName, $user);
+        $result = $stmt->execute();
+        $stmt->close();
+        
+        return $result;
+    }
+
+    public function updateUsername($newUsername, $user){
+        $sql = "UPDATE user SET username = ? WHERE username = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("ss", $newUsername, $user);
+        $result = $stmt->execute();
+        $stmt->close();
+        
+        return $result;    
+    }
+
+    public function updateBio($newBio, $user){
+        $sql = "UPDATE user SET bio = ? WHERE username = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("ss", $newBio, $user);
+        $result = $stmt->execute();
+        $stmt->close();
+        
+        return $result;    
+    }
+
+    public function updateImgProfile($newImg, $user){
+        $sql = "UPDATE user SET imgProfile = ? WHERE username = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("bs", $newImg, $user);
+        $result = $stmt->execute();
+        $stmt->close();
+        
+        return $result;    
+    }
+
+    public function getMorePosts($lastPostId) {
+        $sql = "SELECT * FROM post P JOIN follow ON P.username = follow.followed WHERE follow.follower = ? AND P.idPost < ? ORDER BY P.idPost DESC LIMIT 10";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param('si', $user, $lastPostId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        return $result;
+    }
 }
 ?>

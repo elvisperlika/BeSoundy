@@ -1,5 +1,5 @@
 <?php
-    require("../bootstrap.php");
+    require("api.php");
 
     // Controlla se sono stati inviati dati dal form
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -11,8 +11,15 @@
             // Ottieni l'ID dell'utente corrente
             $user_id = loggedUser();
 
-            // Aggiungi il commento al post nel database
-            $result = $dbh->writeComment($post_id, $user_id, $_POST["write-comment"]);
+            // Controlla se è stata fornita un'ID del commento genitore (per le risposte)
+            if(isset($_GET["parent_comment"])) {
+                $parent_comment_id = $_GET["parent_comment"];
+                // Aggiungi la risposta al commento nel database
+                $result = $dbh->writeComment($post_id, $user_id, $_POST["write-comment"], $parent_comment_id);
+            } else {
+                // Aggiungi il commento al post nel database
+                $result = $dbh->writeComment($post_id, $user_id, $_POST["write-comment"]);
+            }
 
             if ($result) {
                 // Reindirizza alla pagina del post dopo aver completato l'operazione

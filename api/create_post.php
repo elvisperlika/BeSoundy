@@ -1,5 +1,5 @@
 <?php
-    require("../bootstrap.php");
+    require("api.php");
 
     // Controlla se sono stati inviati dati dal form
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
