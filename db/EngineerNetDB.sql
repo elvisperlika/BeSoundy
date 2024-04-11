@@ -140,7 +140,7 @@ END;
 create or replace table post
 (
     text     varchar(200)                          null,
-    image    blob                                  not null,
+    image    longblob                                  not null,
     username varchar(200)                          null,
     nLike    int       default 0                   null,
     nComment int       default 0                   null,
