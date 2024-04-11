@@ -5,9 +5,8 @@
     $templateParams["nav"] = true;
     $templateParams["profile"] = true;
     $templateParams["content"] = "profile_content.php";
-    $templateParams["script"] = array("js/profile.js", "js/comment.js", "js/post.js");
-    
-    // $templateParams["design"] = array("css/profile.css");
+    $templateParams["script"] = array("js/profile.js");
+    $templateParams["design"] = array("css/profile.css");
 
     require("template/base.php");
 ?>
