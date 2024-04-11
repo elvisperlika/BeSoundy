@@ -16,10 +16,23 @@ document.addEventListener("DOMContentLoaded", function() {
             event.preventDefault(); // Previeni il comportamento predefinito del link
             var commentId = this.getAttribute("data-comment-id"); // Ottieni l'ID del commento associato al pulsante
             var replyForm = document.querySelector("#replyForm-" + commentId); // Seleziona il form di risposta corrispondente
-            toggleReplyForm(replyForm);
+            toggleReplyForm(replyForm); // Mostra/nascondi il form di risposta
+        });
+    });
+
+    // Gestisci il click sul pulsante di invio del commento di risposta
+    document.querySelectorAll(".reply-form button").forEach(function(button) {
+        button.addEventListener("click", function(event) {
+            event.preventDefault(); // Previeni il comportamento predefinito del pulsante
+            var postId = this.getAttribute("data-post-id"); // Ottieni l'ID del post
+            var parentCommentId = this.closest(".comment").getAttribute("data-comment-id"); // Ottieni l'ID del commento genitore
+            var commentText = this.previousElementSibling.value; // Ottieni il testo del commento di risposta
+            // Invia la richiesta AJAX per aggiungere il commento di risposta
+            addReplyComment(postId, parentCommentId, commentText);
         });
     });
 });
+
 
 function toggleCommentShow(commentSection) {
     if (commentSection.style.display === "none") {
