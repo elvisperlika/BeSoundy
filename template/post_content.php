@@ -25,7 +25,7 @@
 
     <div class="like-commenti">
         <?php if ($is_likedP) : ?>
-            <!-- Se l'utente ha già messo like, visualizza il pulsante like e rendilo disabilitato -->
+            <!-- Se l'utente ha già messo like, visualizza il pulsante like -->
             <button class="like-button liked" data-post-id="<?php echo $post_id; ?>">Like: <?php echo $post['nLike']; ?></button>
         <?php else : ?>
             <!-- Altrimenti, visualizza il pulsante like -->
@@ -38,6 +38,12 @@
     <div  id="commentSection-<?php echo $post_id; ?>" class="comments-section">
     <?php if (count($comments) > 0) : ?>
         <?php foreach ($comments as $comment) : ?>
+
+            <?php     
+                $is_likedC = $dbh -> alreadyLikedComment($user_id, $comment); 
+                echo $is_likedC;
+            ?>
+
             <div class="comment">
                 <div class="userInfo">
                     <img src="data:image/jpeg;base64,<?php echo base64_encode($comment['imgProfile']); ?>" />                
@@ -46,14 +52,13 @@
                 <p> <?php echo $comment["time"]; ?> </p>
                 <p><?php echo $comment['text']; ?></p>
                 
-                <?php     $is_likedC = $dbh -> alreadyLikedComment($user_id, $comment); ?>
-
                 <?php if ($is_likedC) : ?>
                     <!-- Se l'utente ha già messo like, visualizza il pulsante unlike -->
-                    <a class="unlike-button" href="api/unlike.php?type=comment&id=<?php echo $comment['idComment']; ?>">Like: <?php echo $comment['nLike']; ?></a>
+                    <button class="unlike-comment-button liked" data-comment-id="<?php echo $comment['idComment']; ?>">Like: <?php echo $comment['nLike']; ?></button>
                 <?php else : ?>
                     <!-- Altrimenti, visualizza il pulsante like -->
-                    <button class="like-comment-button" data-comment-id="<?php echo $comment['idComment']; ?>">Like: <?php echo $comment['nLike']; ?></button>                <?php endif; ?>
+                    <button class="like-comment-button" data-comment-id="<?php echo $comment['idComment']; ?>">Like: <?php echo $comment['nLike']; ?></button>
+                    <?php endif; ?>
 
                 <a class="respond-button" href="#" data-comment-id="<?php echo $comment['idComment']; ?>">Rispondi</a> 
 
