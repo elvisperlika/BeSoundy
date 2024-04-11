@@ -20,7 +20,15 @@
         } 
         else if(isset($_POST["username"]) && isset($_POST["email"]) && isset($_POST["password"])) {
             $dbh->registerUser($_POST["username"], $_POST["email"], $_POST["password"]);
-            header("Location: feed.php");
+
+            $login_result = $dbh->checkLogin($_POST["username"], $_POST["password"]);
+            if(count($login_result)==0){
+                $templateParams["errorelogin"] = "This user doesn't exist!";
+            }
+            else{
+                registerLoggedUser($login_result[0]);
+                header("Location: feed.php");
+            }
         }
     }
     
