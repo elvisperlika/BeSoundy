@@ -25,19 +25,25 @@
 
     <div class="like-commenti">
         <?php if ($is_likedP) : ?>
-            <!-- Se l'utente ha già messo like, visualizza il pulsante unlike -->
-            <a class="unlike-button" href="api/unlike.php?type=post&id=<?php echo $post['idPost']; ?>">Like: <?php echo $post['nLike']; ?></a>
+            <!-- Se l'utente ha già messo like, visualizza il pulsante like -->
+            <button class="like-button liked" data-post-id="<?php echo $post_id; ?>">Like: <?php echo $post['nLike']; ?></button>
         <?php else : ?>
             <!-- Altrimenti, visualizza il pulsante like -->
-            <a class="like-button" href="api/like.php?type=post&id=<?php echo $post['idPost']; ?>">Like: <?php echo $post['nLike']; ?></a>
+            <button class="like-button" data-post-id="<?php echo $post_id; ?>">Like: <?php echo $post['nLike']; ?></button>
         <?php endif; ?>
 
         <a class="comment-button" href="#" data-post-id="<?php echo $post_id; ?>">Commenti: <?php echo $post['nComment']; ?></a>    
-    </div>
-
-<div  id="commentSection-<?php echo $post_id; ?>" class="comments-section">
+    </div>    
+    
+    <div  id="commentSection-<?php echo $post_id; ?>" class="comments-section">
     <?php if (count($comments) > 0) : ?>
         <?php foreach ($comments as $comment) : ?>
+
+            <?php     
+                $is_likedC = $dbh -> alreadyLikedComment($user_id, $comment); 
+                echo $is_likedC;
+            ?>
+
             <div class="comment">
                 <div class="userInfo">
                     <img src="data:image/jpeg;base64,<?php echo base64_encode($comment['imgProfile']); ?>" />                
@@ -46,19 +52,21 @@
                 <p> <?php echo $comment["time"]; ?> </p>
                 <p><?php echo $comment['text']; ?></p>
                 
-                <?php     $is_likedC = $dbh -> alreadyLikedComment($user_id, $comment); ?>
-
                 <?php if ($is_likedC) : ?>
                     <!-- Se l'utente ha già messo like, visualizza il pulsante unlike -->
-                    <a class="unlike-button" href="api/unlike.php?type=comment&id=<?php echo $comment['idComment']; ?>">Like: <?php echo $comment['nLike']; ?></a>
+                    <button class="unlike-comment-button liked" data-comment-id="<?php echo $comment['idComment']; ?>">Like: <?php echo $comment['nLike']; ?></button>
                 <?php else : ?>
                     <!-- Altrimenti, visualizza il pulsante like -->
-                    <a class="like-button" href="api/like.php?type=comment&id=<?php echo $comment['idComment']; ?>">Like: <?php echo $comment['nLike']; ?></a>
-                <?php endif; ?>
+                    <button class="like-comment-button" data-comment-id="<?php echo $comment['idComment']; ?>">Like: <?php echo $comment['nLike']; ?></button>
+                    <?php endif; ?>
 
                 <a class="respond-button" href="#" data-comment-id="<?php echo $comment['idComment']; ?>">Rispondi</a> 
-                   
 
+                <!-- Aggiungi il form per le risposte sotto ciascun commento -->
+                <form id="replyForm-<?php echo $comment['idComment']; ?>" class="reply-form" action="api/create_comment.php?idPost=<?php echo $post_id; ?>&parent_comment=<?php echo $comment['idComment']; ?>" method="POST" style="display: none;">
+                    <textarea name="write-comment" placeholder="Scrivi una risposta..." rows="1"></textarea>
+                    <input type="submit" value="Invia">
+                </form>
             </div>
         <?php endforeach; ?>
     <?php else : ?>
