@@ -374,16 +374,16 @@ class DatabaseHelper{
         return $result;
     }
 
-    public function updateUsername($newUsername, $user){
-        $sql = "UPDATE user SET username = ? WHERE username = ?";
+    public function updatePassword($newPassword, $user){
+        $sql = "UPDATE user SET password = ? WHERE username = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("ss", $newUsername, $user);
+        $stmt->bind_param("ss", $newPassword, $user);
         $result = $stmt->execute();
         $stmt->close();
         
         return $result;    
     }
-
+    
     public function updateBio($newBio, $user){
         $sql = "UPDATE user SET bio = ? WHERE username = ?";
         $stmt = $this->db->prepare($sql);
