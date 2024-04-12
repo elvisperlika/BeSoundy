@@ -18,7 +18,7 @@
         <p><?php echo $post["time"]; ?></p>
         <p><?php echo $post["text"]; ?></p>
         <?php
-            if ($post["username"] == $_SESSION["username"]) {
+            if ($post["username"] == $_SESSION["username"] && $templateParams["title"] == "Profile") {
                 echo "<a class='deleteButton' href='#' data-post-id=".$post_id."'>delete</a>";
             }
         ?>
