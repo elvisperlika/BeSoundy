@@ -11,10 +11,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST["name"]) || isset($_POST["newPassword"]) || isset($_POST["bio"]) || isset($_FILES["profilePic"]["tmp_name"])) {
         $user_id = loggedUser();
 
+        
+
         // Aggiorna l'immagine del profilo
         if (isset($_FILES["profilePic"]["tmp_name"])) {
             if ($_FILES["profilePic"]["error"] === UPLOAD_ERR_OK) {
                 $newImage = file_get_contents($_FILES["profilePic"]["tmp_name"]);
+
                 $modifiche_eseguite = $dbh->updateImgProfile($newImage, $user_id);
                 if (!$modifiche_eseguite) {
                     $error_message .= "Errore durante l'aggiornamento dell'immagine del profilo. ";
@@ -55,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 // Se almeno una modifica è stata eseguita con successo, reindirizza a profile.php
 if ($modifiche_eseguite) {
-    header("Location: ../profile.php");
+    header("Location: ../profile.php?user=".$_SESSION['username']."");
     exit();
 } else {
     // Altrimenti, rimani sulla pagina di modifica del profilo e visualizza il messaggio di errore
