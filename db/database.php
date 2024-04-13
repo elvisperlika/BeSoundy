@@ -397,7 +397,7 @@ class DatabaseHelper{
     public function updateImgProfile($newImg, $user){
         $sql = "UPDATE user SET imgProfile = ? WHERE username = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("bs", $newImg, $user);
+        $stmt->bind_param("ss", $newImg, $user);
         $result = $stmt->execute();
         $stmt->close();
         
