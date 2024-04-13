@@ -56,8 +56,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $error_message = "Nessuna modifica effettuata.";
     }
 }
-
-// Se si è arrivati a questo punto, nessuna modifica è stata eseguita con successo o il form non è stato inviato
-// Visualizza il messaggio di errore
-echo $error_message;
 ?>
+
+<!-- Utilizza PHP per stampare il messaggio di errore -->
+<?php if (!empty($error_message)) : ?>
+    <script>
+        alert('<?php echo $error_message; ?>');
+        window.setTimeout(function() {
+            window.location.href = "../profile.php?user=<?php echo $_SESSION['username']; ?>";
+        }, 100); // Reindirizza dopo 3 secondi (3000 millisecondi)
+    </script>
+<?php endif; ?>
