@@ -20,7 +20,7 @@
         } 
         else if(isset($_POST["username"]) && isset($_POST["email"]) && isset($_POST["password"])) {
             $dbh->registerUser($_POST["username"], $_POST["email"], $_POST["password"]);
-            header("Location: feed.php");
+            header("Location: login.php");
         }
     }
     
