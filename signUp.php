@@ -46,7 +46,6 @@ $templateParams["design"] = array("css/signUp.css", "css/style.css");
         header("Location: feed.php");
         exit(); // Assicurati di terminare lo script dopo il reindirizzamento
     }
-}
 
 // Se non è stato inviato il form, visualizza la pagina di registrazione
 require("template/base.php");
