@@ -32,11 +32,11 @@ function toggleCommentShow(commentSection) {
 }
 
 function toggleReplyForm(reply, userName) {
-    if (reply.style.display === "none") {
+    var currentDisplayStyle = window.getComputedStyle(reply).display;
+    if (currentDisplayStyle === "none" || currentDisplayStyle === "") {
         reply.style.display = "block";
         // Aggiungi il nome dell'utente a cui si sta rispondendo al form di risposta
         reply.querySelector('textarea').value = "@" + userName + " ";
-        
     } else {
         reply.style.display = "none";
     }
@@ -92,14 +92,21 @@ document.addEventListener("DOMContentLoaded", function() {
             event.preventDefault();
             var postId = this.getAttribute("data-post-id");
             var commentId = this.getAttribute("data-comment-id");
+            var userName = this.closest(".comment").querySelector(".userInfo a").textContent; // Ottieni il nome dell'utente a cui si sta rispondendo
             var text = document.getElementById("replyForm-" + commentId).value;
-            addReplyComment(postId, commentId, text); // Passa entrambi gli ID come parametri
+            addReplyComment(postId, commentId, text, userName); // Passa entrambi gli ID come parametri
         });
     });
 });
 
 // Funzione per inviare una richiesta AJAX per aggiungere un commento di risposta
-function addReplyComment(postId, parent_comment, commentText) {
+function addReplyComment(postId, parent_comment, commentText, userName) {
+    // Verifica se il testo del commento non è vuoto (contiene solo il nome utente preceduto da "@")
+    if (commentText.trim().length === 0 || commentText.trim() === "@" + userName) {
+        console.error("Il commento di risposta non può essere vuoto.");
+        return; // Interrompi l'esecuzione della funzione se il commento è vuoto
+    }
+    
     // Effettua la richiesta AJAX
     $.ajax({
         type: "POST",

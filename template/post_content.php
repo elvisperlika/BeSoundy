@@ -46,7 +46,6 @@
 
             <?php     
                 $is_likedC = $dbh -> alreadyLikedComment($user_id, $comment); 
-                echo $is_likedC;
             ?>
 
             <div class="comment">
@@ -72,6 +71,7 @@
                     <textarea id="replyForm-<?php echo $comment['idComment']; ?>" placeholder="Inserisci una risposta..." rows="3"></textarea>
                     <button class="reply-form-button" data-post-id="<?php echo $post_id; ?>" data-comment-id="<?php echo $comment['idComment']; ?>">Invia</button>
                 </div>
+                
             </div>
         <?php endforeach; ?>
     <?php else : ?>
