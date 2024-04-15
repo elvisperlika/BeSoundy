@@ -11,7 +11,8 @@ create or replace table alert_
     idElement   int                                                                             not null,
     sender      varchar(200)                                                                    not null comment 'The user that ''create'' the alert.',
     isAlertRead tinyint(1) default 0                                                            not null,
-    receiver    varchar(200)                                                                    null
+    receiver    varchar(200)                                                                    null,
+    post        int                                                                             null
 );
 
 create or replace table comment
@@ -36,12 +37,12 @@ create or replace definer = root@localhost trigger alert_comment_comment_trigger
     for each row
 BEGIN
     IF NEW.parent_comment IS NOT NULL THEN
-        INSERT INTO alert_(time, type, idElement, sender, receiver)
+        INSERT INTO alert_(time, type, idElement, sender, receiver, post)
         VALUES (CURRENT_TIMESTAMP, 'COMMENT_COMMENT', NEW.idComment, NEW.user, (
             SELECT C.user
             FROM comment C
             where C.idComment = NEW.parent_comment
-        ));
+        ), NEW.post);
     END IF;
 END;
 
@@ -51,12 +52,12 @@ create or replace definer = root@localhost trigger alert_comment_post_trigger
     for each row
 BEGIN
     IF NEW.parent_comment IS NULL THEN
-        INSERT INTO alert_(time, type, idElement, sender, receiver)
+        INSERT INTO alert_(time, type, idElement, sender, receiver, post)
         VALUES (CURRENT_TIMESTAMP, 'COMMENT_POST', NEW.idComment, NEW.user, (
             SELECT post.username
             FROM post
             where post.idPost = NEW.post
-        ));
+        ), NEW.post);
     END IF;
 END;
 
@@ -103,12 +104,14 @@ create or replace definer = root@localhost trigger alert_like_comment_trigger
     on like_comment
     for each row
 BEGIN
-    INSERT INTO alert_(time, type, idElement, sender, receiver)
+    INSERT INTO alert_(time, type, idElement, sender, receiver, post)
     VALUES (CURRENT_TIMESTAMP, 'LIKE_COMMENT', NEW.like_comment_id, NEW.user, (
         SELECT comment.user
         FROM comment
         where comment.idComment = NEW.comment
-    ));
+    ), (select post
+        from comment
+        where comment.idComment = NEW.comment));
 END;
 
 create or replace table like_post
@@ -129,18 +132,18 @@ create or replace definer = root@localhost trigger alert_like_post_trigger
     on like_post
     for each row
 BEGIN
-    INSERT INTO alert_(time, type, idElement, sender, receiver)
+    INSERT INTO alert_(time, type, idElement, sender, receiver, post)
     VALUES (CURRENT_TIMESTAMP, 'LIKE_POST', NEW.like_post_id, NEW.user, (
         SELECT post.username
         FROM post
         where post.idPost = NEW.post
-    ));
+    ), NEW.post);
 END;
 
 create or replace table post
 (
     text     varchar(200)                          null,
-    image    longblob                                  not null,
+    image    longblob                              not null,
     username varchar(200)                          null,
     nLike    int       default 0                   null,
     nComment int       default 0                   null,
@@ -150,6 +153,22 @@ create or replace table post
     constraint post_user_username_fk
         foreign key (username) references engineernet.user (username)
 );
+
+create or replace definer = root@localhost trigger delete_post_trigger
+    after delete
+    on post
+    for each row
+begin
+    delete from comment where post = old.idPost;
+    delete from like_comment where comment in (select idComment
+                                               from comment
+                                               where post = old.idPost);
+    delete from like_post where post = old.idPost;
+    delete from like_comment where comment in (select idComment
+                                               from comment
+                                               where post = old.idPost);
+    delete from alert_ where old.idPost = alert_.post;
+end;
 
 create or replace table user
 (
@@ -166,5 +185,4 @@ create or replace table user
     constraint user_pk_2
         unique (email)
 );
-
 

@@ -364,6 +364,61 @@ class DatabaseHelper{
         $stmt->execute();
     }
 
+    public function getPostByElementIdAndType($alertIdElement, $alertType) {
+            switch ($alertType) {
+                case 'LIKE_POST':
+                $stmt = $this->db->prepare("SELECT *
+                                            FROM post
+                                            WHERE idPost = (SELECT post
+                                                            FROM like_post
+                                                            WHERE like_post_id = ?);");
+                    break;
+                case 'LIKE_COMMENT':
+                $stmt = $this->db->prepare("SELECT *
+                                            FROM post
+                                            WHERE idPost = (SELECT post
+                                                            FROM comment
+                                                            WHERE idComment = (SELECT comment
+                                                                            FROM like_comment
+                                                                            WHERE like_comment_id = ?));");
+                break;
+                case 'COMMENT_POST':
+                $stmt = $this->db->prepare("SELECT *
+                                            FROM post
+                                            WHERE idPost = (SELECT post
+                                                            FROM comment
+                                                            WHERE idComment = ?);");
+                break;
+                case 'COMMENT_COMMENT':
+                $stmt = $this->db->prepare("SELECT *
+                                            FROM post
+                                            WHERE idPost = (SELECT post
+                                                            FROM comment
+                                                            WHERE idComment = ?);");
+                break;    
+                default:
+                    break;
+            }
+            $stmt->bind_param('i', $alertIdElement);                                                        
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return $result->fetch_all(MYSQLI_ASSOC)[0];
+    }
+
+    public function getPostById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE idPost = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC)[0];
+    }
+
+    public function deletePost($id) {
+        $stmt = $this->db->prepare("DELETE FROM post WHERE idPost = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+    }
+
     public function updateName($newName, $user){
         $sql = "UPDATE user SET name = ? WHERE username = ?";
         $stmt = $this->db->prepare($sql);
