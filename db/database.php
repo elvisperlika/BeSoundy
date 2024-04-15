@@ -39,10 +39,10 @@ class DatabaseHelper{
         return $result->num_rows > 0;
     }
 
-    public function registerUser($username, $email, $password){
-        $query = "INSERT INTO user (username, email, password) VALUES (?, ?, ?)";
+    public function registerUser($username, $email, $password, $profilePicPath) {
+        $query = "INSERT INTO user (username, email, password, imgProfile) VALUES (?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('sss',$username, $email, $password);
+        $stmt->bind_param('ssss', $username, $email, $password, $profilePicPath);
         $stmt->execute();
     }
 
