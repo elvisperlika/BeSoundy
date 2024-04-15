@@ -69,22 +69,15 @@
 
                 <a class="respond-button" href="#" data-comment-id="<?php echo $comment['idComment']; ?>">Rispondi</a> 
 
-                <!-- Aggiungi il form per le risposte sotto ciascun commento -->
-                <form id="replyForm-<?php echo $comment['idComment']; ?>" class="reply-form" action="api/create_comment.php?idPost=<?php echo $post_id; ?>&parent_comment=<?php echo $comment['idComment']; ?>" method="POST" style="display: none;">
-                    <textarea name="write-comment" placeholder="Scrivi una risposta..." rows="1"></textarea>
-                    <input type="submit" value="Invia">
-                </form>
+                <textarea id="replyForm-<?php echo $comment['idComment']; ?>" placeholder="Inserisci una risposta..." rows="3"></textarea>
+                <button class="reply-form" data-post-id="<?php echo $comment['idComment']; ?>">Invia</button>
             </div>
         <?php endforeach; ?>
     <?php else : ?>
         <p>Non ci sono commenti.</p>
     <?php endif; ?>
 
-    <form action="api/create_comment.php?idPost=<?php echo $post_id ?>&comment_author=<?php echo $post["username"]?>" method="POST">
-        <img src="data:image/jpeg;base64,<?php echo base64_encode($profile_image_post); ?>" />                
-        <label for="write-comment-<?php echo $post_id ?>" hidden>Scrivi un commento</label>
-        <textarea id="write-comment-<?php echo $post_id ?>" name="write-comment" placeholder="Scrivi un commento..." rows="1"></textarea>
-        <input type="submit" value="Invia">
-    </form>
+    <textarea id="comment-text-<?php echo $post_id; ?>" placeholder="Inserisci il tuo commento..." rows="3"></textarea>
+    <button class="add-comment-button" data-post-id="<?php echo $post_id; ?>">Invia</button>
 </div>
 </article>

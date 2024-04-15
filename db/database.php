@@ -39,10 +39,10 @@ class DatabaseHelper{
         return $result->num_rows > 0;
     }
 
-    public function registerUser($username, $email, $password){
-        $query = "INSERT INTO user (username, email, password) VALUES (?, ?, ?)";
+    public function registerUser($username, $email, $password, $profilePicPath) {
+        $query = "INSERT INTO user (username, email, password, imgProfile) VALUES (?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('sss',$username, $email, $password);
+        $stmt->bind_param('ssss', $username, $email, $password, $profilePicPath);
         $stmt->execute();
     }
 
@@ -429,16 +429,16 @@ class DatabaseHelper{
         return $result;
     }
 
-    public function updateUsername($newUsername, $user){
-        $sql = "UPDATE user SET username = ? WHERE username = ?";
+    public function updatePassword($newPassword, $user){
+        $sql = "UPDATE user SET password = ? WHERE username = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("ss", $newUsername, $user);
+        $stmt->bind_param("ss", $newPassword, $user);
         $result = $stmt->execute();
         $stmt->close();
         
         return $result;    
     }
-
+    
     public function updateBio($newBio, $user){
         $sql = "UPDATE user SET bio = ? WHERE username = ?";
         $stmt = $this->db->prepare($sql);
@@ -452,7 +452,7 @@ class DatabaseHelper{
     public function updateImgProfile($newImg, $user){
         $sql = "UPDATE user SET imgProfile = ? WHERE username = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("bs", $newImg, $user);
+        $stmt->bind_param("ss", $newImg, $user);
         $result = $stmt->execute();
         $stmt->close();
         
