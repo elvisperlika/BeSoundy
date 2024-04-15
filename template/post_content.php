@@ -68,9 +68,10 @@
                     <?php endif; ?>
 
                 <a class="respond-button" href="#" data-comment-id="<?php echo $comment['idComment']; ?>">Rispondi</a> 
-
-                <textarea id="replyForm-<?php echo $comment['idComment']; ?>" placeholder="Inserisci una risposta..." rows="3"></textarea>
-                <button class="reply-form" data-post-id="<?php echo $comment['idComment']; ?>">Invia</button>
+                <div id="reply-<?php echo $comment['idComment']; ?>" class="respond-section">
+                    <textarea id="replyForm-<?php echo $comment['idComment']; ?>" placeholder="Inserisci una risposta..." rows="3"></textarea>
+                    <button class="reply-form-button" data-post-id="<?php echo $post_id; ?>" data-comment-id="<?php echo $comment['idComment']; ?>">Invia</button>
+                </div>
             </div>
         <?php endforeach; ?>
     <?php else : ?>

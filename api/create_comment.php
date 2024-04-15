@@ -36,4 +36,3 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Invia una risposta JSON indicando che i dati non sono stati inviati tramite metodo POST
     echo json_encode(["success" => false, "message" => "Errore: dati non inviati tramite metodo POST."]);
 }
-?>

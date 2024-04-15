@@ -1,3 +1,4 @@
+//funzioni per hide/show commenti/risposte
 document.addEventListener("DOMContentLoaded", function() {
     var toggleButtons = document.querySelectorAll(".comment-button");
     var replyButtons = document.querySelectorAll(".respond-button");
@@ -15,24 +16,12 @@ document.addEventListener("DOMContentLoaded", function() {
         button.addEventListener("click", function(event) {
             event.preventDefault(); // Previeni il comportamento predefinito del link
             var commentId = this.getAttribute("data-comment-id"); // Ottieni l'ID del commento associato al pulsante
-            var replyForm = document.querySelector("#replyForm-" + commentId); // Seleziona il form di risposta corrispondente
-            toggleReplyForm(replyForm); // Mostra/nascondi il form di risposta
-        });
-    });
-
-    // Gestisci il click sul pulsante di invio del commento di risposta
-    document.querySelectorAll(".reply-form button").forEach(function(button) {
-        button.addEventListener("click", function(event) {
-            event.preventDefault(); // Previeni il comportamento predefinito del pulsante
-            var postId = this.getAttribute("data-post-id"); // Ottieni l'ID del post
-            var parentCommentId = this.closest(".comment").getAttribute("data-comment-id"); // Ottieni l'ID del commento genitore
-            var commentText = this.previousElementSibling.value; // Ottieni il testo del commento di risposta
-            // Invia la richiesta AJAX per aggiungere il commento di risposta
-            addReplyComment(postId, parentCommentId, commentText);
+            var userName = this.closest(".comment").querySelector(".userInfo a").textContent; // Ottieni il nome dell'utente a cui si sta rispondendo
+            var replyForm = document.querySelector("#reply-" + commentId); // Seleziona il form di risposta corrispondente
+            toggleReplyForm(replyForm, userName); // Mostra/nascondi il form di risposta
         });
     });
 });
-
 
 function toggleCommentShow(commentSection) {
     if (commentSection.style.display === "none") {
@@ -42,14 +31,18 @@ function toggleCommentShow(commentSection) {
     }
 }
 
-function toggleReplyForm(replyForm) {
-    if (replyForm.style.display === "none") {
-        replyForm.style.display = "block";
+function toggleReplyForm(reply, userName) {
+    if (reply.style.display === "none") {
+        reply.style.display = "block";
+        // Aggiungi il nome dell'utente a cui si sta rispondendo al form di risposta
+        reply.querySelector('textarea').value = "@" + userName + " ";
+        
     } else {
-        replyForm.style.display = "none";
+        reply.style.display = "none";
     }
 }
 
+//funzioni per aggiungere commenti/risposte
 document.addEventListener("DOMContentLoaded", function() {
     var addCommentButtons = document.querySelectorAll(".add-comment-button");
 
@@ -91,16 +84,45 @@ function addComment(postId, commentText) {
     });
 }
 
-// Gestisci il submit del form per l'aggiunta di un commento
-$("form[action^='api/create_comment.php']").submit(function(event) {
-    event.preventDefault(); // Previeni il comportamento predefinito del form
-    var postId = $(this).data("post-id"); // Ottieni l'ID del post associato al form
-    var commentText = $(this).find("textarea[name='write-comment']").val(); // Ottieni il testo del commento
-    if (commentText.trim() !== "") {
-        // Se il commento non è vuoto, invia la richiesta AJAX per aggiungere il commento
-        addComment(postId, commentText);
-    } else {
-        // Il commento è vuoto, gestisci l'errore nell'interfaccia utente se necessario
-        console.error("Il commento non può essere vuoto.");
-    }
+document.addEventListener("DOMContentLoaded", function() {
+    var addReplyButtons = document.querySelectorAll(".reply-form-button");
+
+    addReplyButtons.forEach(function(button) {
+        button.addEventListener("click", function(event) {
+            event.preventDefault();
+            var postId = this.getAttribute("data-post-id");
+            var commentId = this.getAttribute("data-comment-id");
+            var text = document.getElementById("replyForm-" + commentId).value;
+            addReplyComment(postId, commentId, text); // Passa entrambi gli ID come parametri
+        });
+    });
 });
+
+// Funzione per inviare una richiesta AJAX per aggiungere un commento di risposta
+function addReplyComment(postId, parent_comment, commentText) {
+    // Effettua la richiesta AJAX
+    $.ajax({
+        type: "POST",
+        url: "api/create_comment.php?idPost=" + postId + "&parent_comment=" + parent_comment,
+        data: { "write-comment": commentText },
+        success: function(response) {
+            // Gestisci la risposta dal server
+            var jsonResponse = JSON.parse(response);
+            if (jsonResponse.success) {
+                // Il commento è stato aggiunto con successo, aggiorna l'interfaccia utente se necessario
+                console.log("Commento aggiunto con successo.");
+                // Esempio: ricarica la pagina per aggiornare i commenti
+                window.location.reload();
+            } else {
+                // Si è verificato un errore durante l'aggiunta del commento
+                console.error("Errore durante l'aggiunta del commento:", jsonResponse.message);
+                // Gestisci l'errore nell'interfaccia utente se necessario
+            }
+        },
+        error: function(xhr, status, error) {
+            // Gestisci gli errori se ci sono stati problemi con la richiesta AJAX
+            console.error("Errore durante l'invio del commento:", error);
+            // Gestisci l'errore nell'interfaccia utente se necessario
+        }
+    });
+}

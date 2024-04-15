@@ -469,4 +469,3 @@ class DatabaseHelper{
         return $result;
     }
 }
-?>
