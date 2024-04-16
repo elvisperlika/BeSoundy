@@ -2,56 +2,68 @@
 require("api.php");
 
 // Controlla se sono state apportate modifiche
-$modifiche_eseguite = true;
+$modifiche_eseguite = false;
 $error_message = "";
 
 // Controlla se il form è stato inviato
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Controlla se almeno uno dei campi è stato compilato
-    if (isset($_POST["newName"]) || isset($_POST["newUsername"]) || isset($_POST["newBio"]) || isset($_FILES["newImg"]["name"])) {
-        $user_id = loggedUser();
+    $user_id = loggedUser();
+    // Inizializza le variabili per contenere i valori da aggiornare
+    $newName = isset($_POST["name"]) ? $_POST["name"] : null;
+    $newPassword = isset($_POST["newPassword"]) ? $_POST["newPassword"] : null;
+    $newBio = isset($_POST["bio"]) ? $_POST["bio"] : null;
+    $newImage = null;
 
-        // Aggiorna il nome
-        if (isset($_POST["newName"])) {
-            $modifiche_eseguite = $dbh->updateName($_POST["newName"], $user_id);
-            if (!$modifiche_eseguite) {
-                $error_message .= "Errore durante l'aggiornamento del nome. ";
+    // Controlla se almeno uno dei campi è stato compilato
+    if (!empty($newName) || !empty($newPassword) || !empty($newBio) || (isset($_FILES["profilePic"]) && $_FILES["profilePic"]["error"] == 0)) {
+        // Aggiorna l'immagine del profilo se è stata caricata una nuova immagine
+        if (isset($_FILES["profilePic"]["tmp_name"])) {
+            if ($_FILES["profilePic"]["error"] === UPLOAD_ERR_OK) {
+                $newImage = file_get_contents($_FILES["profilePic"]["tmp_name"]);
+            } else {
+                $error_message .= "Errore durante il caricamento dell'immagine del profilo. ";
             }
         }
-        // Aggiorna lo username
-        if (isset($_POST["newUsername"])) {
-            $modifiche_eseguite = $dbh->updateUsername($_POST["newUsername"], $user_id);
-            if (!$modifiche_eseguite) {
-                $error_message .= "Errore durante l'aggiornamento dell'username. ";
-            }
+
+        // Aggiorna il nome se è stato fornito un nuovo nome
+        if (!empty($newName)) {
+            $modifiche_eseguite = $dbh->updateName($newName, $user_id);
         }
-        // Aggiorna la bio
-        if (isset($_POST["newBio"])) {
-            $modifiche_eseguite = $dbh->updateBio($_POST["newBio"], $user_id);
-            if (!$modifiche_eseguite) {
-                $error_message .= "Errore durante l'aggiornamento della bio. ";
-            }
+
+        // Aggiorna la password se è stata fornita una nuova password
+        if (!empty($newPassword)) {
+            $modifiche_eseguite = $dbh->updatePassword($newPassword, $user_id);
         }
-        // Aggiorna l'immagine del profilo
-        if (isset($_FILES["newImg"]["name"])) {
-            $newImage = file_get_contents($_FILES["newImg"]["tmp_name"]);
+
+        // Aggiorna la bio se è stata fornita una nuova bio
+        if (!empty($newBio)) {
+            $modifiche_eseguite = $dbh->updateBio($newBio, $user_id);
+        }
+
+        // Aggiorna l'immagine del profilo se è stata caricata una nuova immagine
+        if ($newImage !== null) {
             $modifiche_eseguite = $dbh->updateImgProfile($newImage, $user_id);
-            if (!$modifiche_eseguite) {
-                $error_message .= "Errore durante l'aggiornamento dell'immagine del profilo. ";
-            }
+        }
+
+        if ($modifiche_eseguite) {
+            // Almeno una modifica è stata eseguita con successo
+            header("Location: ../profile.php?user=".$_SESSION['username']."");
+            exit();
+        } else {
+            $error_message = "Nessuna modifica effettuata.";
         }
     } else {
         $error_message = "Nessuna modifica effettuata.";
-        $modifiche_eseguite = false;
     }
 }
-
-// Se almeno una modifica è stata eseguita con successo, reindirizza a profile.php
-if ($modifiche_eseguite) {
-    header("Location: ../profile.php");
-    exit();
-} else {
-    // Altrimenti, rimani sulla pagina di modifica del profilo e visualizza il messaggio di errore
-    echo $error_message;
-}
 ?>
+
+<!-- Utilizza PHP per stampare il messaggio di errore -->
+<?php if (!empty($error_message)) : ?>
+    <script>
+        alert('<?php echo $error_message; ?>');
+        window.setTimeout(function() {
+            window.location.href = "../profile.php?user=<?php echo $_SESSION['username']; ?>";
+        }, 100); // Reindirizza dopo 3 secondi (3000 millisecondi)
+    </script>
+<?php endif; ?>

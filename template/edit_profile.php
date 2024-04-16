@@ -1,24 +1,24 @@
 <form action="../api/modify_profile.php" method="POST" enctype="multipart/form-data">
     <div id="editProfileContainer">
         <!-- Modifica immagine profilo -->
-        <div id="profileImage">
+        <div id="profilePicDiv">
             <label for="profilePic">Cambia immagine profilo:</label>
             <input type="file" id="profilePic" name="profilePic" accept="image/*">
         </div>
         <!-- Modifica nome, nome utente, bio -->
         <div id="editProfileContainer">
             <!-- Modifica nome -->
-            <div id="fullNameContainer">
-                <label for="fullName">New Name:</label>
-                <input type="text" id="fullName" name="fullName">
+            <div id="newNameContainer">
+                <label for="name">New Name:</label>
+                <input type="text" id="name" name="name">
             </div>
-            <!-- Modifica username -->
-            <div id="usernameContainer">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username">
+            <!-- Modifica password -->
+            <div id="newPasswordContainer">
+                <label for="newPassword">New Password:</label>
+                <input type="password" id="newPassword" name="newPassword">
             </div>
             <!-- Modifica bio -->
-            <div id="bioContainer">
+            <div id="newBioContainer">
                 <label for="bio">Bio:</label>
                 <textarea id="bio" name="bio" rows="4"></textarea>
             </div>
