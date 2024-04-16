@@ -61,6 +61,16 @@ BEGIN
     END IF;
 END;
 
+CREATE TABLE replies (
+    idReply INT AUTO_INCREMENT PRIMARY KEY,
+    idComment INT,
+    username varchar (200) not null,
+    reply_text varchar (200) not null,
+    reply_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (idComment) REFERENCES comment(idComment),
+    FOREIGN KEY (username) REFERENCES user(username)
+);
+
 create or replace table follow
 (
     follower  varchar(200) not null,

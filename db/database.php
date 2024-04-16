@@ -274,43 +274,98 @@ class DatabaseHelper{
         }
     }
     
-    public function writeComment($post, $user, $comment, $parent_comment = null){
-        if ($parent_comment === null) {
-            $stmt = $this->db->prepare("INSERT INTO comment (post, user, text) VALUES (?, ?, ?)");
-            if (!$stmt) {
-                // Query preparation failed
-                die("Error preparing query: " . $this->db->error);
-            }
-            $stmt->bind_param('iss', $post, $user, $comment);
-        } else {
-            $stmt = $this->db->prepare("INSERT INTO comment (post, user, text, parent_comment) VALUES (?, ?, ?, ?)");
-            if (!$stmt) {
-                // Query preparation failed
-                die("Error preparing query: " . $this->db->error);
-            }
-            $stmt->bind_param('isss', $post, $user, $comment, $parent_comment);
+    public function writeReply($parent_comment, $user, $reply_text) {
+        $stmt = $this->db->prepare("INSERT INTO replies (idComment, username, reply_text) VALUES (?, ?, ?)");
+        if (!$stmt) {
+            // Query preparation failed
+            die("Error preparing query: " . $this->db->error);
         }
+        $stmt->bind_param('iss', $parent_comment, $user, $reply_text);
     
         $result = $stmt->execute();
+    
         // Verifica se l'inserimento è stato eseguito con successo
         if ($result) {
+            // Aggiorna il numero di commenti nel post considerando sia i commenti diretti che le risposte
             $sql2 = "UPDATE post
-            SET nComment = (SELECT COUNT(*) FROM comment WHERE post = ?)
+            SET nComment = (
+                SELECT COUNT(*) 
+                FROM comment 
+                WHERE post = ?
+            ) + (
+                SELECT COUNT(*) 
+                FROM replies 
+                INNER JOIN comment ON replies.idComment = comment.idComment 
+                WHERE comment.post = ?
+            )
             WHERE idPost = ?
             ";   
             $stmt2 = $this->db->prepare($sql2);
             if (!$stmt2) {
-                // Query preparation failed
-                die("Error preparing update query: " . $this->db->error);
+            // Query preparation failed
+            die("Error preparing update query: " . $this->db->error);
             }
-            $stmt2->bind_param("ii", $post, $post);
+            $stmt2->bind_param("iii", $post, $post, $post);
             $stmt2->execute();
-            return true;
+            return true;        
         } else {
-            // Gestisci eventuali errori nell'inserimento del post nel database
+            // Gestisci eventuali errori nell'inserimento della risposta nel database
             return false;
         }
     }
+    
+    public function writeComment($post, $user, $comment) {
+        $stmt = $this->db->prepare("INSERT INTO comment (post, user, text) VALUES (?, ?, ?)");
+        if (!$stmt) {
+            // Query preparation failed
+            die("Error preparing query: " . $this->db->error);
+        }
+        $stmt->bind_param('iss', $post, $user, $comment);
+    
+        $result = $stmt->execute();
+    
+        // Verifica se l'inserimento è stato eseguito con successo
+        if ($result) {
+            // Aggiorna il numero di commenti nel post considerando sia i commenti diretti che le risposte
+            $sql2 = "UPDATE post
+            SET nComment = (
+                SELECT COUNT(*) 
+                FROM comment 
+                WHERE post = ?
+            ) + (
+                SELECT COUNT(*) 
+                FROM replies 
+                INNER JOIN comment ON replies.idComment = comment.idComment 
+                WHERE comment.post = ?
+            )
+            WHERE idPost = ?
+            ";   
+            $stmt2 = $this->db->prepare($sql2);
+            if (!$stmt2) {
+            // Query preparation failed
+            die("Error preparing update query: " . $this->db->error);
+            }
+            $stmt2->bind_param("iii", $post, $post, $post);
+            $stmt2->execute();
+            return true;        
+        } else {
+            // Gestisci eventuali errori nell'inserimento del commento nel database
+            return false;
+        }
+    }
+    
+    public function getReplies($commentId) {
+        $stmt = $this->db->prepare("SELECT * FROM replies WHERE idComment = ?");
+        $stmt->bind_param('i', $commentId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $replies = array();
+        while ($row = $result->fetch_assoc()) {
+            $replies[] = $row;
+        }
+        return $replies;
+    }    
+
         public function isFollowing($follower, $followed) {
         $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM follow WHERE follower = ? AND followed = ?");
         $stmt->bind_param('ss', $follower, $followed);

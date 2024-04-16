@@ -66,12 +66,28 @@
                     <button class="like-comment-button" data-comment-id="<?php echo $comment['idComment']; ?>">Like: <?php echo $comment['nLike']; ?></button>
                     <?php endif; ?>
 
-                <a class="respond-button" href="#" data-comment-id="<?php echo $comment['idComment']; ?>">Rispondi</a> 
+                    <a class="respond-button" href="#" data-comment-id="<?php echo $comment['idComment']; ?>" data-username="<?php echo $comment['user']; ?>">Rispondi</a>
                 <div id="reply-<?php echo $comment['idComment']; ?>" class="respond-section">
                     <textarea id="replyForm-<?php echo $comment['idComment']; ?>" placeholder="Inserisci una risposta..." rows="3"></textarea>
                     <button class="reply-form-button" data-post-id="<?php echo $post_id; ?>" data-comment-id="<?php echo $comment['idComment']; ?>">Invia</button>
-                </div>
                 
+                        <!-- Mostra le risposte a questo commento -->
+                    <?php
+                        $replies = $dbh->getReplies($comment['idComment']); // Ottieni le risposte per questo commento
+                        foreach ($replies as $reply) :
+                    ?>
+                    <div class="reply">
+                        <div class="userInfo">
+                            <img src="data:image/jpeg;base64,<?php echo base64_encode($comment['imgProfile']); ?>" />
+                            <a href="profile.php?user=<?php echo $comment["user"]; ?>"><?php echo $comment["user"]; ?></a>
+                        </div>
+                        <p><?php echo $reply["reply_time"]; ?></p>
+                        <p><?php echo $reply['reply_text']; ?></p>
+                        
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+
             </div>
         <?php endforeach; ?>
     <?php else : ?>
