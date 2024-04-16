@@ -47,3 +47,7 @@
 .comment:not(:last-child) {
     margin-bottom: 20px; /* Aggiungi uno spazio bianco di separazione sotto ogni commento eccetto l'ultimo */
 }
+
+.respond-section{
+    display: none;
+}

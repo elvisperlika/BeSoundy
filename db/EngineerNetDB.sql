@@ -24,7 +24,7 @@ create or replace table comment
     post           int                                   null,
     nLike          int       default 0                   null,
     time           timestamp default current_timestamp() null,
-    parent_comment varchar(200)                          null,
+    parent_comment INT                          null,
     constraint comment_post_idPost_fk
         foreign key (post) references engineernet.post (idPost),
     constraint comment_user_username_fk
@@ -60,6 +60,16 @@ BEGIN
         ), NEW.post);
     END IF;
 END;
+
+CREATE TABLE replies (
+    idReply INT AUTO_INCREMENT PRIMARY KEY,
+    idComment INT,
+    username varchar (200) not null,
+    reply_text varchar (200) not null,
+    reply_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (idComment) REFERENCES comment(idComment),
+    FOREIGN KEY (username) REFERENCES user(username)
+);
 
 create or replace table follow
 (
