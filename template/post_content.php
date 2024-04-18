@@ -7,7 +7,7 @@
     $profile_image_post = $dbh->getUserProfileImage($post['username']);
 ?>
 
-<article class="post" id="<?php echo $post_id ?>">
+<article class="post" data-post-id="<?php echo $post_id ?>">
 
     <div class="userInfo">
         <img src="data:image/jpeg;base64,<?php echo base64_encode($profile_image_post); ?>" />
