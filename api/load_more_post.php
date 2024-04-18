@@ -1,6 +1,5 @@
 <?php
     require("api.php");
-    echo("entrato");
 
     if (isset($_COOKIE["last_post_id"])) {
         echo("entrato");
