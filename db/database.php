@@ -520,7 +520,7 @@ class DatabaseHelper{
         $stmt->bind_param('si', $user, $lastPostId);
         $stmt->execute();
         $result = $stmt->get_result();
-    
+
         return $result;
     }
 }
