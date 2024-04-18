@@ -4,19 +4,11 @@
 ?>
 
 <div id="postsContainer">
-    <?php if(empty($friends_post)): ?>
-        <p> Nessun post da mostrare. Prova a seguire altri utenti!</p>
-    <?php endif ?>
     <div class="post-container">
-        <?php foreach ($friends_post as $post) : ?>
-            <?php include "post_content.php"; ?>
-        <?php endforeach; ?>
+        <?php for ($i = 0; $i < min(10, count($friends_post)); $i++) : ?>
+            <?php $post = $friends_post[$i]; ?>
+                <?php include "post_content.php"; ?>
+        <?php endfor; ?>
     </div>
-    <?php $all_post_finished = true; ?>
 </div>
-
-<?php if(($all_post_finished == true)&&!empty($friends_post)): ?>
-    <p class="avviso">I post dei tuoi amici sono finiti, cerca nuovi account per altri contenuti!</p>
-<?php endif ?>
-
 

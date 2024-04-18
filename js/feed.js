@@ -59,7 +59,7 @@ $(document).ready(function() {
         var lastPostId = $('.post:last').attr('id'); // Ottieni l'ID dell'ultimo post visualizzato
         // Esegui una chiamata AJAX per ottenere i prossimi 10 post dal server
         $.ajax({
-            url: 'carica_post.php', // Percorso del file PHP per caricare i post
+            url: 'api/load_more_posts.php', // Percorso del file PHP per caricare i post
             method: 'GET',
             data: { lastPostId: lastPostId }, // Invia l'ID dell'ultimo post visualizzato
             success: function(response) {
