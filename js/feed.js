@@ -1,76 +1,40 @@
-const postsContainer = document.getElementById("postsContainer");
-const sentinel = document.querySelector(".space");
-let index = 0;
-
-function getPostsFromServer(n) {
-    return $.ajax({
-        type: 'POST',
-        url: 'api/load_more_posts.php',
-        data: { 
-            index: n,
-            queryName: page,
-            categoryID: categoryID
-        },
-        dataType: 'json',
-    })
-    .then(function(data) {
-        if (data.status === "error") {
-            return Promise.reject(new Error(data.message));
-        } else {
-            //console.log(data);
-            return Promise.resolve(data.posts);
-        }
-    })
-    .fail(function(jqXHR, textStatus, errorThrown) {
-        return Promise.reject(new Error(`Errore nella richiesta AJAX: ${textStatus} - ${errorThrown}`));
-    });
-}
-
 function loadMorePosts() {
-    getPostsFromServer(index)
-        .then(posts => {
-            if(posts){
-                posts.forEach(element => {
-                    let datiJSON = JSON.stringify(element);
-                    page === 'home' ? viewFullPost(datiJSON) : viewImg(datiJSON);
+    // Controlla se ci sono già post presenti nella pagina
+    var existingPosts = $('.post');
+    if (existingPosts.length === 0) {
+        // Se non ci sono post, carica i primi post senza specificare lastPostId
+        var lastPostId = 0; // O qualsiasi altro valore che indica al server di restituire i primi post
+    } else {
+        // Se ci sono già post presenti, ottieni l'ultimo ID di post visibile nella pagina
+        var lastPostId = existingPosts.last().attr('data-post-id');
+    }
+
+    // Effettua la richiesta AJAX per caricare i post
+    $.ajax({
+        url: 'api/load_more_post.php',
+        method: 'GET',
+        data: { lastPostId: lastPostId },
+        dataType: 'json',
+        success: function(response) {
+            console.log("Ultimo ID di post:", lastPostId);
+
+            console.log(response);
+            // Aggiungi i nuovi post al container
+            response.forEach(function(post) {
+                $('#postsContainer .post-container').append('<div class="post" data-post-id="' + post.id + '">' + post.content + '</div>');
             });
-            index+=5;
-            } else {
-                console.log(page);
-                console.log("nessun altro post disponibile.");
-            }
-        })
-        .catch(error => {
-            console.error(error);
-        });
-}
-$(document).ready(function() {
-    var isLoading = false;
-    
-    $(window).scroll(function() {
-        if ($(window).scrollTop() + $(window).height() >= $(document).height() && !isLoading) {
-            // L'utente ha raggiunto il fondo della pagina
-            isLoading = true;
-            loadMorePosts();
+        },
+        error: function(xhr, status, error) {
+            console.error('Errore nella richiesta AJAX:', status, error);
         }
     });
-    
-    function loadMorePosts() {
-        var lastPostId = $('.post:last').attr('id'); // Ottieni l'ID dell'ultimo post visualizzato
-        // Esegui una chiamata AJAX per ottenere i prossimi 10 post dal server
-        $.ajax({
-            url: 'api/load_more_posts.php', // Percorso del file PHP per caricare i post
-            method: 'GET',
-            data: { lastPostId: lastPostId }, // Invia l'ID dell'ultimo post visualizzato
-            success: function(response) {
-                // Aggiungi i nuovi post alla pagina
-                $('.post-container').append(response);
-                isLoading = false;
-            },
-            error: function() {
-                // Gestisci eventuali errori
-                isLoading = false;
-            }
-        });
+}
+
+
+// Carica più post quando l'utente raggiunge il fondo della pagina
+$(window).scroll(function() {
+    if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+        loadMorePosts();
     }
 });
+
