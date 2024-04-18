@@ -1,24 +1,24 @@
 <?php
-require("api.php");
+    require("api.php");
+    echo("entrato");
 
-if (isset($_GET['lastPostId'])) {
-    $lastPostId = $_GET['lastPostId'];
-    $user = $_SESSION['username'];
-    $morePosts = $dbh->getMorePosts($lastPostId, $user);
-    
-    // Prepara un array per memorizzare i post
-    $postsArray = array();
-    
-    // Itera sui risultati ottenuti dall'oggetto mysqli_result
-    while ($post = $morePosts->fetch_assoc()) {
-        // Aggiungi ciascun post all'array
-        $postsArray[] = $post;
+    if (isset($_COOKIE["last_post_id"])) {
+        echo("entrato");
+        $last_post_id = $_COOKIE["last_post_id"];
+        echo($last_post_id);
+        $user = $_SESSION['username'];
+        $morePosts = $dbh->getMorePosts($last_post_id, $user);
+        
+        // Inizializza l'array post_array se non esiste
+        if (!isset($_COOKIE["post_array"])) {
+            $_COOKIE["post_array"] = array();
+        }
+
+        // Itera sui nuovi post e aggiungi gli ID all'array post_array
+        foreach($morePosts as $newPost) {
+            array_push($_COOKIE["post_array"], $newPost["idPost"]);
+        }
+    } else {
+        echo("errore last post id");
     }
-    
-    // Restituisci i post come dati JSON
-    echo json_encode($postsArray);
-} else {
-    // Se il parametro lastPostId non è stato fornito, restituisci un messaggio di errore
-    echo json_encode(array('error' => 'Parametro lastPostId non fornito.'));
-}
 ?>

@@ -1,6 +1,8 @@
 <?php
     require_once("bootstrap.php");
 
+    $_COOKIE["post_array"] = array();
+
     $templateParams["title"] = "Login";
     $templateParams["nav"] = false;
     $templateParams["login"] = true;
