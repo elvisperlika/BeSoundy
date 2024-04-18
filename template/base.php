@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?php echo $templateParams["title"]; ?></title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/live_alerts.js"></script>
 
     <!-- Load all design files -->
     <?php 
@@ -29,6 +30,8 @@
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
 </head>
 <body>
+    <div id="snackbar">There is <?php $_SESSION["new_alerts"] ?> new alerts!</div>
+
     <header id="mainHeader">
         <?php
             if($templateParams["title"] == "Profile") {
