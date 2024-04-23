@@ -524,6 +524,7 @@ class DatabaseHelper{
         $stmt->execute();
         $result = $stmt->get_result();
 
+
         return $result;
     }
 }
