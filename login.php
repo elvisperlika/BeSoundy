@@ -18,7 +18,7 @@
         }
         else if(isset($_POST["username"]) && isset($_POST["password"])){
             $login_result = $dbh->checkLogin($_POST["username"], $_POST["password"]);
-            if(count($login_result)==0){
+            if(count($login_result) == 0 || !password_verify($_POST["password"], $login_result[0]["password"])) {                
                 $templateParams["errorelogin"] = "This user doesn't exist!";
             }
             else{
