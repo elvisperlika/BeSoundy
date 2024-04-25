@@ -16,9 +16,13 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
         
         // Verifica l'utente e la password nel database
         $login_result = $dbh->checkLogin($username, $password);
+
+        print_r($login_result["password"]);
+
+        print_r($password);
         
         // Verifica se l'utente esiste e se la password è corretta
-        if($login_result && password_verify($password, $login_result["password"])) {
+        if(password_verify($password, $login_result["password"])) {
             // Login riuscito, registra l'utente nel sistema e reindirizza alla pagina di feed
             registerLoggedUser($login_result);
             header("Location: feed.php");

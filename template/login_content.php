@@ -1,5 +1,6 @@
 <div class="container">
     <h1>Welcome to EngineerNet</h1>
+    <h2>Log In</h2>
     <form action="login.php" method="post">
             <label for="username" hidden>Username</label>
             <input type="text" id="username" placeholder="username" name="username"/>

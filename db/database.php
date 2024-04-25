@@ -10,7 +10,7 @@ class DatabaseHelper{
     }
 
     public function checkLogin($username, $password){
-        $query = "SELECT username, name, email FROM user WHERE username = ? AND password = ?";
+        $query = "SELECT U.username, U.name, U.email, U.password FROM user U WHERE U.username = ? AND U.password = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('ss',$username, $password);
         $stmt->execute();

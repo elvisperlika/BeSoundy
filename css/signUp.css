@@ -38,7 +38,7 @@ form {
     backdrop-filter: blur(25px);
 }
 
-form input[id="username"], form input[id="password"]{
+form input[id="username"], form input[id="password"], form input[id="email"]{
     display: flex;
     padding: 5px 10px;
     justify-content: space-between;
@@ -61,12 +61,12 @@ form input::placeholder {
     color: white;
 }
 
-form input[id="logInBtn"] {
+form input[id="signUpBtn"] {
     float: left;
     width: 100%;
 }
 
-form input[id="logInBtn"] {
+form input[id="signUpBtn"] {
     border-radius: 20px;
     padding: 5px 10px;
     text-align: center;
@@ -77,7 +77,7 @@ form input[id="logInBtn"] {
     transition: 0.3s;
 }
 
-form input[id="logInBtn"]:hover {
+form input[id="signUpBtn"]:hover {
     background: white;
     color: #4158D0;
     border: 1px solid var(--best-white, white);
