@@ -1,6 +1,6 @@
 <?php
     echo "<li>";
-        echo "<span>";
+        echo "<span id=\"time\">";
         $time = $alert["time"];
         $current_time = time();
         $time_diff = $current_time - strtotime($time);
@@ -14,7 +14,7 @@
             echo floor($time_diff / 86400) . " days ago";
         }
         echo "</span>";
-        echo "<a href='profile.php?user=".$alert["sender"]."'>".$alert["sender"]."</a>";
+        echo "<a href='profile.php?user=".$alert["sender"]."'>@".$alert["sender"]."</a>";
         switch ($alert["type"]) {
             case 'LIKE_POST':
                 echo "<span>liked your post </span>";

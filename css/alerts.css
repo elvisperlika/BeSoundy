@@ -1,0 +1,38 @@
+body > ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: stretch;
+    list-style: none;
+}
+
+body > ul li {
+    display: flex;
+    padding: 5px 10px;
+    gap: 10px;
+    align-self: stretch;
+    align-items: center;
+    border-radius: 20px;
+    border: 1px solid #003049;
+    background: #FFF;
+    margin: 5px 0;
+}
+
+body > ul li a img {
+    width: 50px;
+    height: 50px;
+    border-radius: 20%;
+}
+
+body > ul li a[class="deleteBtn"] {
+    color: #FFF;
+    background: #4158D0;
+    padding: 5px 10px;
+    border-radius: 15px;
+    text-decoration: none;
+    margin-left: auto;
+}
+
+body > ul li > span[id="time"] {
+    color: gray;
+}
