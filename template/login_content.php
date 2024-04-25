@@ -6,7 +6,7 @@
 
             <label for="password" hidden>Password</label>
             <input type="password" id="password" placeholder="password" name="password"/>
-
+    
             <input type="submit" id="logInBtn" value="log in"/>
             <a id="signUpBtn" href="signUp.php">
                 <span>sign up</span>
@@ -14,7 +14,7 @@
     </form>
     <?php
         if(isset($templateParams["errorelogin"])){
-            echo "<p>".$templateParams["errorelogin"]."</p>";
+            echo "<span id=\"errorAlert\">".$templateParams["errorelogin"]."</span>";
         }
     ?>
 </div>

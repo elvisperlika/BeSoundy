@@ -43,7 +43,7 @@ $templateParams["design"] = array("css/signUp.css", "css/style.css");
         $dbh->updateImgProfile(file_get_contents($profilePicPath), $_POST["username"]);
 
         // Reindirizza l'utente alla pagina di feed dopo la registrazione
-        header("Location: feed.php");
+        header("Location: login.php");
         exit(); // Assicurati di terminare lo script dopo il reindirizzamento
     }
 

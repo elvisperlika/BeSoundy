@@ -25,6 +25,6 @@
             }
         } 
     }
-    
+    session_start();
     require("template/base.php");
 ?>
