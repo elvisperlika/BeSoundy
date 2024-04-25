@@ -1,7 +1,9 @@
 <?php
-    $friends_post = $template["post"];
     $all_post_finished = false;
 ?>
+        <?php 
+            $post_array = array();
+        ?>
 
 <div id="postsContainer">
     <div class="post-container">

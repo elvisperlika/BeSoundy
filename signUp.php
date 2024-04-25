@@ -19,7 +19,7 @@ $templateParams["design"] = array("css/signUp.css", "css/style.css");
             $templateParams["errorSignUp"] = "This username is already taken";
         } 
         else if(isset($_POST["username"]) && isset($_POST["email"]) && isset($_POST["password"])) {
-            $dbh->registerUser($_POST["username"], $_POST["email"], $_POST["password"]);
+            $dbh->registerUser($_POST["username"], $_POST["email"], $_POST["password"], null);
             header("Location: login.php");
         }
     }
@@ -33,11 +33,13 @@ $templateParams["design"] = array("css/signUp.css", "css/style.css");
     } 
     // Se tutti i controlli passano, registra l'utente nel database
     else{
+        // Cripta la password
+        $hashedPassword = password_hash($_POST["password"], PASSWORD_DEFAULT);
         // Imposta il percorso dell'immagine di profilo predefinita
         $profilePicPath = "utils/images/image-default.png";
 
         // Registra l'utente nel database con il percorso dell'immagine profilo predefinita
-        $dbh->registerUser($_POST["username"], $_POST["email"], $_POST["password"], $profilePicPath);
+        $dbh->registerUser($_POST["username"], $_POST["email"], $hashedPassword, $profilePicPath);
 
         // Imposta l'immagine di default per il nuovo utente
         $dbh->updateImgProfile(file_get_contents($profilePicPath), $_POST["username"]);
