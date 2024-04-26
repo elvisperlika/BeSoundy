@@ -1,11 +1,11 @@
 <?php
-require_once("bootstrap.php");
+    require_once("bootstrap.php");
 
-$templateParams["title"] = "Sign Up";
-$templateParams["nav"] = false;
-$templateParams["signUp"] = true;
-$templateParams["content"] = "signUp_content.php";
-$templateParams["design"] = array("css/signUp.css", "css/style.css");
+    $templateParams["title"] = "Sign Up";
+    $templateParams["nav"] = false;
+    $templateParams["signUp"] = true;
+    $templateParams["content"] = "template/signUp_content.php";
+    $templateParams["design"] = array("css/signUp.css", "css/style.css");
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
         if (empty($_POST["username"]) || empty($_POST["email"]) || empty($_POST["password"])){
@@ -49,5 +49,6 @@ $templateParams["design"] = array("css/signUp.css", "css/style.css");
         exit(); // Assicurati di terminare lo script dopo il reindirizzamento
     }
 
-// Se non è stato inviato il form, visualizza la pagina di registrazione
-require("template/base.php");
+    // Se non è stato inviato il form, visualizza la pagina di registrazione
+    require("template/base.php");
+?>
