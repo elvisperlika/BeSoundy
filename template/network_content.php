@@ -11,9 +11,9 @@
                         echo "".$user["follower"]."</a>";
                         if($user["follower"] != $_SESSION["username"]) {
                             if($dbh->isFollowing($_SESSION['userNetwork'], $user["follower"])){
-                                echo "<a class='followBtn' href='#' type='unfollow' data-user=".$user["follower"].">unfollow</a>";
+                                echo "<a class='followBtn' href='#' data-type='unfollow' data-user=".$user["follower"].">unfollow</a>";
                             } else {
-                                echo "<a class='followBtn' href='#' type='follow' data-user=".$user["follower"].">follow</a>";
+                                echo "<a class='followBtn' href='#' data-type='follow' data-user=".$user["follower"].">follow</a>";
                             }
                         }
                     echo "</li>";
@@ -28,9 +28,9 @@
                         echo "".$user["followed"]."</a>";
                         if($user["followed"] != $_SESSION["username"]) {
                             if($dbh->isFollowing($_SESSION['userNetwork'], $user["followed"])){
-                                echo "<a class='followBtn' href='#' type='unfollow' data-user=".$user["followed"].">unfollow</a>";
+                                echo "<a class='followBtn' href='#' data-type='unfollow' data-user=".$user["followed"].">unfollow</a>";
                             } else {
-                                echo "<a class='followBtn' href='#' type='follow' data-user=".$user["followed"].">follow</a>";
+                                echo "<a class='followBtn' href='#' data-type='follow' data-user=".$user["followed"].">follow</a>";
                             }
                         }
                     echo "</li>";
