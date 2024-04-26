@@ -1,10 +1,47 @@
 .post {
-    margin: 40px; /* margine da tutti i lati */
+    margin: 20px auto; /* margine da tutti i lati */
     width: 80%; /* larghezza */
-    margin-left: auto; /* centra orizzontalmente */
-    margin-right: auto; /* centra orizzontalmente */
-    border: 1px solid #ccc; /* bordo */
-    padding: 10px; /* spazio interno */
+    border-radius: 10px; /* bordo arrotondato */
+    background-color: #fafafa; /* sfondo panna chiaro */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* ombra */
+    padding: 20px; /* spazio interno */
+    max-width: 600px; /* larghezza massima */
+}
+#postsContainer {
+    min-height: calc(100vh - [altezza della navbar]);
+}
+
+
+#navbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f9f9f9;
+    /* Altri stili della navbar */
+}
+
+
+.userInfo a,
+.infoPost p,
+.comment a {
+    color: #000; /* Imposta il colore del testo in nero */
+    text-decoration: none; /* Rimuove la sottolineatura */
+}
+
+.post button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4158D0;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.post button:hover {
+    background-color: #3545a3;
 }
 
 .userInfo {
@@ -12,7 +49,7 @@
     align-items: center; /* allinea verticalmente */
 }
 
-.userInfo img, form img {
+.userInfo img {
     width: 50px; /* larghezza dell'immagine del profilo */
     height: 50px; /* altezza dell'immagine del profilo */
     border-radius: 50%; /* rendi l'immagine del profilo rotonda */
@@ -20,8 +57,8 @@
 }
 
 .body img {
-    max-width: 100px; /* larghezza massima dell'immagine del post */
-    max-height: 100px; /* altezza massima dell'immagine del post */
+    max-width: 100%; /* larghezza massima dell'immagine del post */
+    height: auto; /* altezza automatica */
 }
 
 .infoPost p {
@@ -41,13 +78,34 @@
 .comments-section {
     padding: 10px; /* padding intorno alla sezione dei commenti */
     border-top: 1px solid #ccc; /* bordo sopra i commenti */
-    display: block; /* nascondi la sezione dei commenti */
+    display: block; /* mostra la sezione dei commenti */
 }
 
 .comment:not(:last-child) {
     margin-bottom: 20px; /* Aggiungi uno spazio bianco di separazione sotto ogni commento eccetto l'ultimo */
 }
 
-.respond-section{
-    display: none;
+.respond-section {
+    display: none; /* nascondi la sezione di risposta */
 }
+/* Stile del contenitore principale del feed */
+#feedContainer {
+    margin: 20px auto; /* Mantieni il margine */
+    background-color: #fff; /* Colore dello sfondo */
+}
+
+/* Stile dei singoli post nel feed */
+.feedPost {
+    background-color: #f9f9f9; /* Colore dello sfondo dei post */
+    padding: 20px; /* Spaziatura interna */
+    border-radius: 10px; /* Bordi arrotondati */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombra */
+    margin-bottom: 20px; /* Margine inferiore tra i post */
+}
+/* Rendi in grassetto i nomi utenti, i follower e i following al passaggio del mouse */
+.userInfo a:hover,
+#followersCounter p:hover,
+#followingCounter p:hover {
+    font-weight: bold;
+}
+

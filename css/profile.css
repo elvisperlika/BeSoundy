@@ -68,7 +68,7 @@
 }
 
 #editProfileContainer a:hover, #logOut:hover {
-    background-color: #4158D0;
+    background-color: #3545a3;
 }
 
 /* Stile del pulsante di segui/non seguire */
@@ -197,3 +197,63 @@
     text-decoration: none; /* Rimuove la sottolineatura */
 }
 
+/* Stile dei bottoni */
+.post button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4158D0; /* Blu */
+    color: #fff; /* Testo bianco */
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.post button:hover {
+    background-color: #3545a3; /* Blu più scuro al passaggio del mouse */
+}
+
+/* Stile dei nomi utenti */
+.userInfo a {
+    color: #000; /* Testo nero */
+    text-decoration: none; /* Rimuove la sottolineatura */
+}
+/* Stile del pulsante "Rispondi" */
+.respond-button {
+    display: none; /* Nascondi il pulsante "Rispondi" per impostazione predefinita */
+}
+
+/* Stile della sezione di risposta */
+.respond-section {
+    display: none; /* Nascondi la sezione di risposta per impostazione predefinita */
+}
+/* Aggiungi spazio tra i commenti */
+.comment {
+    margin-bottom: 20px; /* Aggiungi 20px di margine inferiore tra un commento e l'altro */
+}
+
+/* Rendi in grassetto i nomi utenti, i follower e i following al passaggio del mouse */
+.userInfo a:hover,
+#followersCounter p:hover,
+#followingCounter p:hover {
+    font-weight: bold;
+}
+
+
+/* Stile del pulsante "delete" */
+.deleteButton {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #ff0000; /* Rosso */
+    color: #fff; /* Testo bianco */
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.deleteButton:hover {
+    background-color: #cc0000; /* Rosso più scuro al passaggio del mouse */
+}

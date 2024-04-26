@@ -41,7 +41,7 @@ input[type="file"] {
 }
 
 #saveButton:hover {
-    background-color: #4158D0;
+    background-color: #3545a3;
 }
 .btn-annulla {
     position: absolute; /* Imposta il posizionamento assoluto rispetto al contenitore padre */
