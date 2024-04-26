@@ -16,7 +16,16 @@ class DatabaseHelper{
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC)[0];
-    }     
+    }
+
+    public function getUserByUsername($username){
+        $query = "SELECT username, name, email, password FROM user WHERE username = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s',$username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC)[0];
+    }
 
     public function emailAlreadyTaken($email){
         $query = "SELECT * FROM user U WHERE U.email = ?";

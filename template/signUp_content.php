@@ -11,7 +11,7 @@
             <label for="password" hidden>Password</label>
             <input type="password" id="password" name="password" placeholder="password"/>
 
-            <input type="submit" id="signUpBtn" value="signUp" >
+            <input type="submit" id="signUpBtn" value="sign up" >
             <a id="returnBtn" href="logIn.php">
                 <span>return</span>
             </a>
