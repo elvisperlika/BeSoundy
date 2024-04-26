@@ -1,5 +1,5 @@
 /* Stile del contenitore principale del form di modifica del profilo */
-#editProfileContainers {
+#editProfileContainer {
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
@@ -9,14 +9,15 @@
 }
 
 /* Stile dell'etichetta del campo del form */
-#editProfileContainers label {
+label {
     font-weight: bold;
 }
 
 /* Stile dell'input e del textarea */
-#editProfileContainers input[type="text"],
-#editProfileContainers input[type="password"],
-#editProfileContainers textarea {
+input[type="text"],
+input[type="password"],
+textarea,
+input[type="file"] {
     width: 100%;
     padding: 10px;
     margin: 8px 0;
@@ -42,4 +43,10 @@
 #saveButton:hover {
     background-color: #4158D0;
 }
-
+.btn-annulla {
+    position: absolute; /* Imposta il posizionamento assoluto rispetto al contenitore padre */
+    top: 10px; /* Sposta il bottone verso l'alto */
+    left: 10px; /* Sposta il bottone verso sinistra */
+    z-index: 1; /* Assicura che il bottone sia sovrapposto alla barra nera */
+    color: aliceblue;
+}
