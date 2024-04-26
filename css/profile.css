@@ -1,10 +1,7 @@
 /* Stile del contenitore principale del profilo */
-#profileContainer {
-    margin: 20px auto;
-    padding: 20px;
+#profilePage {
+    margin: 20px auto; /* Mantieni il margine */
     background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Stile del contenitore della riga */
@@ -63,7 +60,7 @@
 #editProfileContainer a, #logOut {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #4158D0;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
@@ -71,7 +68,7 @@
 }
 
 #editProfileContainer a:hover, #logOut:hover {
-    background-color: #0056b3;
+    background-color: #4158D0;
 }
 
 /* Stile del pulsante di segui/non seguire */
@@ -192,5 +189,11 @@
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #fff;
+}
+/* Stile del contatore dei follower e dei seguiti */
+#followersCounter a,
+#followingCounter a {
+    color: #000; /* Imposta il colore del testo nero */
+    text-decoration: none; /* Rimuove la sottolineatura */
 }
 

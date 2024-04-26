@@ -6,7 +6,7 @@
             <input type="file" id="profilePic" name="profilePic" accept="image/*">
         </div>
         <!-- Modifica nome, nome utente, bio -->
-        <div id="editProfileContainer">
+        <div id="editProfileContainers">
             <!-- Modifica nome -->
             <div id="newNameContainer">
                 <label for="name">New Name:</label>
