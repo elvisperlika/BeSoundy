@@ -1,6 +1,5 @@
 <?php
     $post_id = $post["idPost"];
-
     $comments = $dbh->getPostedComment($post_id);
     $user_id = loggedUser();
     $is_likedP = $dbh -> alreadyLikedPost($user_id, $post_id);

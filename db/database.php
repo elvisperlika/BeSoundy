@@ -10,7 +10,7 @@ class DatabaseHelper{
     }
 
     public function checkLogin($username, $password){
-        $query = "SELECT username, name, email FROM user WHERE username = ? AND password = ?";
+        $query = "SELECT U.username, U.name, U.email, U.password FROM user U WHERE U.username = ? AND U.password = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('ss',$username, $password);
         $stmt->execute();
@@ -514,12 +514,16 @@ class DatabaseHelper{
         return $result;    
     }
 
-    public function getMorePosts($lastPostId, $user) {
+    /**
+     * Return 10 more posts.
+     */
+    public function getMorePosts($last_post_id, $user) {
         $sql = "SELECT * FROM post P JOIN follow ON P.username = follow.followed WHERE follow.follower = ? AND P.idPost < ? ORDER BY P.idPost DESC LIMIT 10";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param('si', $user, $lastPostId);
         $stmt->execute();
         $result = $stmt->get_result();
+
 
         return $result;
     }
