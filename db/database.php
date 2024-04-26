@@ -10,13 +10,12 @@ class DatabaseHelper{
     }
 
     public function checkLogin($username, $password){
-        $query = "SELECT U.username, U.name, U.email, U.password FROM user U WHERE U.username = ? AND U.password = ?";
+        $query = "SELECT username, name, email, password FROM user WHERE username = ? AND password = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('ss',$username, $password);
         $stmt->execute();
         $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
+        return $result->fetch_all(MYSQLI_ASSOC)[0];
     }     
 
     public function emailAlreadyTaken($email){
