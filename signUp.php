@@ -19,23 +19,10 @@
             $templateParams["errorSignUp"] = "This username is already taken";
         } 
         else if(isset($_POST["username"]) && isset($_POST["email"]) && isset($_POST["password"])) {
-            $dbh->registerUser($_POST["username"], $_POST["email"], $_POST["password"], null);
-            header("Location: login.php");
-        }
-        // Verifica se l'email è già stata utilizzata
-        else if($dbh->emailAlreadyTaken($_POST["email"])) {
-            $templateParams["errorSignUp"] = "This email is already taken";
-        } 
-        // Verifica se lo username è già stato utilizzato
-        else if($dbh->usernameAlreadyTaken($_POST["username"])) {
-            $templateParams["errorSignUp"] = "This username is already taken";
-        } 
-        // Se tutti i controlli passano, registra l'utente nel database
-        else{
             // Cripta la password
             $hashedPassword = password_hash($_POST["password"], PASSWORD_DEFAULT);
             // Imposta il percorso dell'immagine di profilo predefinita
-            $profilePicPath = "utils/images/image-default.png";
+            $profilePicPath = "images/image-default.png";
     
             // Imposta l'immagine di default per il nuovo utente
             $dbh->updateImgProfile(file_get_contents($profilePicPath), $_POST["username"]);
@@ -51,4 +38,3 @@
 
     // Se non è stato inviato il form, visualizza la pagina di registrazione
     require("template/base.php");
-?>

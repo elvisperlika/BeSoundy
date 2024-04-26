@@ -9,4 +9,3 @@
     $templateParams["design"] = array("css/profile.css");
 
     require("template/base.php");
-?>
