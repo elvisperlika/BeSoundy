@@ -8,7 +8,7 @@ $templateParams["content"] = "login_content.php";
 $templateParams["design"] = array("css/logIn.css");
 
 if($_SERVER["REQUEST_METHOD"] === "POST") {
-    if(!isset($_POST["username"]) || !isset($_POST["password"])) {
+    if(!isset($_POST["username"]) || !isset($_POST["password"]) || empty($_POST["username"]) || empty($_POST["password"])) {
         $templateParams["errorelogin"] = "One or more fields are empty";
     } else {
         $username = $_POST["username"];

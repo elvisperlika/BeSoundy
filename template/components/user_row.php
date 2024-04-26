@@ -2,7 +2,7 @@
     $userProfileImage = $dbh->getUserProfileImage($user["username"]);
     echo "<li>";
         echo "<a class='usernameBtn' href='profile.php?user=".$user["username"]." '>";
-        echo "<img clas='imgProfile' src='data:image/jpeg;base64,".base64_encode($userProfileImage)."'/>";
+        echo "<img class='imgProfile' src='data:image/jpeg;base64,".base64_encode($userProfileImage)."'/>";
         echo "".$user["username"]."</a>";
         if($user["username"] != $_SESSION["username"]){
             if($dbh->isFollowing($_SESSION["username"], $user["username"])){

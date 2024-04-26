@@ -10,12 +10,12 @@ function pressFollowBtn(event) {
     var user = event.target.getAttribute('data-user'); 
 
     var typeRequest = "";
-    if(event.target.textContent === "Follow"){
+    if(event.target.textContent === "follow"){
         typeRequest = "follow";
-        event.target.textContent="Unfollow";
+        event.target.textContent="unfollow";
     } else {
         typeRequest = "unfollow";
-        event.target.textContent="Follow";
+        event.target.textContent="follow";
     }
 
     var xmlhttp = new XMLHttpRequest();

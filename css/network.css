@@ -1,0 +1,56 @@
+div {
+    height: 100%;
+}
+
+ul[id="usersContainer"] {
+    height: 100%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+ul[id="usersContainer"] li {
+    list-style-type: none;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding: 1%;
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul[id="usersContainer"] li a[class="userLink"] {
+    text-decoration: none;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+a[class="userLink"] {
+    padding: 1%;
+}
+
+a[class="userLink"] img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 1%;
+}
+
+.followBtn {
+    border-radius: 20px;
+    padding: 5px 10px;
+    text-align: center;
+    border: 1px solid var(--best-white, #4158D0);
+    background: #4158D0;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.followBtn:hover {
+    background: #3545a3;
+    transition: 0.3s;
+}
