@@ -1,6 +1,6 @@
 <a href="profile.php?user=<?php echo $_SESSION['username']; ?>" class="btn-annulla">Annulla</a>
 
-<form action="../api/modify_profile.php" method="POST" enctype="multipart/form-data">
+<form action="api/modify_profile.php" method="POST" enctype="multipart/form-data">
     <div id="editProfileContainer">
         <!-- Contenitore principale -->
         <div id="editProfileMain">

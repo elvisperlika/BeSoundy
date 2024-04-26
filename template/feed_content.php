@@ -1,9 +1,9 @@
 <?php
     $all_post_finished = false;
 ?>
-        <?php 
-            $post_array = array();
-        ?>
+<?php 
+    $post_array = array();
+?>
 
 <div id="postsContainer">
     <?php for ($i = 0; $i < min(10, count($friends_post)); $i++) : ?>
