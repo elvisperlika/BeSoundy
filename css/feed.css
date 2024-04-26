@@ -51,3 +51,7 @@
 .respond-section{
     display: none;
 }
+
+div[id="postsContainer"] {
+    height: 100%;
+}

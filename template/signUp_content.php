@@ -18,7 +18,7 @@
     </form>
     <?php
         if(isset($templateParams["errorSignUp"])){
-            echo "<p>".$templateParams["errorSignUp"]."</p>";
+            echo "<span id=\"errorAlert\">".$templateParams["errorSignUp"]."</span>";
         }   
     ?>
 </div>
