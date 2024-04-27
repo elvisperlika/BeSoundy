@@ -90,8 +90,9 @@
     <?php else : ?>
         <p>Non ci sono commenti.</p>
     <?php endif; ?>
+    </div> 
 
     <textarea id="comment-text-<?php echo $post_id; ?>" placeholder="Inserisci il tuo commento..." rows="3"></textarea>
     <button class="add-comment-button" data-post-id="<?php echo $post_id; ?>">Invia</button>
-</div>
+
 </article>

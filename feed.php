@@ -16,4 +16,3 @@
     }
 
     require("template/base.php");
-?>
