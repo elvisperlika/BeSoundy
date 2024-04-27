@@ -1,7 +1,7 @@
 /* Stile del contenitore principale del profilo */
 #profilePage {
     background-color: #fff;
-    height: 100%;
+    height: auto;
 }
 
 /* Stile del contenitore della riga */
@@ -40,7 +40,6 @@
 #postCounter p {
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 5px;
 }
 
 #realName {
@@ -96,6 +95,10 @@
 
 #followButtonContainer a:hover {
     background-color: #218838;
+}
+
+#postsContainer {
+    height: 100%;
 }
 
 /* Stile del contenitore dei post */
