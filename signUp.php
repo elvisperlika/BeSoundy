@@ -23,7 +23,7 @@
             $hashedPassword = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
             // Imposta il percorso dell'immagine di profilo predefinita
-            $profilePicPath = "utils/images/image-default.png";
+            $profilePicPath = "images/image-default.png";
     
             // Registra l'utente nel database con il percorso dell'immagine profilo predefinita
             $dbh->registerUser($_POST["username"], $_POST["email"], $hashedPassword, $profilePicPath);
@@ -39,4 +39,3 @@
 
     // Se non è stato inviato il form, visualizza la pagina di registrazione
     require("template/base.php");
-?>
