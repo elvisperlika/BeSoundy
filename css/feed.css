@@ -7,12 +7,6 @@
     padding: 20px; /* spazio interno */
     max-width: 600px; /* larghezza massima */
 }
-#postsContainer {
-   width: 100%;
-}
-
-
-
 
 .userInfo a,
 .infoPost p,
