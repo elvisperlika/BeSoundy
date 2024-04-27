@@ -86,15 +86,15 @@
 #followButtonContainer a {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #28a745;
+    background-color: #4158D0;
     color: #fff;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 20px;
     transition: background-color 0.3s ease;
 }
 
 #followButtonContainer a:hover {
-    background-color: #218838;
+    background-color: #3545a3;
 }
 
 #postsContainer {
@@ -280,3 +280,8 @@ div[id="postCounter"],
 .deleteButton:hover {
     background-color: #cc0000; /* Rosso più scuro al passaggio del mouse */
 }
+
+div[id="followButtonContainer"] {
+    margin: 1%;
+}
+
