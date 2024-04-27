@@ -29,10 +29,8 @@
     
             // Registra l'utente nel database con il percorso dell'immagine profilo predefinita
             $dbh->registerUser($_POST["username"], $_POST["email"], $hashedPassword, $profilePicPath);
-    
-            // Reindirizza l'utente alla pagina di login dopo la registrazione
-            header("Location: login.php");
-            exit(); // Assicurati di terminare lo script dopo il reindirizzamento
+
+                        header("Location: login.php");
         }
     }
 

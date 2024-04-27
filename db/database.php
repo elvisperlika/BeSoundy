@@ -10,12 +10,17 @@ class DatabaseHelper{
     }
 
     public function checkLogin($username, $password){
-        $query = "SELECT username, name, email, password FROM user WHERE username = ? AND password = ?";
+        $query = "SELECT username, name, email, password FROM user WHERE username = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ss',$username, $password);
+        $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC)[0];
+        $row = $result->fetch_assoc();
+        if($row && password_verify($password, $row['password'])) {
+            return $row;
+        } else {
+            return null;
+        }   
     }     
 
     public function emailAlreadyTaken($email){
@@ -69,13 +74,19 @@ class DatabaseHelper{
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s', $username);
         $stmt->execute();
-        $stmt->bind_result($profile_image);
-        $stmt->fetch();
+        
+        // Ottieni il risultato della query
+        $result = $stmt->get_result();
+        
+        // Estrai l'immagine di profilo dalla riga risultante
+        $row = $result->fetch_assoc();
+        $profile_image = $row['imgProfile'];
+        
         $stmt->close();
-    
+        
         return $profile_image;
     }
-
+    
     public function getUserProfileComment($user){
         $query = "SELECT C.user, U.imgProfile from comment C JOIN user U ON U.username = C.user WHERE C.user = ?";
         $stmt = $this->db->prepare($query);

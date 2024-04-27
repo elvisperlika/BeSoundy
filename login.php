@@ -15,16 +15,15 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
         $password = $_POST["password"];
         
         // Verifica l'utente e la password nel database
-        $login_result = $dbh->checkLogin($username, $password);
-
-        $password_hash = password_hash($login_result["password"], PASSWORD_DEFAULT);
+        $user = $dbh->checkLogin($username, $password);
+        echo($user);
         
-        // Verifica se l'utente esiste e se la password è corretta
-        if(password_verify($password, $password_hash)) {
+        // Se l'utente esiste e la password è corretta, esegui l'accesso
+        if($user !== null) {
             // Login riuscito, registra l'utente nel sistema e reindirizza alla pagina di feed
-            registerLoggedUser($login_result);
+            registerLoggedUser($user);
             header("Location: feed.php");
-            // exit(); // Termina lo script dopo il reindirizzamento
+            exit(); // Termina lo script dopo il reindirizzamento
         } else {
             // Credenziali non valide, mostra un messaggio di errore
             $templateParams["errorelogin"] = "Incorrect username or password";
