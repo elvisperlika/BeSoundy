@@ -34,6 +34,10 @@ body > ul li a[class="deleteBtn"] {
     margin-left: auto;
 }
 
+body > ul li a[class="deleteBtn"]:hover {
+    background: #3545a3;
+}
+
 body > ul li > span[id="time"] {
     color: gray;
 }
