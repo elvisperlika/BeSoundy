@@ -35,7 +35,7 @@
             <?php if($_GET["user"] == $_SESSION["username"]): ?>
                 <div id="editProfileContainer">
                     <a href="edit_profile.php" id="editButton" data-user="<?php echo $_SESSION["username"]; ?>" >
-                        Edit Profile
+                        edit Profile
                     </a>
                     <a href="logout.php" id="logOut">
                         log out
