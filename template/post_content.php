@@ -1,6 +1,5 @@
 <?php
     $post_id = $post["idPost"];
-
     $comments = $dbh->getPostedComment($post_id);
     $user_id = loggedUser();
     $is_likedP = $dbh -> alreadyLikedPost($user_id, $post_id);
@@ -36,8 +35,7 @@
             <!-- Altrimenti, visualizza il pulsante like -->
             <button class="like-button" data-post-id="<?php echo $post_id; ?>">Like: <?php echo $post['nLike']; ?></button>
         <?php endif; ?>
-
-        <a class="comment-button" href="#" data-post-id="<?php echo $post_id; ?>">Commenti: <?php echo $post['nComment']; ?></a>    
+        <button class="comment-button" data-post-id="<?php echo $post_id; ?>">Commenti: <?php echo $post['nComment']; ?></button>
     </div>    
     
     <div  id="commentSection-<?php echo $post_id; ?>" class="comments-section">
@@ -65,8 +63,7 @@
                     <!-- Altrimenti, visualizza il pulsante like -->
                     <button class="like-comment-button" data-comment-id="<?php echo $comment['idComment']; ?>">Like: <?php echo $comment['nLike']; ?></button>
                     <?php endif; ?>
-
-                    <a class="respond-button" href="#" data-comment-id="<?php echo $comment['idComment']; ?>" data-username="<?php echo $comment['user']; ?>">Rispondi</a>
+                    <button class="respond-button" data-comment-id="<?php echo $comment['idComment']; ?>" data-username="<?php echo $comment['user']; ?>">Rispondi </button>
                 <div id="reply-<?php echo $comment['idComment']; ?>" class="respond-section">
                     <textarea id="replyForm-<?php echo $comment['idComment']; ?>" placeholder="Inserisci una risposta..." rows="3"></textarea>
                     <button class="reply-form-button" data-post-id="<?php echo $post_id; ?>" data-comment-id="<?php echo $comment['idComment']; ?>">Invia</button>

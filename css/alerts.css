@@ -1,9 +1,10 @@
-body > ul {
+body > ul[id="alertsContainer"] {
     display: flex;
     flex-direction: column;
     align-items: center;
     align-self: stretch;
     list-style: none;
+    height: 100%;
 }
 
 body > ul li {
