@@ -8,6 +8,7 @@
     $templateParams["nav"] = true;
     $templateParams["content"] = "network_content.php";
     $templateParams["script"] = array("js/network.js");
+    $templateParams["design"] = array("css/network.css");
 
     require("template/base.php");
 ?>

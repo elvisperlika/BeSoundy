@@ -10,18 +10,22 @@ class DatabaseHelper{
     }
 
     public function checkLogin($username, $password){
-        $query = "SELECT username, name, email, password FROM user WHERE username = ?";
+        $query = "SELECT username, name, email, password FROM user WHERE username = ? AND password = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('s', $username);
+        $stmt->bind_param('ss',$username, $password);
         $stmt->execute();
         $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
-        if($row && password_verify($password, $row['password'])) {
-            return $row;
-        } else {
-            return null;
-        }   
-    }     
+        return $result->fetch_all(MYSQLI_ASSOC)[0];
+    }
+
+    public function getUserByUsername($username){
+        $query = "SELECT * FROM user WHERE username = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s',$username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC)[0];
+    }
 
     public function emailAlreadyTaken($email){
         $query = "SELECT * FROM user U WHERE U.email = ?";
@@ -74,19 +78,13 @@ class DatabaseHelper{
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s', $username);
         $stmt->execute();
-        
-        // Ottieni il risultato della query
-        $result = $stmt->get_result();
-        
-        // Estrai l'immagine di profilo dalla riga risultante
-        $row = $result->fetch_assoc();
-        $profile_image = $row['imgProfile'];
-        
+        $stmt->bind_result($profile_image);
+        $stmt->fetch();
         $stmt->close();
-        
+    
         return $profile_image;
     }
-    
+
     public function getUserProfileComment($user){
         $query = "SELECT C.user, U.imgProfile from comment C JOIN user U ON U.username = C.user WHERE C.user = ?";
         $stmt = $this->db->prepare($query);

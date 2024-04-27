@@ -11,14 +11,14 @@
             <label for="password" hidden>Password</label>
             <input type="password" id="password" name="password" placeholder="password"/>
 
-            <input type="submit" id="signUpBtn" value="signUp" >
+            <input type="submit" id="signUpBtn" value="sign up" >
             <a id="returnBtn" href="logIn.php">
                 <span>return</span>
             </a>
     </form>
     <?php
         if(isset($templateParams["errorSignUp"])){
-            echo "<p>".$templateParams["errorSignUp"]."</p>";
+            echo "<span id=\"errorAlert\">".$templateParams["errorSignUp"]."</span>";
         }   
     ?>
 </div>

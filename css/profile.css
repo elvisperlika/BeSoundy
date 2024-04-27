@@ -2,6 +2,7 @@
 #profilePage {
     margin: 20px auto; /* Mantieni il margine */
     background-color: #fff;
+    height: 100%;
 }
 
 /* Stile del contenitore della riga */

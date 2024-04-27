@@ -1,6 +1,7 @@
 <?php 
     $userProfileImage = $dbh->getUserProfileImage($_GET['user']);
 ?>
+
 <div id="profilePage">
     <div id="profileContainer">
         <div id="rowContainer">
@@ -45,7 +46,7 @@
                     <a href="#" id="followButton" data-user="<?php echo $_GET["user"]; ?>"><?php if($dbh->isFollowing($_SESSION["username"], $_GET["user"])): ?>Unfollow<?php else: ?>Follow<?php endif; ?></a>
                 </div>
             <?php endif; ?>
-        <div>
+        </div> <!-- Chiusura mancante per il div #profileContainer -->
     </div>
 
     <div id="postsContainer">
