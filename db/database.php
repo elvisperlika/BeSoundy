@@ -19,7 +19,7 @@ class DatabaseHelper{
     }
 
     public function getUserByUsername($username){
-        $query = "SELECT username, name, email, password FROM user WHERE username = ?";
+        $query = "SELECT * FROM user WHERE username = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s',$username);
         $stmt->execute();
