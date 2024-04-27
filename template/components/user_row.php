@@ -6,9 +6,9 @@
         echo "".$user["username"]."</a>";
         if($user["username"] != loggedUser()){
             if($dbh->isFollowing(loggedUser(), $user["username"])){
-                echo "<a href='#' class='followButton' data-user=".$user["username"].">unfollows</a>";
+                echo "<a href='#' class='followButton' data-type='unfollow' data-user=".$user["username"].">unfollow</a>";
             } else {
-                echo "<a href='#' class='followButton' data-user=".$user["username"].">follow</a>";
+                echo "<a href='#' class='followButton' data-type='follow' data-user=".$user["username"].">follow</a>";
             }
         } else {
             echo "<a href='profile.php?user=".$_SESSION["username"]."id='meButton' >me</a>";

@@ -1,21 +1,21 @@
 /* Stile del contenitore principale del profilo */
 #profilePage {
-    margin: 20px auto; /* Mantieni il margine */
     background-color: #fff;
+    height: 100%;
 }
 
 /* Stile del contenitore della riga */
 #rowContainer {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     margin-bottom: 20px;
 }
 
 /* Stile dell'immagine del profilo */
 #profileImage img {
-    width: 150px;
-    height: 150px;
+    width: 300px;
+    height: 300px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid #fff;
@@ -43,6 +43,10 @@
     margin-bottom: 5px;
 }
 
+#realName {
+    margin: 1%;
+}
+
 /* Stile del nome reale */
 #realName p {
     font-size: 20px;
@@ -50,10 +54,18 @@
     margin-bottom: 10px;
 }
 
+#bio {
+    margin: 1%;
+}
+
 /* Stile della biografia */
 #bio p {
     font-size: 16px;
     margin-bottom: 20px;
+}
+
+#editProfileContainer {
+    margin: 1%;
 }
 
 /* Stile del pulsante di modifica profilo e logout */
@@ -63,7 +75,7 @@
     background-color: #4158D0;
     color: #fff;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 20px;
     transition: background-color 0.3s ease;
 }
 
@@ -191,10 +203,18 @@
     border: 2px solid #fff;
 }
 /* Stile del contatore dei follower e dei seguiti */
+div[id="postCounter"],
 #followersCounter a,
 #followingCounter a {
     color: #000; /* Imposta il colore del testo nero */
     text-decoration: none; /* Rimuove la sottolineatura */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra orizzontalmente */
+    height: 100px; /* Altezza desiderata del link (può essere regolata) */
+    text-decoration: none; /* Rimuove la sottolineatura del link */
+    color: black; /* Colore del testo */
 }
 
 /* Stile dei bottoni */

@@ -27,12 +27,13 @@ function showHint(str) {
                 document.getElementById("txtHint").innerHTML = this.responseText;
             }
         };
+
         xmlhttp.open("GET", "api/gethint.php?str=" + str, true);
         xmlhttp.send();
 
         var usersContainer = document.getElementById("txtHint");
         usersContainer.addEventListener("click", function(event) {
-            pressFollowBtn(event);
+            pressFollowBtn_(event);
         });
     }
     
@@ -44,7 +45,7 @@ function showHint(str) {
  * and send a request to the server to follow or unfollow a user.
  * @param {event} event is the event that is triggered when the follow button is clicked
  */
-function pressFollowBtn(event) {
+function pressFollowBtn_(event) {
     if (event.target.tagName === 'A' && event.target.classList.contains('followButton')) {
         event.preventDefault(); // Prevent the default action of the link
         
