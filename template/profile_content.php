@@ -1,6 +1,5 @@
 <?php 
     $userProfileImage = $dbh->getUserProfileImage($_GET['user']);
-    echo($userProfileImage);
 ?>
 
 <div id="profilePage">
