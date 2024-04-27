@@ -43,7 +43,13 @@
                 </div>
             <?php else: ?>
                 <div id="followButtonContainer">
-                    <a href="#" id="followButton" data-user="<?php echo $_GET["user"]; ?>"><?php if($dbh->isFollowing($_SESSION["username"], $_GET["user"])): ?>Unfollow<?php else: ?>Follow<?php endif; ?></a>
+                    <?php
+                    if($dbh->isFollowing($_SESSION["username"], $_GET["user"])) {
+                        echo "<a href=# id=followButton data-type='unfollow' data-user=".$_GET["user"].">unfollow</a>";
+                    } else {
+                        echo "<a href=# id=followButton data-type='follow' data-user=".$_GET["user"].">follow</a>";
+                    }
+                    ?>
                 </div>
             <?php endif; ?>
         </div> 
