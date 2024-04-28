@@ -8,6 +8,14 @@
     max-width: 600px; /* larghezza massima */
 }
 
+p{
+    padding: 20px;
+}
+
+#postSContaneir {
+    min-height: 90vh; /* Altezza minima pari all'altezza del viewport */
+}
+
 .userInfo a,
 .infoPost p,
 .comment a {

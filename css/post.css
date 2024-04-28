@@ -6,73 +6,48 @@
     color: aliceblue;
 }
 
-.btn-avanti {
-    position: absolute; /* Imposta il posizionamento assoluto rispetto al contenitore padre */
-    top: 10px; /* Sposta il bottone verso l'alto */
-    right: 10px; /* Sposta il bottone verso destra */
-    z-index: 1; /* Assicura che il bottone sia sovrapposto alla barra nera */
+.newPost {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
 }
 
-div[class="newPost"] {
-    height: 100%;
-    align-items: center;
+.newPost label {
+    font-weight: bold;
 }
 
-form {
-    margin: 10%;
-    border-radius: 20px;
-    border: 2px solid #4158D0;
-    padding: 5%;
-}
-
-form * {
-    margin-bottom: 5%;
-    margin-top: 5%;
-}
-
-div * {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-div[class="foto"] {
-    margin: 2%;
-}
-
-div[class="foto"] input {
-    overflow: hidden;
-    display: inline-block;
-    cursor: pointer;
-}
-
-div[class="textarea"] {
-    margin: 2%;
-}
-
-div[class="textarea"] textarea {
+.newPost input[type="text"],
+.newPost input[type="password"],
+.newPost textarea,
+.newPost input[type="file"] {
     width: 100%;
-    height: 100px;
-    border-radius: 20px;
-    border: 1px solid #4158D0;
-    padding: 5px;
-    font-size: 20px;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
-div[class="btn-invio"] input {
-    margin: 2%;
-    border-radius: 20px;
-    padding: 5px 10px;
-    text-align: center;
-    border: 1px solid #4158D0;
-    background: #4158D0;
-    color: white;
-    font-size: 20px;
-    transition: 0.3s;
+#btn-invio {
+    display: block;
+    width: 100%; /* Imposta la larghezza al 100% */
+    padding: 12px 20px; /* Imposta il padding sopra e sotto a 12px e a sinistra e destra a 20px */
+    margin-top: 10px;
+    background-color: #4158D0;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center; /* Centra il testo all'interno del bottone */
+    font-size: 16px; /* Dimensione del testo */
+    box-sizing: border-box; /* Considera il padding all'interno delle dimensioni complessive dell'elemento */
 }
 
-div[class="btn-invio"] input:hover {
-    background: #3545a3;
-    transition: 0.3s;
+#btn-invio:hover {
+    background-color: #3545a3;
 }
+

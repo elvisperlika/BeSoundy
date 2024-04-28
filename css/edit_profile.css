@@ -43,6 +43,7 @@ input[type="file"] {
 #saveButton:hover {
     background-color: #3545a3;
 }
+
 .btn-annulla {
     position: absolute; /* Imposta il posizionamento assoluto rispetto al contenitore padre */
     top: 10px; /* Sposta il bottone verso l'alto */
