@@ -1,14 +1,14 @@
 .post {
     margin: 20px auto; /* margine da tutti i lati */
     width: 80%; /* larghezza */
-    border-radius: 10px; /* bordo arrotondato */
+    border-radius: 20px; /* bordo arrotondato */
     background-color: #fafafa; /* sfondo panna chiaro */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* ombra */
     padding: 20px; /* spazio interno */
     max-width: 600px; /* larghezza massima */
 }
 
-p{
+p {
     padding: 20px;
 }
 

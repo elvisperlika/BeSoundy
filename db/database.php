@@ -272,14 +272,7 @@ class DatabaseHelper{
         $stmt = $this->db->prepare("INSERT INTO post (image, text, time, username) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssss", $image_name, $didascalia, $timestamp, $user_id);
         $result = $stmt->execute();
-        
-        // Verifica se l'inserimento è stato eseguito con successo
-        if ($result) {
-            return true;
-        } else {
-            // Gestisci eventuali errori nell'inserimento del post nel database
-            return false;
-        }
+        return $result ? true : false;
     }
     
     public function writeReply($parent_comment, $user, $reply_text) {

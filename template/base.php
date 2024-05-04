@@ -45,6 +45,9 @@
             require("template/components/navbar.php");
         }
     ?>
+
+    <footer id="mainFooter">
+    </footer>
     
 </body>
 </html>

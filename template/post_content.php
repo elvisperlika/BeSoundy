@@ -16,11 +16,6 @@
     <div class="infoPost">
         <p><?php echo $post["time"]; ?></p>
         <p><?php echo $post["text"]; ?></p>
-        <?php
-            if ($post["username"] == $_SESSION["username"] && $templateParams["title"] == "Profile") {
-                echo "<a class='deleteButton' href='#' data-post-id=".$post_id."'>delete</a>";
-            }
-        ?>
     </div>
 
     <div class="body">
@@ -30,12 +25,17 @@
     <div class="like-commenti">
         <?php if ($is_likedP) : ?>
             <!-- Se l'utente ha già messo like, visualizza il pulsante like -->
-            <button class="like-button liked" data-post-id="<?php echo $post_id; ?>">Like: <?php echo $post['nLike']; ?></button>
+            <button class="like-button liked" data-post-id="<?php echo $post_id; ?>">likes <?php echo $post['nLike']; ?></button>
         <?php else : ?>
             <!-- Altrimenti, visualizza il pulsante like -->
-            <button class="like-button" data-post-id="<?php echo $post_id; ?>">Like: <?php echo $post['nLike']; ?></button>
+            <button class="like-button" data-post-id="<?php echo $post_id; ?>">likes <?php echo $post['nLike']; ?></button>
         <?php endif; ?>
-        <button class="comment-button" data-post-id="<?php echo $post_id; ?>">Commenti: <?php echo $post['nComment']; ?></button>
+        <button class="comment-button" data-post-id="<?php echo $post_id; ?>">comments <?php echo $post['nComment']; ?></button>
+        <?php
+            if ($post["username"] == $_SESSION["username"] && $templateParams["title"] == "Profile") {
+                echo "<a class='deleteButton' href='#' data-post-id=".$post_id."'>delete</a>";
+            }
+        ?>
     </div>    
     
     <div  id="commentSection-<?php echo $post_id; ?>" class="comments-section">
@@ -65,7 +65,7 @@
                     <?php endif; ?>
                     <button class="respond-button" data-comment-id="<?php echo $comment['idComment']; ?>" data-username="<?php echo $comment['user']; ?>">Rispondi </button>
                 <div id="reply-<?php echo $comment['idComment']; ?>" class="respond-section">
-                    <textarea id="replyForm-<?php echo $comment['idComment']; ?>" placeholder="Inserisci una risposta..." rows="3"></textarea>
+                    <textarea id="replyForm-<?php echo $comment['idComment']; ?>" placeholder="answer it" rows="3"></textarea>
                     <button class="reply-form-button" data-post-id="<?php echo $post_id; ?>" data-comment-id="<?php echo $comment['idComment']; ?>">Invia</button>
                 
                         <!-- Mostra le risposte a questo commento -->
@@ -88,11 +88,13 @@
             </div>
         <?php endforeach; ?>
     <?php else : ?>
-        <p>Non ci sono commenti.</p>
+        <p>no comments.</p>
     <?php endif; ?>
-    </div> 
+    </div>
 
-    <textarea id="comment-text-<?php echo $post_id; ?>" placeholder="Inserisci il tuo commento..." rows="3"></textarea>
-    <button class="add-comment-button" data-post-id="<?php echo $post_id; ?>">Invia</button>
+    <div id="commentArea">
+        <textarea id="comment-text-<?php echo $post_id; ?>" placeholder="write a new commnet here..." rows="3"></textarea>
+        <button class="add-comment-button" data-post-id="<?php echo $post_id; ?>">send</button>
+    </div>
 
 </article>
