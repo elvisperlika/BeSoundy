@@ -184,7 +184,6 @@ section span {
     padding: 10px;
     border-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Imposta la larghezza al 100% per occupare tutto lo spazio disponibile */
     height: auto;
     padding-bottom: 0;
 }
@@ -302,4 +301,10 @@ div[id="commentArea"] textarea {
     border: 1px solid #ccc;
     resize: none;
     margin-right: 2%;
+}
+/* Media query per regolare il numero di colonne dei post */
+@media only screen and (min-width: 768px) {
+    section {
+        grid-template-columns: repeat(3, 1fr); /* Imposta massimo 3 post per riga */
+    }
 }
