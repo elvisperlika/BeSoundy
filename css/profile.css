@@ -149,7 +149,6 @@ section {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-gap: 10%;
     margin: 40px; /* Centra i post quando lo schermo è a grandezza intera */
-    height: 100%;
 }
 
 section span {
@@ -185,7 +184,6 @@ section span {
     border-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     height: auto;
-    padding-bottom: 0;
 }
 
 /* Stile dell'immagine del profilo nei post */
@@ -305,6 +303,6 @@ div[id="commentArea"] textarea {
 /* Media query per regolare il numero di colonne dei post */
 @media only screen and (min-width: 768px) {
     section {
-        grid-template-columns: repeat(3, 1fr); /* Imposta massimo 3 post per riga */
+        grid-template-columns: repeat(2, 1fr); /* Imposta massimo 3 post per riga */
     }
 }
