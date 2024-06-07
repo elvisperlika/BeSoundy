@@ -1,3 +1,4 @@
+/* Stile dei singoli post */
 .post {
     margin: 20px auto; /* margine da tutti i lati */
     width: 80%; /* larghezza */
@@ -29,7 +30,7 @@ p {
     background-color: #4158D0;
     color: #fff;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 20px; /* Bordo arrotondato */
     transition: background-color 0.3s ease;
     border: none;
     cursor: pointer;
@@ -104,3 +105,40 @@ p {
     font-weight: bold;
 }
 
+/* Stile del campo di testo per nuovi commenti */
+#commentArea {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#commentArea textarea {
+    width: 80%;
+    padding: 10px;
+    border-radius: 20px; /* Bordo arrotondato */
+    border: 1px solid #ccc;
+    resize: none;
+    margin-right: 2%;
+}
+
+/* Aggiunge stile al pulsante di invio dei commenti */
+#commentArea button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4158D0;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 20px; /* Bordo arrotondato */
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+#commentArea button:hover {
+    background-color: #3545a3;
+}
+
+/* Stile del pulsante "Rispondi" */
+.respond-button {
+    display: none; /* Nascondi il pulsante "Rispondi" per impostazione predefinita */
+}
