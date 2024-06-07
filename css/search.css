@@ -68,7 +68,7 @@ a[class="usernameBtn"] {
 }
 
 .followButton:hover {
-    background: #3545a3;
+    background: #4158D0;
     transition: 0.3s;
 }
 
@@ -76,6 +76,5 @@ ul[id="txtHint"] li a img {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    margin-right: 20%;
 }
 

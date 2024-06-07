@@ -1,12 +1,13 @@
 /* Stile dei singoli post */
 .post {
-    margin: 20px auto; /* margine da tutti i lati */
     width: 80%; /* larghezza */
     border-radius: 20px; /* bordo arrotondato */
     background-color: #fafafa; /* sfondo panna chiaro */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* ombra */
     padding: 20px; /* spazio interno */
     max-width: 600px; /* larghezza massima */
+    margin: 20px auto !important; /* margine */
+    height: auto;
 }
 
 p {
@@ -30,14 +31,14 @@ p {
     background-color: #4158D0;
     color: #fff;
     text-decoration: none;
-    border-radius: 20px; /* Bordo arrotondato */
+    border-radius: 20px;
     transition: background-color 0.3s ease;
     border: none;
     cursor: pointer;
 }
 
 .post button:hover {
-    background-color: #3545a3;
+    background-color: #4158D0;
 }
 
 .userInfo {
@@ -94,7 +95,7 @@ p {
 .feedPost {
     background-color: #f9f9f9; /* Colore dello sfondo dei post */
     padding: 20px; /* Spaziatura interna */
-    border-radius: 10px; /* Bordi arrotondati */
+    border-radius: 20px; /* Bordi arrotondati */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombra */
     margin-bottom: 20px; /* Margine inferiore tra i post */
 }

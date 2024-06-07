@@ -57,7 +57,7 @@
     <?php
     $userPosts = $dbh->getUserPosts($_GET["user"]);
     if(empty($userPosts)) {
-        echo "<p> Nessun post da mostrare. </p>";
+        echo "<span> Nessun post da mostrare. </span>";
     }
     foreach ($userPosts as $post) {
         include "post_content.php";

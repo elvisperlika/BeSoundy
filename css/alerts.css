@@ -35,7 +35,7 @@ body > ul li a[class="deleteBtn"] {
 }
 
 body > ul li a[class="deleteBtn"]:hover {
-    background: #3545a3;
+    background: #4158D0;
 }
 
 body > ul li > span[id="time"] {
