@@ -13,14 +13,9 @@
 }
 
 /* Stile dell'immagine del profilo */
-#profileImage {
-    width: auto;
-    height: auto;
-}
-
 #profileImage img {
-    width: 100%;
-    height: 100%;
+    width: 300px;
+    height: 300px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid #fff;
@@ -76,6 +71,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+
 }
 
 /* Stile del pulsante di modifica profilo e logout */
@@ -91,7 +87,7 @@
 }
 
 #editProfileContainer a:hover, #logOut:hover {
-    background-color: #4158D0;
+    background-color: #3545a3;
 }
 
 /* Stile del pulsante di segui/non seguire */
@@ -106,7 +102,7 @@
 }
 
 #followButtonContainer a:hover {
-    background-color: #4158D0;
+    background-color: #3545a3;
 }
 
 #postsContainer {
@@ -146,15 +142,8 @@
 section {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-gap: 10%;
-    margin: 40px; /* Centra i post quando lo schermo è a grandezza intera */
-}
-
-section span {
-    /* allinea al centro */
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    grid-gap: 20px;
+    margin: 0 auto; /* Centra i post quando lo schermo è a grandezza intera */
 }
 
 /* Stile dell'immagine del profilo nei commenti */
@@ -183,6 +172,7 @@ section span {
     border-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     height: auto;
+    padding-bottom: 0;
 }
 
 /* Stile dell'immagine del profilo nei post */
@@ -223,7 +213,7 @@ div[id="postCounter"],
 }
 
 .post button:hover {
-    background-color: #4158D0; /* Blu più scuro al passaggio del mouse */
+    background-color: #3545a3; /* Blu più scuro al passaggio del mouse */
 }
 
 .userInfo {
@@ -262,7 +252,6 @@ div[id="postCounter"],
     font-weight: bold;
 }
 
-
 /* Stile del pulsante "delete" */
 .deleteButton {
     color: grey; /* Testo bianco */
@@ -299,9 +288,22 @@ div[id="commentArea"] textarea {
     resize: none;
     margin-right: 2%;
 }
+
 /* Media query per regolare il numero di colonne dei post */
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1024px) {
     section {
-        grid-template-columns: repeat(2, 1fr); /* Imposta massimo 3 post per riga */
+        grid-template-columns: repeat(3, 1fr); /* Imposta massimo 3 post per riga */
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    section {
+        grid-template-columns: repeat(2, 1fr); /* Imposta massimo 2 post per riga */
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    section {
+        grid-template-columns: repeat(1, 1fr); /* Imposta massimo 1 post per riga */
     }
 }
