@@ -270,13 +270,28 @@ class DatabaseHelper{
         return $result->fetch_assoc()["name"];
     }
 
-    public function newPost($image_name, $didascalia, $timestamp, $user_id){
+    public function newPost($imageContent, $didascalia, $timestamp, $user_id) {
         // Inserisci il nuovo post nel database
         $stmt = $this->db->prepare("INSERT INTO post (image, text, time, username) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $image_name, $didascalia, $timestamp, $user_id);
+        $stmt->bind_param("ssss", $imageContent, $didascalia, $timestamp, $user_id);
+    
+        if (!$stmt) {
+            error_log("Prepare failed: (" . $this->db->errno . ") " . $this->db->error);
+            return false;
+        }
+    
+        $stmt->send_long_data(0, $imageContent); // Questo è necessario per inviare dati di grandi dimensioni
+    
         $result = $stmt->execute();
-        return $result ? true : false;
+    
+        if (!$result) {
+            error_log("Execute failed: (" . $stmt->errno . ") " . $stmt->error);
+            return false;
+        }
+    
+        return true;
     }
+    
     
     public function writeReply($parent_comment, $user, $reply_text) {
         $stmt = $this->db->prepare("INSERT INTO replies (idComment, username, reply_text) VALUES (?, ?, ?)");
