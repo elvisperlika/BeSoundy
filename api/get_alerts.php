@@ -5,7 +5,4 @@
     foreach($alerts as $alert){
         include "../template/components/alert_row.php";
     }
-
-    $newAlertsCount = count($alerts);
-    echo($newAlertsCount);
 ?>
