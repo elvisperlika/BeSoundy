@@ -23,20 +23,16 @@
     </div>
 
     <div class="like-commenti">
-        <?php if ($is_likedP) : ?>
-            <!-- Se l'utente ha già messo like, visualizza il pulsante like -->
-            <button class="unlike-button liked" data-post-id="<?php echo $post_id; ?>">likes <?php echo $post['nLike']; ?></button>
-        <?php else : ?>
-            <!-- Altrimenti, visualizza il pulsante like -->
-            <button class="like-button" data-post-id="<?php echo $post_id; ?>">likes <?php echo $post['nLike']; ?></button>
-        <?php endif; ?>
-        <button class="comment-button" data-post-id="<?php echo $post_id; ?>">comments <?php echo $post['nComment']; ?></button>
-        <?php
-            if ($post["username"] == $_SESSION["username"] && $templateParams["title"] == "Profile") {
-                echo "<a class='deleteButton' href='#' data-post-id=".$post_id."'>delete</a>";
-            }
-        ?>
-    </div>    
+    <?php if ($is_likedP) : ?>
+        <button class="unlike-button liked" data-post-id="<?php echo $post_id; ?>">Like: <?php echo $post['nLike']; ?></button>
+    <?php else : ?>
+        <button class="like-button" data-post-id="<?php echo $post_id; ?>">Like: <?php echo $post['nLike']; ?></button>
+    <?php endif; ?>
+    <button class="comment-button" data-post-id="<?php echo $post_id; ?>">comments <?php echo $post['nComment']; ?></button>
+    <?php if ($post["username"] == $_SESSION["username"] && $templateParams["title"] == "Profile") : ?>
+        <a class='deleteButton' href='#' data-post-id='<?php echo $post_id; ?>'>delete</a>
+    <?php endif; ?>
+</div>
     
     <div  id="commentSection-<?php echo $post_id; ?>" class="comments-section">
     <?php if (count($comments) > 0) : ?>
