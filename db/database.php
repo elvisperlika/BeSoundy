@@ -109,6 +109,9 @@ class DatabaseHelper{
         WHERE idPost = ?
         ";
         $stmt2 = $this -> db-> prepare($sql2);
+        if (!$stmt2) {
+            die("Errore nella preparazione della query: " . $this->db->error);
+        }
         $stmt2->bind_param("ii", $post, $post);
         $stmt2->execute();
     }  
