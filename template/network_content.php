@@ -22,7 +22,7 @@
                 $following = $dbh->getFollowing($_SESSION['userNetwork']);
                 foreach($following as $user){
                     echo "<li>";
-                        echo "<a class='userLink' href='profile.php?user=".$user["follower"]."'>";
+                        echo "<a class='userLink' href='profile.php?user=".$user["followed"]."'>";
                         $userProfileImage = $dbh->getUserProfileImage($user["followed"]);
                         echo "<img class='imgProfile' src='data:image/jpeg;base64,".base64_encode($userProfileImage)."'/>";
                         echo "".$user["followed"]."</a>";
