@@ -418,8 +418,8 @@ class DatabaseHelper{
     }
 
     public function setViewed($alert, $loggedUser) {
-        $stmt = $this->db->prepare("UPDATE alert_ t SET t.isAlertRead = 1 WHERE t.receiver LIKE 'chiara' AND t.idElement = ?");
-        $stmt->bind_param('i', $alert);
+        $stmt = $this->db->prepare("UPDATE alert_ t SET t.isAlertRead = 1 WHERE t.receiver LIKE ? AND t.idElement = ?");
+        $stmt->bind_param('si', $loggedUser, $alert);
         $stmt->execute();
     }
 
