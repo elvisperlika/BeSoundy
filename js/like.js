@@ -50,7 +50,7 @@ function unlikePost(postId) {
         data: { type: "post", id: postId },
         success: function(response) {
             // Aggiorna l'interfaccia utente o esegui altre azioni necessarie dopo l'unlike
-            var likeButton = $(".like-button[data-post-id='" + postId + "']");
+            var likeButton = $(".unlike-button[data-post-id='" + postId + "']");
             var likeCountText = likeButton.text().split(":")[1];
             if (likeCountText !== undefined) {
                 var likeCount = parseInt(likeCountText.trim()) - 1;

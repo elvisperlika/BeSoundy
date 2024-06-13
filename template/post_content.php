@@ -25,7 +25,7 @@
     <div class="like-commenti">
         <?php if ($is_likedP) : ?>
             <!-- Se l'utente ha già messo like, visualizza il pulsante like -->
-            <button class="like-button liked" data-post-id="<?php echo $post_id; ?>">likes <?php echo $post['nLike']; ?></button>
+            <button class="unlike-button liked" data-post-id="<?php echo $post_id; ?>">likes <?php echo $post['nLike']; ?></button>
         <?php else : ?>
             <!-- Altrimenti, visualizza il pulsante like -->
             <button class="like-button" data-post-id="<?php echo $post_id; ?>">likes <?php echo $post['nLike']; ?></button>
